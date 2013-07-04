@@ -102,26 +102,27 @@ $gszRootBenchmarkDir = "/net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013"; /
 $gszRootBenchmarkExpDir = $gszRootBenchmarkDir; // *** CHANGED ***
 
 // Dir for php code
-$gszSGEScriptDir = "/net/per900b/raid0/ledduy/kaori-secode/php-DemoV2-MediaEval12"; // *** CHANGED ***
+// must be checked out as sin13
+$gszSGEScriptDir = "/net/per900b/raid0/ledduy/github-projects/kaori-secode"; // *** CHANGED ***
 
 //*** SHOULD NOT CHANGE *****
 // Dir for .sh script
-$gszScriptBinDir = "/net/per900b/raid0/ledduy/bin2012";
-//$gszScriptBinDir = "/net/per900a/raid0/ledduy/bin2012";
+$gszScriptBinDir = "/net/per900b/raid0/ledduy/bin-sin13";
+makedir($gszScriptBinDir);
 
 // feature extraction app
-$garAppConfig["BL_FEATURE_EXTRACT_APP"] = "bin/FeatureExtractorCmd/FeatureExtractorCmd";
+$garAppConfig["BL_FEATURE_EXTRACT_APP"] = "FeatureExtractorCmd/FeatureExtractorCmd";
 
 // UvA's color descriptor code
-$garAppConfig["RAW_COLOR_SIFF_APP"] = "bin/colordescriptor30/x86_64-linux-gcc/colorDescriptor ";
+$garAppConfig["RAW_COLOR_SIFF_APP"] = "colordescriptor30/x86_64-linux-gcc/colorDescriptor ";
 
 // VLFEAT
-$garAppConfig["RAW_VLFEAT_DIR"] = "bin/vlfeat-0.9.14"; //--> move to subdir
+$garAppConfig["RAW_VLFEAT_DIR"] = "vlfeat-0.9.16"; //--> move to subdir
 
 // Oxford VGG's code
-$garAppConfig["RAW_AFF_COV_SIFF_APP"] = "bin/aff.cov.sift/extract_features_64bit.ln";
+$garAppConfig["RAW_AFF_COV_SIFF_APP"] = "aff.cov.sift/extract_features_64bit.ln";
 
-$garAppConfig["SASH_KEYPOINT_TOOL_BOW_L2_APP"] = "bin/sashKeyPointTool/sashKeyPointTool-nsc-BOW-L2";
+$garAppConfig["SASH_KEYPOINT_TOOL_BOW_L2_APP"] = "sashKeyPointTool/sashKeyPointTool-nsc-BOW-L2";
 
 // TmpDir
 $gszTmpDir = "/local/ledduy";
