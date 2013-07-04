@@ -7,7 +7,7 @@
  *
  * 		Copyright (C) 2010-2013 Duy-Dinh Le.
  * 		All rights reserved.
- * 		Last update	: 14 Aug 2012.
+ * 		Last update	: 04 Jul 2013.
  */
 
 ////////////////// HOW TO CUSTOMIZE /////////////////////////
