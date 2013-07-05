@@ -79,7 +79,7 @@ makeDir($szRootMetaDataDir);
 $szRootVideoDir =sprintf("%s/video", $szRootDir);
 $szRootKeyFrameDir = sprintf("%s/keyframe-5", $szRootDir);
 
-$szRawSBDir = sprintf("%s/trecvid-active/sb", $szRootDir);
+$szRawSBDir = sprintf("%s/trecvid-active/msb", $szRootDir); // buggy - tv2013 uses msb instead of sb
 
 $nMaxKFPerShot=5;
 
@@ -112,7 +112,7 @@ foreach($arCode as $nTVYear =>$szPatName)
 	
 	// load video info
 	$arVideoDurationList = array();
-	$szFPVideoPatFN = sprintf("%s/tv%s.%s.lstx", $szRootMetaDataDir, $nTVYear, $szPatName);
+	$szFPVideoPatFN = sprintf("%s/tv%s.%s.lstx", $szRootMetaDataDir, $nTVYear, $szPatName); // buggy
 	loadListFile($arRawList, $szFPVideoPatFN);
 	foreach($arRawList as $szLine)
 	{
@@ -322,7 +322,7 @@ function extractKeyFrameForOneList(&$arBlackList, &$arVideoDurationList,
 		//printf("%s\n", $szFPShotBoundaryFN);
 		
 		global $szRawSBDir;
-		$szFPOrigShotBoundaryFN = sprintf("%s/%s.sb", $szRawSBDir, $szVideoName);
+		$szFPOrigShotBoundaryFN = sprintf("%s/%s.msb", $szRawSBDir, $szVideoName); // buggy
 		$nNumRows = loadListFile($arRawList, $szFPOrigShotBoundaryFN);
 		
 		$szLastRow = trim($arRawList[$nNumRows-1]);
