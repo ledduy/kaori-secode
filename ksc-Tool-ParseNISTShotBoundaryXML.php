@@ -92,29 +92,7 @@ foreach ($arCode as $szCode)
 			exit();
 		}
 	
-		/*
-		/// perform correction
-		$nNumRowszz = loadListFile($arTmpzzz, $szFPShotXMLFN);
-		for($ix=$nNumRowszz-1; $ix>=0; $ix--)
-		{
-			if(trim($arTmpzzz[$ix]) == "/Description>") // error of mp7.xml files of tv2010
-			{
-				$arTmpzzz[$ix] = "</Description>";
-				break;
-			}
-	
-			if(trim($arTmpzzz[$ix]) == "</Description>") // file already fixed
-			{
-				break;
-			}
-		}
-		*/
-	
-		$szFPFixedShotXMLFN = sprintf("%s/%s.mp7.xml", $szShotXMLOutputDir, $nVideoNum);
-		//saveDataFromMem2File($arTmpzzz, $szFPFixedShotXMLFN);
-		////////////
-	
-		$arOutput = parseOneShotXMLFileTV11($szFPFixedShotXMLFN, $fFrameRate, $szFileExt=".mp4");
+		$arOutput = parseOneShotXMLFileTV11($szFPShotXMLFN, $fFrameRate, $szFileExt=".mp4");
 	
 		if(($arOutput['video_id'] != $szVideoID) || ($arOutput['video_name'] != $szVideoName))
 		{
@@ -242,6 +220,8 @@ function parseOneShotXMLFileTV11($szFPShotXMLFN, $fFrameRate, $szFileExt="mp4")
 	}
 	else
 	{
+		printf("### Error file not found! [%s]\n", $szFPShotXMLFN);
+		exit();
 	}
 
 	$xmlVideoObj = $xmlRawObj->Description->MultimediaContent->Video;
