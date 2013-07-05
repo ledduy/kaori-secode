@@ -12,20 +12,8 @@
  */
 
 /// !!! IMPORTANT !!!
-/// tv2012.test.lstx --> extend lst file by adding duration, framecount, frame rate
-/// Must be run using /raid0/ledduy/usr.local/bin/php
-
-/* PREPARATION
- @@@ /trecvid-sin-2012/trecvid-active/iacc.1.c.master.shot.reference
-
-1. Copy collection.xml to tv2012.collection.xml
-2. Untar mp7.tar.gz and then rename mp7 dir to tv2012.shot
---> Check the number of xml files --> 8,263
-3. Untar sb.tar.gz and then move sb dir to tv2012.shot/sb
---> Check the number of sb files --> 8,263
-NOTE:    sb/TRECVIDFILENAME.sb - Contains the same information as msb -
-provided for compatibility with older software since until TV2009
-there was a difference between msb and sb. */
+/// .lstx --> extend lst file by adding duration, framecount, frame rate
+/// Must be run using /raid0/ledduy/usr.local/bin/php --> for supporting php-ffmpeg
 
 /*
 * 	Input is xml file (e.g. iacc.2.A.collection.xml) provided by TRECVID:
@@ -90,6 +78,11 @@ foreach ($arCode as $szCode)
 		$szVideoPath = trim($arTmp[2]);
 	
 		$szFPVideoFN = sprintf("%s/%s/%s.mp4", $szRootVideoDir, $szVideoPath, $szVideoName);
+		if(!file_exists($szFPVideoFN))
+		{
+			exit("File does not exist! [$szFPVideoFN]\n");
+		}
+		
 		$objVideo = new ffmpeg_movie ($szFPVideoFN);
 	
 		$nDuration = $objVideo->getDuration(); // in seconds
@@ -107,7 +100,6 @@ foreach ($arCode as $szCode)
 	$szFPOutputFN = sprintf("%sx", $szFPVideoListFN);
 	saveDataFromMem2File($arOutput, $szFPOutputFN);
 }
-
 
 ////////////////////////////////////////// FUNCTIONS //////////////////////////////////////////////
 /**
