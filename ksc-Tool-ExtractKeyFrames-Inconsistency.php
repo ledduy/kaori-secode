@@ -65,8 +65,16 @@ if (!extension_loaded($extension)) {
 
 
 ///////////////////// START ///////////////
-$szFPPatName = "test.iacc.2.A";
-$szVideoPath = "tv2013/test.iacc.2.A";
+
+$arCode = array(
+		2013 => "iacc.2.A",
+		2014 => "iacc.2.B",
+		2015 => "iacc.2.C");
+
+foreach($arCode as $nTVYear =>$szPatName)
+{
+$szFPPatName = sprintf("test.%s", $szPatName);
+$szVideoPath = sprintf("tv%s/%s", $nTVYear, $szFPPatName);
 
 
 //////////////////////////////// THIS PART FOR CUSTOMIZATION //////////////////
@@ -105,7 +113,7 @@ foreach($arRawList as $szLine)
 
 // load video info
 $arVideoDurationList = array();
-$szFPVideoPatFN = sprintf("%s/%s.lstx", $szRootMetaDataDir, $szFPPatName);
+$szFPVideoPatFN = sprintf("%s/%s.tv%s.lstx", $szRootMetaDataDir, $szFPPatName, $nTVYear);
 loadListFile($arRawList, $szFPVideoPatFN);
 foreach($arRawList as $szLine)
 {
