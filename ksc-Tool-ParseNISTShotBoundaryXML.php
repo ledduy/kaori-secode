@@ -77,14 +77,6 @@ foreach ($arCode as $nTVYear => $szCode)
 		$arTmp = explode("_", $szVideoID);
 		$nVideoNum = intval($arTmp[1]); // use for shot xml
 	
-/*
-		// check for tv2011.test
-		if(($nVideoNum<19860) || ($nVideoNum>28123))
-		{
-			exit("ID error for tv2012\n");
-		}
-*/	
-
 		$szFPShotXMLFN = sprintf("%s/%s.mp7.xml", $szShotXMLInputDir, $nVideoNum);
 		$szFPShotSBFN = sprintf("%s/%s.msb", $szShotSBInputDir, $szVideoName);
 	
