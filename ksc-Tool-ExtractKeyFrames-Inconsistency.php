@@ -300,7 +300,7 @@ function extractKeyFrameForOneList(&$arBlackList, &$arVideoDurationList,
 		makeDir($szKFOutputDir);
 
 		$szVideoDir = sprintf("%s/%s", $szRootVideoDir, $szVideoPath);
-		$szOutputVideoDir = "tmp";
+		$szOutputVideoDir = "/tmp"; // buggy
 		
 		// We need to convert the video
 		$szFPInputVideoFN = sprintf("%s/%s.mp4", $szVideoDir, $szVideoName);
