@@ -37,14 +37,18 @@ $szRootMetaDataInputDir = sprintf("%s/trecvid-active", $szRootDir); // *** CHANG
 $szRootMetaDataOutputDir =sprintf("%s/metadata/keyframe-5", $szRootDir);
 $szRootVideoDir =sprintf("%s/video", $szRootDir);
 
-$nTVYear=2013;
-$szTVYear = sprintf("tv%s", $nTVYear);
+$arCode = array(
+		2013 => "iacc.2.A", 
+		2014 => "iacc.2.B", 
+		2015 => "iacc.2.C");
 
-$arCode = array("iacc.2.A", "iacc.2.B", "iacc.2.C");
+
 $szRootVideoDir =sprintf("%s/video", $szRootDir);
 
-foreach ($arCode as $szCode)
+foreach ($arCode as $nTVYear => $szCode)
 {
+	$szTVYear = sprintf("tv%s", $nTVYear);
+	
 	// iacc.2.A.mp7
 	$szShotXMLInputDir = sprintf("%s/%s.mp7", $szRootMetaDataInputDir, $szCode); 
 	

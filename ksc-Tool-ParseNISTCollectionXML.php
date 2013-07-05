@@ -150,7 +150,7 @@ function generateMetadataForOneYearTRECVID($szRootMetaDataOutputDir, $szRootMeta
 		$nVideoID = $arOutput[$i]['video_id'];
 
 		// 1 ==> TRECVID2011_1
-		$szVideoID = sprintf("%s_%d", $szTVVideoIDPrefix, $nVideoID);
+		$szVideoID = sprintf("%s_%d", $szTVVideoIDPrefix, $nVideoID); // TRECVID20zz_xxx is the format of .mp7.xml file
 		$szVideoName = $arOutput[$i]['video_name'];
 		$szPatName = $arOutput[$i]['video_pat']; // always 'test' in all iacc.2.A/B/C
 
