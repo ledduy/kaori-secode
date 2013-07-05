@@ -71,12 +71,6 @@ $arCode = array(
 		2014 => "iacc.2.B",
 		2015 => "iacc.2.C");
 
-foreach($arCode as $nTVYear =>$szPatName)
-{
-$szFPPatName = sprintf("test.%s", $szPatName);
-$szVideoPath = sprintf("tv%s/%s", $nTVYear, $szFPPatName);
-
-
 //////////////////////////////// THIS PART FOR CUSTOMIZATION //////////////////
 $szRootDir = $gszRootBenchmarkDir; // "/net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012";
 
@@ -89,47 +83,52 @@ $szRawSBDir = sprintf("%s/trecvid-active/sb", $szRootDir);
 
 $nMaxKFPerShot=5;
 
-/////////////////////////////////////////////////////////////
-// .lst files must be copied to metadata dir first
-// tv2007.devel.lst
-$szFPVideoListFN = sprintf("%s/%s.lst",
-		$szRootMetaDataDir, $szFPPatName);
-$szMetaDataDir = sprintf("%s/%s",
-		$szRootMetaDataDir, $szVideoPath);
-makeDir($szMetaDataDir);
-
-// load data for black list
-$arBlackList = array();
-$szFPBlackListFN = sprintf("%s/ErrInconsistency.%s.csv", $szRootMetaDataDir, $szFPPatName);
-loadListFile($arRawList, $szFPBlackListFN);
-foreach($arRawList as $szLine)
+foreach($arCode as $nTVYear =>$szPatName)
 {
-	$arTmp = explode("#$#", $szLine);
-	$szVideoID = trim($arTmp[0]);
-	$szVideoName = trim($arTmp[1]);
-
-	$arBlackList[$szVideoID] = $szVideoName;
+	$szFPPatName = sprintf("test.%s", $szPatName);
+	$szVideoPath = sprintf("tv%s/%s", $nTVYear, $szFPPatName);
+	
+	/////////////////////////////////////////////////////////////
+	// .lst files must be copied to metadata dir first
+	// tv2007.devel.lst
+	$szFPVideoListFN = sprintf("%s/%s.lst",
+			$szRootMetaDataDir, $szFPPatName);
+	$szMetaDataDir = sprintf("%s/%s",
+			$szRootMetaDataDir, $szVideoPath);
+	makeDir($szMetaDataDir);
+	
+	// load data for black list
+	$arBlackList = array();
+	$szFPBlackListFN = sprintf("%s/ErrInconsistency.%s.csv", $szRootMetaDataDir, $szFPPatName);
+	loadListFile($arRawList, $szFPBlackListFN);
+	foreach($arRawList as $szLine)
+	{
+		$arTmp = explode("#$#", $szLine);
+		$szVideoID = trim($arTmp[0]);
+		$szVideoName = trim($arTmp[1]);
+	
+		$arBlackList[$szVideoID] = $szVideoName;
+	}
+	
+	// load video info
+	$arVideoDurationList = array();
+	$szFPVideoPatFN = sprintf("%s/%s.tv%s.lstx", $szRootMetaDataDir, $szFPPatName, $nTVYear);
+	loadListFile($arRawList, $szFPVideoPatFN);
+	foreach($arRawList as $szLine)
+	{
+		// TRECVID2012_22769 #$# IsaacNebotValladolid._-o-_.lugar01_512kb #$# tv2012/test #$# 58.33 #$# 6304 #$# 108.0667 #$# 579224.0000
+		$arTmp = explode("#$#", $szLine);
+		$szVideoID = trim($arTmp[0]);
+		$szVideoName = trim($arTmp[1]);
+		$nDuration = trim($arTmp[5]);
+		$arVideoDurationList[$szVideoID] = $nDuration;
+	}
+	
+	
+	extractKeyFrameForOneList($arBlackList, $arVideoDurationList, 
+			$szMetaDataDir, $szRootVideoDir, $szRootKeyFrameDir,
+			$nMaxKFPerShot);
 }
-
-// load video info
-$arVideoDurationList = array();
-$szFPVideoPatFN = sprintf("%s/%s.tv%s.lstx", $szRootMetaDataDir, $szFPPatName, $nTVYear);
-loadListFile($arRawList, $szFPVideoPatFN);
-foreach($arRawList as $szLine)
-{
-	// TRECVID2012_22769 #$# IsaacNebotValladolid._-o-_.lugar01_512kb #$# tv2012/test #$# 58.33 #$# 6304 #$# 108.0667 #$# 579224.0000
-	$arTmp = explode("#$#", $szLine);
-	$szVideoID = trim($arTmp[0]);
-	$szVideoName = trim($arTmp[1]);
-	$nDuration = trim($arTmp[5]);
-	$arVideoDurationList[$szVideoID] = $nDuration;
-}
-
-
-extractKeyFrameForOneList($arBlackList, $arVideoDurationList, 
-		$szMetaDataDir, $szRootVideoDir, $szRootKeyFrameDir,
-		$nMaxKFPerShot);
-
 ///////////////////////////////////////////// FUNCTIONS ///////////////////////////////////////
 
 function extractKeyFramesForOneVideo(
