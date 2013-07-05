@@ -63,6 +63,8 @@ if (!extension_loaded($extension)) {
 }
 
 $nTVYear=2013;
+$szTVYear = sprintf("tv%s", $nTVYear);
+
 $arCode = array("iacc.2.A", "iacc.2.B", "iacc.2.C");
 $szRootVideoDir =sprintf("%s/video", $szRootDir);
 
