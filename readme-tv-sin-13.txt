@@ -4,7 +4,7 @@
 
 --> RootDir: /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/
 
---> Copy metadata (from trecvid-active) to trecvid-sin-2013/trecvid-active
+--> Copy metadata (from NIST's 'trecvid-active') to trecvid-sin-2013/trecvid-active
 
 1. Collection xml files: iacc.2.A.collection.xml, iacc.2.B.collection.xml, iacc.2.C.collection.xml.
 
