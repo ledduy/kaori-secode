@@ -47,20 +47,20 @@ makeDir($szRootScriptOutputDir);
 
 //--> name of list of videos, i.e, metadata/keyframe-5/<pat-name.lst> = metadata/keyframe-5/tv2012.devel.lst
 $arPat2PathList = array(
-		"tv2012.test" => "tv2012/test");  // *** CHANGED ***
+		"test.iacc.2.A" => "tv2013/test.iacc.2.A",
+		"test.iacc.2.B" => "tv2014/test.iacc.2.B",
+		"test.iacc.2.C" => "tv2015/test.iacc.2.C",
+);  // *** CHANGED ***
 
 $nNumPats = sizeof($arPat2PathList);
 
-// this part is for SGE - Feature Extraction
-//--> dir name + path containing keyframes, i.e, keyframe-5/<path-name> = keyframe-5/tv2012/devel
-$arVideoPathList = array(
-		"tv2012/test" // *** CHANGED ***
-);
-
 $arMaxVideosPerPatList = array(
-		"tv2012.test" => 10000); // Precise: 8,263
+		"test.iacc.2.A" => 2500,
+		"test.iacc.2.B" => 2500,
+		"test.iacc.2.C" => 2500,
+		); 
 
-$nMaxHostsPerPat = 300; // use 300 cores for extracting keyframes of one partition // *** CHANGED ***
+$nMaxHostsPerPat = 250; // use 300 cores for extracting keyframes of one partition // *** CHANGED ***
 
 //////////////////// END FOR CUSTOMIZATION ////////////////////
 
