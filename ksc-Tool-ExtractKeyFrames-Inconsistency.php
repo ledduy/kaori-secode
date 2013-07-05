@@ -112,7 +112,7 @@ foreach($arCode as $nTVYear =>$szPatName)
 	
 	// load video info
 	$arVideoDurationList = array();
-	$szFPVideoPatFN = sprintf("%s/%s.tv%s.lstx", $szRootMetaDataDir, $szFPPatName, $nTVYear);
+	$szFPVideoPatFN = sprintf("%s/tv%s.%s.lstx", $szRootMetaDataDir, $nTVYear, $szFPPatName);
 	loadListFile($arRawList, $szFPVideoPatFN);
 	foreach($arRawList as $szLine)
 	{
