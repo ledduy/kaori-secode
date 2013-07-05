@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 		@file 	ksc-AppConfigForProject.php
+ * 		@file 	ksc-Tool-ParseNISTShotBoundaryXML.php
  * 		@brief 	Parse Shot Boundary XML File.
  *				NIST provided .mp7.tar.gz --> videoNum.mp7.xml contains information for shot boundary
  *				Parse .xml file and save it to .sb file

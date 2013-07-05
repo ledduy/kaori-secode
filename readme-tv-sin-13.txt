@@ -1,16 +1,29 @@
 
 /////////////////////////////////////////////////////////////////////////
-@@ STEP 1: Metadata Organization - Jul 04, 2013
+@@ STEP 1: Metadata Organization - Jul 05, 2013
 
 --> RootDir: /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/
 
 --> Copy metadata (from NIST's 'trecvid-active') to trecvid-sin-2013/trecvid-active
 
-*********************
-1. Collection xml files: iacc.2.A.collection.xml, iacc.2.B.collection.xml, iacc.2.C.collection.xml.
+--> untar files .mp7.tar.gz and msb.tgz
+/////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////
+@@ STEP 2: Parse collection.xml file - Jul 05, 2013
+- Parse files iacc.2.A.collection.xml, iacc.2.B.collection.xml, iacc.2.C.collection.xml. to get mapping between VideoID <--> VideoName
+- Output: 
+	+ metadata/keyframe-5/tv2013.test.iacc.2.A.lst/lstx  
+	+ metadata/keyframe-5/tv2014.test.iacc.2.B.lst/lstx  
+	+ metadata/keyframe-5/tv2015.test.iacc.2.C.lst/lstx  
+
+	+ mapping (lstx): TRECVID2012_19861 #$# 071404whoisthisman._-o-_.071404whoisthisman_512kb #$# tv2012/test #$# 15.00 #$# 452 #$# 30.1120 #$# 573672.0000 
 
 ###> php code: 
 - ksc-Tool-ParseNISTCollectionXML.php --> parse .collection.xml file
+
+### preparation for video dir
 ***  /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/video/tv2013/test.iacc.2.A
 --> map to /net/per610a/export/das11f/ledduy/new-trecvid-sin/iacc.2.a/
 mkdir -p /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/video/tv2013
@@ -34,12 +47,18 @@ drwxr-xr-x 3 ledduy users 19 Jul  5 11:33 ..
 lrwxrwxrwx 1 ledduy users 59 Jul  5 11:33 test.iacc.2.A -> /net/per610a/export/das11f/ledduy/new-trecvid-sin/iacc.2.a/
 [ledduy@per900b tv2013]$
 
-*********************
-2. Untar iacc.2.A.mp7.tar.gz ==> output dir is iacc.2.A.mp7 ==> 2,420 xml files
+/////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////
+@@ STEP 3: Parse mp7.xml file to get SB info - Jul 05, 2013
+
+Untar iacc.2.A.mp7.tar.gz ==> output dir is iacc.2.A.mp7 ==> 2,420 xml files
 Untar iacc.2.B.mp7.tar.gz ==> output dir is iacc.2.B.mp7 ==> 2,396 xml files
 Untar iacc.2.B.mp7.tar.gz ==> output dir is iacc.2.C.mp7 ==> 2,405 xml files
 
-3. Untar iacc.2.msb.tgz ==> output dir is msb/*.msb ==> 7,221 msb files
+// msb files provided by LIG
+Untar iacc.2.msb.tgz ==> output dir is msb/*.msb ==> 7,221 msb files
 All msb files for iacc.2.A/B/C are put into ONE dir
 NOTE:    sb/TRECVIDFILENAME.sb - Contains the same information as msb - 
    provided for compatibility with older software since until TV2009 
@@ -47,5 +66,36 @@ NOTE:    sb/TRECVIDFILENAME.sb - Contains the same information as msb -
 
 ###> php code: 
 - ksc-Tool-ParseNISTShotBoundaryXML.php --> parse videoNum.mp7.xml files to get sb info & double check with LIG'sb files
+
++ *.sb --> parse from videoID.xml
++ *.lig.sb --> parse from videoName.xml
+- Comparing .sb file and .lig.sb file --> found inconsistency --> store videos in ErrInconsistency.ZZZ.csv 
+
+/////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////
+@@ STEP 4: ksc-Tool-ExtractKeyFrames-SGE.php, ksc-Tool-ExtractKeyFrames.php, ksc-Tool-ExtractKeyFrames-Inconsitency.php
+*** Requirements ***
+- Video file (ksc-Tool-ParseNISTCollectionXML.php), Shot boundary information (ksc-Tool-ParseNISTShotBoundaryXML.php), number of keyframes per shot (10)
+
+- AvgLoad: 0.08
+- 300 jobs
+- Running time for all: 30 mins
+
+*****-  inconsistency videos with special treatment ****
++ convert to mpg with NO AUDIO (-an option)  ***NEW***
++ calculate source frame rate = Total frames / Duration. 
+// Total frames --> obtain from .sb files (raw data provided by LIG)
+// Duration --> obtain from .lstx files (parse from xml files)
+
+****** run this script on per900a because ffmpeg on per900b FAILED ***********
+
++ devel: 400,289 keyframes, 19,701 videos
++ test.iacc.2.A (2013): 1,118,043 keyframes, 8,263 videos (max 5KF/shot)  
++ test.iacc.2.A (2013) --> #shots: 162,160 (counted by wc *.sb)
++ test.iacc.2.B (2014): 1,118,043 keyframes, 8,263 videos (max 5KF/shot)  
++ test.iacc.2.B (2014) --> #shots: 162,160 (counted by wc *.sb)
++ test.iacc.2.C (2015): 1,118,043 keyframes, 8,263 videos (max 5KF/shot)  
++ test.iacc.2.C (2015) --> #shots: 162,160 (counted by wc *.sb)
 
 /////////////////////////////////////////////////////////////////////////

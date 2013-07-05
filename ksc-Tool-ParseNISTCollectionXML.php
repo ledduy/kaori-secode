@@ -1,7 +1,7 @@
 <?php
 
  /**
- * 		@file 	ksc-AppConfigForProject.php
+ * 		@file 	ksc-Tool-ParseNISTCollectionXML.php
  * 		@brief 	Parse NIST collection collection.xml file.
  * 				This file contains mapping between videoName, videoID, and pat - partition (devel, test)
  *		@author Duy-Dinh Le (ledduy@gmail.com, ledduy@ieee.org).

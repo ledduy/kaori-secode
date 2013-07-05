@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 		@file 	ksc-AppConfigForProject.php
+ * 		@file 	ksc-Tool-ExtractKeyFrames.php
  * 		@brief 	Extract Keyframes Using FFMPEG-PHP.
  *		@author Duy-Dinh Le (ledduy@gmail.com, ledduy@ieee.org).
  *
@@ -75,7 +75,7 @@ $arCode = array(
 if($argc != 5)
 {
 	printf("Usage: %s <FPPatName> <VideoPath> <Start> <End>\n", $argv[0]);
-	printf("Usage: %s %s %s %s >\n", $argv[0], $szFPPatName, $szVideoPath, $nStart, $nEnd);
+	printf("Usage: %s %s %s %s %s\n", $argv[0], $szFPPatName, $szVideoPath, $nStart, $nEnd);
 	exit();
 }
 
