@@ -32,7 +32,7 @@
 require_once "ksc-AppConfig.php";
 
 //////////////////// THIS PART FOR CUSTOMIZATION ////////////////////
-$szProjectCodeName = "kaori-secode-tvsin12"; // *** CHANGED ***
+$szProjectCodeName = "kaori-secode-tvsin13"; // *** CHANGED ***
 
 $szCoreScriptName = "ksc-Tool-ExtractKeyFrames";
 

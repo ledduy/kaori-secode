@@ -79,8 +79,8 @@ NOTE:    sb/TRECVIDFILENAME.sb - Contains the same information as msb -
 - Video file (ksc-Tool-ParseNISTCollectionXML.php), Shot boundary information (ksc-Tool-ParseNISTShotBoundaryXML.php), number of keyframes per shot (10)
 
 - AvgLoad: 0.08
-- 300 jobs
-- Running time for all: 30 mins
+- 252 jobs --> 1 job ~ 10 videos ~ 30 mins
+- Running time for all: 15:15 ~ 17:45 (150 mins)
 
 *****-  inconsistency videos with special treatment ****
 + convert to mpg with NO AUDIO (-an option)  ***NEW***
@@ -91,11 +91,39 @@ NOTE:    sb/TRECVIDFILENAME.sb - Contains the same information as msb -
 ****** run this script on per900a because ffmpeg on per900b FAILED ***********
 
 + devel: 400,289 keyframes, 19,701 videos
-+ test.iacc.2.A (2013): 1,118,043 keyframes, 8,263 videos (max 5KF/shot)  
-+ test.iacc.2.A (2013) --> #shots: 162,160 (counted by wc *.sb)
-+ test.iacc.2.B (2014): 1,118,043 keyframes, 8,263 videos (max 5KF/shot)  
-+ test.iacc.2.B (2014) --> #shots: 162,160 (counted by wc *.sb)
-+ test.iacc.2.C (2015): 1,118,043 keyframes, 8,263 videos (max 5KF/shot)  
-+ test.iacc.2.C (2015) --> #shots: 162,160 (counted by wc *.sb)
++ test.iacc.2.A (2013): 408,989 2,420 videos (max 5KF/shot) (counted by wc *.prg) 
++ test.iacc.2.A (2013) --> #shots: 117,517 (counted by wc *.lig.sb)
++ test.iacc.2.B (2014): 413,828 keyframes, 2,936 videos (max 5KF/shot)  
++ test.iacc.2.B (2014) --> #shots: 112,598 (counted by wc *.lig.sb)
++ test.iacc.2.C (2015): 441,177 keyframes, 2,405 videos (max 5KF/shot)  
++ test.iacc.2.C (2015) --> #shots: 118,277 (counted by wc *.sb)
+
+(last year tvsin12: 1,118,043 keyframes, 162,160 shots)
+/////////////////////////////////////////////////////////////////////////
+
 
 /////////////////////////////////////////////////////////////////////////
+@@ STEP 5: Copy data for devel set - RE-USE of trecvid-sin-2012 (per610a/das09f)
+*** Copy keyframes
+mkdir /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/keyframe-5/tv2012
+cd /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/keyframe-5/tv2012
+cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/keyframe-5/tv2012/devel-lig/ .
+cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/keyframe-5/tv2012/devel-nist/ .
+cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/keyframe-5/tv2012/devel-nistNew/ .
+
+*** Copy metadata
+mkdir /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/metadata/keyframe-5/tv2012
+cd /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/metadata/keyframe-5/tv2012
+cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/metadata/keyframe-5/tv2012/devel-nist .
+cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/metadata/keyframe-5/tv2012/devel-nistNew .
+/////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////
+@@ STEP 6: Organize test data into subdirs to reduce the number of subdirs to be process
+
+###> php code: 
+- ksc-Tool-OrganizeDevelTestData-TV.php 
+// Must run on grid due to huge processing time
+// Use tar file to combine keyframes of one video program into ONE file
+ /////////////////////////////////////////////////////////////////////////
