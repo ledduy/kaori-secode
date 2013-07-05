@@ -37,8 +37,6 @@ $szRootMetaDataInputDir = sprintf("%s/trecvid-active", $szRootDir); // *** CHANG
 $szRootMetaDataOutputDir =sprintf("%s/metadata/keyframe-5", $szRootDir);
 $szRootVideoDir =sprintf("%s/video", $szRootDir);
 
-$szShotXMLOutputDir = sprintf("%s/tv2012.shot", $szRootMetaDataInputDir); // *** CHANGED ***
-
 $nTVYear=2013;
 $szTVYear = sprintf("tv%s", $nTVYear);
 
@@ -92,7 +90,27 @@ foreach ($arCode as $szCode)
 			exit();
 		}
 	
-		$arOutput = parseOneShotXMLFileTV11($szFPShotXMLFN, $fFrameRate, $szFileExt=".mp4");
+		/// perform correction
+		$nNumRowszz = loadListFile($arTmpzzz, $szFPShotXMLFN);
+		for($ix=$nNumRowszz-1; $ix>=0; $ix--)
+		{
+			if(trim($arTmpzzz[$ix]) == "/Description>") // error of mp7.xml files of tv2010
+			{
+				$arTmpzzz[$ix] = "</Description>";
+				break;
+			}
+	
+			if(trim($arTmpzzz[$ix]) == "</Description>") // file already fixed
+			{
+				break;
+			}
+		}
+	
+		$szFPFixedShotXMLFN = sprintf("%s/%s.corrected.mp7.xml", $szShotXMLInputDir, $nVideoNum);
+		saveDataFromMem2File($arTmpzzz, $szFPFixedShotXMLFN);
+		////////////
+	
+		$arOutput = parseOneShotXMLFileTV11($szFPFixedShotXMLFN, $fFrameRate, $szFileExt=".mp4");
 	
 		if(($arOutput['video_id'] != $szVideoID) || ($arOutput['video_name'] != $szVideoName))
 		{
@@ -221,7 +239,6 @@ function parseOneShotXMLFileTV11($szFPShotXMLFN, $fFrameRate, $szFileExt="mp4")
 	else
 	{
 		printf("### Error file not found! [%s]\n", $szFPShotXMLFN);
-		exit();
 	}
 
 	$xmlVideoObj = $xmlRawObj->Description->MultimediaContent->Video;
