@@ -47,36 +47,36 @@ $szProjectCodeName = "kaori-secode-sin213"; // *** CHANGED ***
 
 //--> name of list of videos, i.e, metadata/keyframe-5/<pat-name.lst> = metadata/keyframe-5/tv2012.devel.lst
 $arPat2PathList = array(
-		"dev10-new" => "dev10-new",
-		"test13A-new" => "test13A-new", // iacc.2.A
-		"test13B-new" => "test13B-new", // iacc.2.B
-		"test13C-new" => "test13C-new", // iacc.2.C
-);  // *** CHANGED ***
+		"devel-nistNew" => "tv2012/devel-nistNew",
+		"test.iacc.2.ANew" => "tv2013/test.iacc.2.ANew", // iacc.2.A
+		"test.iacc.2.BNew" => "tv2014/test.iacc.2.BNew", // iacc.2.A
+		"test.iacc.2.CNew" => "tv2015/test.iacc.2.CNew", // iacc.2.A
+		);  // *** CHANGED ***
 
 $nNumPats = sizeof($arPat2PathList);
 
 // this part is for SGE - Feature Extraction
 //--> dir name + path containing keyframes, i.e, keyframe-5/<path-name> = keyframe-5/tv2012/devel
 $arVideoPathList = array(
-		"dev10-new",
-		"test13A-new", // *** CHANGED ***
-		"test13B-new", // *** CHANGED ***
-		"test13C-new", // *** CHANGED ***
+		"devel-nistNew",
+		"test.iacc.2.ANew", // *** CHANGED ***
+		"test.iacc.2.BNew", // *** CHANGED ***
+		"test.iacc.2.CNew", // *** CHANGED ***
 );
 
 $arMaxVideosPerPatList = array(
-		"dev10-new" => 120, // Precise: N/A
-		"test13A-new" => 1000,
-		"test13B-new" => 1000,
-		"test13C-new" => 1000,
-); // Precise: N/A
+		"devel-nistNew" => 200,
+		"test.iacc.2.ANew" => 300, // *** CHANGED ***
+		"test.iacc.2.BNew" => 300, // *** CHANGED ***
+		"test.iacc.2.CNew" => 300, // *** CHANGED ***
+		); // Precise: N/A
 
 $arMaxHostsPerPatList = array(
-		"dev10-new" => 200, 
-		"test13A-new" => 100,
-		"test13B-new" => 100,
-		"test13C-new" => 100,
-); // Precise: N/A
+		"devel-nistNew" => 100,
+		"test.iacc.2.ANew" => 100, // *** CHANGED ***
+		"test.iacc.2.BNew" => 100, // *** CHANGED ***
+		"test.iacc.2.CNew" => 100, // *** CHANGED ***
+		); // Precise: N/A
 
 // these params are used in extracting raw local features. 
 // normally, one keyframe --> one raw feature file
@@ -99,18 +99,18 @@ $nNumKFPerJob = $nMaxKFPerVideo; // *** CHANGED ***
 $nAveShotPerVideo = 1000; // *** CHANGED ***
 
 // set for training --> used to find cluster centers
-$arBOWDevPatList = array("dev10-new");
+$arBOWDevPatList = array("devel-nistNew");
 
 $szSysID = "hlf-tv2013"; // *** CHANGED ***
 $szSysDesc = "Experiments for TRECVID-SIN-2013"; // *** CHANGED ***
 
 // used for codeword assignment
 $arBOWTargetPatList = array(
-		"dev10-new",
-		"test13A-new",
-		"test13B-new",
-		"test13C-new",
-);
+		"devel-nistNew",
+		"test.iacc.2.ANew", // *** CHANGED ***
+		"test.iacc.2.BNew", // *** CHANGED ***
+		"test.iacc.2.CNew", // *** CHANGED ***
+		);
 
 $szConfigDir = "basic";
 

@@ -126,4 +126,5 @@ cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/metadata/keyf
 - ksc-Tool-OrganizeDevelTestData-TV.php 
 // Must run on grid due to huge processing time
 // Use tar file to combine keyframes of one video program into ONE file
+- Running time: 21:30 - 23:30 (2 hours)
  /////////////////////////////////////////////////////////////////////////

@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * 		@file 	ksc-Tool-OrganizeDevelTestData-TV-SGE.php
  * 		@brief 	Organize images of devel partition and test partition into subdirs.
