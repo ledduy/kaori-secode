@@ -60,6 +60,8 @@ $arFeatureList = array(
 		"nsc.raw.dense4mul.rgsift" => "--detector densesampling --ds_spacing 4 --ds_scales 1.2+2.0 --descriptor rgsift",
 		"nsc.raw.dense4mul.rgbsift" => "--detector densesampling --ds_spacing 4 --ds_scales 1.2+2.0 --descriptor rgbsift",
 		"nsc.raw.dense4mul.oppsift" => "--detector densesampling --ds_spacing 4 --ds_scales 1.2+2.0 --descriptor opponentsift",
+
+		"nsc.raw.harlap6mul.rgbsift" => "--detector harrislaplace --descriptor rgbsift",
 );
 
 //////////////////// END FOR CUSTOMIZATION ////////////////////
