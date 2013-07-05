@@ -50,14 +50,17 @@ if (!extension_loaded($extension)) {
 	dl($extension_soname) or die("Can't load extension $extension_fullname\n");
 }
 
-$nTVYear=2013;
-$szTVYear = sprintf("tv%s", $nTVYear);
+$arCode = array(
+		2013 => "iacc.2.A", 
+		2014 => "iacc.2.B", 
+		2015 => "iacc.2.C");
 
-$arCode = array("iacc.2.A", "iacc.2.B", "iacc.2.C");
 $szRootVideoDir =sprintf("%s/video", $szRootDir);
 
-foreach ($arCode as $szCode)
+foreach ($arCode as $nTVYear => $szCode)
 {
+	$szTVYear = sprintf("tv%s", $nTVYear);
+	
 	/// generate mapping videoName, videoID, pat
 	generateMetadataForOneYearTRECVID($szRootMetaDataOutputDir, $szRootMetaDataInputDir, $nTVYear, $szCode);
 

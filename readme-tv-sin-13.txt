@@ -17,6 +17,14 @@ mkdir -p /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/video/tv2013
 cd /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/video/tv2013
 ln -s /net/per610a/export/das11f/ledduy/new-trecvid-sin/iacc.2.a/ test.iacc.2.A
 
+mkdir -p /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/video/tv2014
+cd /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/video/tv2014
+ln -s /net/per610a/export/das11f/ledduy/new-trecvid-sin/iacc.2.b/ test.iacc.2.B
+
+mkdir -p /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/video/tv2015
+cd /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/video/tv2015
+ln -s /net/per610a/export/das11f/ledduy/new-trecvid-sin/iacc.2.c/ test.iacc.2.C
+
 [ledduy@per900b tv2013]$ pwd
 /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/video/tv2013
 [ledduy@per900b tv2013]$ ls -la
@@ -24,8 +32,6 @@ total 0
 drwxr-xr-x 2 ledduy users 66 Jul  5 11:33 .
 drwxr-xr-x 3 ledduy users 19 Jul  5 11:33 ..
 lrwxrwxrwx 1 ledduy users 59 Jul  5 11:33 test.iacc.2.A -> /net/per610a/export/das11f/ledduy/new-trecvid-sin/iacc.2.a/
-lrwxrwxrwx 1 ledduy users 59 Jul  5 11:33 test.iacc.2.B -> /net/per610a/export/das11f/ledduy/new-trecvid-sin/iacc.2.b/
-lrwxrwxrwx 1 ledduy users 59 Jul  5 11:33 test.iacc.2.C -> /net/per610a/export/das11f/ledduy/new-trecvid-sin/iacc.2.c/
 [ledduy@per900b tv2013]$
 
 *********************
