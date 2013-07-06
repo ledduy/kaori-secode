@@ -128,3 +128,13 @@ cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/metadata/keyf
 // Use tar file to combine keyframes of one video program into ONE file
 - Running time: 21:30 - 23:30 (2 hours)
  /////////////////////////////////////////////////////////////////////////
+ 
+ /////////////////////////////////////////////////////////////////////////
+@@ STEP 7: Organize test data into subdirs to reduce the number of subdirs to be process
+
+###> php code: 
+- ksc-Feature-ExtractRawAffCovSIFTFeature-COLORSIFT.php 
+- 1,100 jobs/each feature (200 for devel-nistNew, 300 for each test.iacc.2.A/B/C
+- 2 features: dense6mul.rgbsift and harlap6mul.rgbsift
+- Running time (300 jobs, ave load 2.24 (0.60): 
+ /////////////////////////////////////////////////////////////////////////
