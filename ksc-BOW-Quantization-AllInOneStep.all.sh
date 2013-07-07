@@ -18,5 +18,5 @@
 # ./ksc-BOW-Quantization-AllInOneStep.sh tv2012.devel-nistNew nsc.raw.dense6mul.csift &
 # ./ksc-BOW-Quantization-AllInOneStep.sh tv2012.devel-nistNew nsc.raw.dense6mul.oppsift &
 # ./ksc-BOW-Quantization-AllInOneStep.sh tv2012.devel-nistNew nsc.raw.dense6mul.rgsift &
- ./ksc-BOW-Quantization-AllInOneStep.sh tv2012.devel-nistNew nsc.raw.dense6mul.rgbsift &
-  ./ksc-BOW-Quantization-AllInOneStep.sh tv2012.devel-nistNew nsc.raw.harlap6mul.rgbsift &
+ ./ksc-BOW-Quantization-AllInOneStep.sh devel-nistNew nsc.raw.dense6mul.rgbsift &
+  ./ksc-BOW-Quantization-AllInOneStep.sh devel-nistNew nsc.raw.harlap6mul.rgbsift &

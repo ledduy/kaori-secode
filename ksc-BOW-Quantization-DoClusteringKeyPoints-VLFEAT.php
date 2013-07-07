@@ -184,10 +184,10 @@ foreach($arPatList as $szPatName)
 		system($szCmdLine);
 
 		system($szFPCmdFN);
-		deleteFile($szFPCmdFN);
+//		deleteFile($szFPCmdFN);
 
 		// delete file
-		deleteFile($szFPCSVInputFN);
+//		deleteFile($szFPCSVInputFN);
 
 		return; // only one pat, one feature at one time
 	}
