@@ -41,6 +41,12 @@ $szTVYear = "tv2012";
 //$szPatName = "test.iacc.2.ANew"; // testNew
 //$szTVYear = "tv2013";
 
+$arInvCode = array(
+		"devel-nistNew" => 2012,
+		"test.iacc.2.A" => 2013,
+		"test.iacc.2.B" => 2014,
+		"test.iacc.2.C" => 2015);
+
 $nStartVideoID = 0;
 $nEndVideoID = 500;  // tv2012.devel-nistNew ~ 200 videos, tv2012.testNew ~ 400 videos
 
@@ -58,6 +64,7 @@ if($argc != 4)
 $szPatName = $argv[1]; 
 $nStartVideoID = intval($argv[2]);
 $nEndVideoID = intval($argv[3]);  // tv2012.devel-nistNew ~ 200 videos, tv2012.testNew ~ 400 videos
+$szTVYear = $arInvCode[$szPatName];
 
 $szMetaDataDir = sprintf("%s/%s/%s", $szRootMetaDataDir, $szTVYear, $szPatName);
 
