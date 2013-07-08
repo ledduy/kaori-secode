@@ -205,6 +205,11 @@ function extractKeyFramesForOneVideo(
 		$szShotID = trim($arTmp[0]);
 		$nFrameStart = intval($arTmp[1]);
 		$nDuration = intval($arTmp[2]);
+		
+		if($nDuration <= 2)
+		{
+			continue; // too short shot
+		}
 
 		$nFrameEnd = $nFrameStart + $nDuration -1; // to avoid keyframe at boundary
 
