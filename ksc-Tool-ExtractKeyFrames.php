@@ -162,7 +162,7 @@ function extractKeyFramesForOneVideo(
 	$szVideoName = trim($arList[0]);
 	$szVideoID = trim($arList[1]);
 
-	if(array_key_exists($szVideoID, $arBlackList))
+	if(isset($arBlackList[$szVideoID]))
 	{
 		$arLog = array();
 		$szErr = sprintf("Skipping video [%s-%s]", $szVideoID, $arBlackList[$szVideoID]);
