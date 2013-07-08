@@ -64,7 +64,7 @@ if($argc != 4)
 $szPatName = $argv[1]; 
 $nStartVideoID = intval($argv[2]);
 $nEndVideoID = intval($argv[3]);  // tv2012.devel-nistNew ~ 200 videos, tv2012.testNew ~ 400 videos
-$szTVYear = $arInvCode[$szPatName];
+$szTVYear = sprintf("tv%d", $arInvCode[$szPatName]);
 
 $szMetaDataDir = sprintf("%s/%s/%s", $szRootMetaDataDir, $szTVYear, $szPatName);
 
