@@ -38,35 +38,14 @@ $szScriptBinDir = $gszScriptBinDir;
 $szRootScriptOutputDir = sprintf("%s/%s/%s", $szScriptBinDir, $szProjectCodeName, $szCoreScriptName);
 makeDir($szRootScriptOutputDir);
 
-$arTVYearList = array(2005, 2006, 2007, 2008, 2009, 2011);
-
-$arTVYearList = array(2011);
-
-// 18 Oct --> adding devel-nist for keyframes provided by NIST, LIG
-$arVideoPathList = array(
-"tv2011/devel-nist",  
-"tv2011/test"  // rem to run only for devel-nist
-);
-
-$arPatList = array(
-"devel", "devel-nist",   
-"test", "test-nist");
-$nNumPats = sizeof($arPatList);
-
-$arMaxVideosPerPatList = array(
-"tv2011/devel-nist" => 12000, // Precise: 11,524
-"tv2011/test" => 10000); // Precise: 8,216
-
-$nMaxHostsPerPat = 20;
-
 //////////////////// END FOR CUSTOMIZATION ////////////////////
 
 ///////////////////////////// MAIN ////////////////////////////////
 $arPatList = array(
-		"devel-nistNew" => 500,
-		"test.iacc.2.ANew" => 500, 
-		"test.iacc.2.BNew" => 500, 
-		"test.iacc.2.CNew" => 500, 
+//		"devel-nistNew" => 500,
+		"test.iacc.2.ANew" => 300, 
+		"test.iacc.2.BNew" => 300, 
+		"test.iacc.2.CNew" => 300, 
 );
 
 $nMaxHostsPerPat = 20;
@@ -88,7 +67,7 @@ foreach($arPatList as $szPatName => $nMaxVideosPerPat)
 
 		$szCmdLine = sprintf("qsub -e %s -o %s %s %s", $szFPLogFN, $szFPLogFN, $szFPSGEScriptName, $szParam);
 		execSysCmd($szCmdLine);
-		sleep(2);
+		sleep(1);
 	}
 }
 
