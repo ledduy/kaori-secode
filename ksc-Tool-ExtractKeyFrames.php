@@ -5,6 +5,7 @@
  * 		@brief 	Extract Keyframes Using FFMPEG-PHP.
  *		@author Duy-Dinh Le (ledduy@gmail.com, ledduy@ieee.org).
  *
+ *		@bug 	Force duration in one shot must have at least 3 keyframes
  * 		Copyright (C) 2010-2013 Duy-Dinh Le.
  * 		All rights reserved.
  * 		Last update	: 05 Jul 2013.
@@ -117,7 +118,7 @@ foreach($arRawList as $szLine)
 }
 print_r($arBlackList);
 
-$szFPLogFN = "ksc-Tool-ExtractKeyFrames.log";
+$szFPLogFN = $szFPErrLogFN = "ksc-Tool-ExtractKeyFrames.log";
 $arLog = array();
 $szStartTime = date("m.d.Y - H:i:s");
 $arLog[] = sprintf("###Start [%s --> $$$]: [%s]-[%s]-[%s]-[%s]",
@@ -133,6 +134,7 @@ $szFinishTime = date("m.d.Y - H:i:s");
 $arLog[] = sprintf("###Finish [%s --> %s]: [%s]-[%s]-[%s]-[%s]",
 		$szStartTime, $szFinishTime, $argv[1], $argv[2], $argv[3], $argv[4]);
 saveDataFromMem2File($arLog, $szFPLogFN, "a+t");
+
 
 /////////////////////////////////////////// FUNCTIONS ///////////////////////////////////////////
 
@@ -177,7 +179,6 @@ function extractKeyFramesForOneVideo(
 		printf("###Skipping [%s]\n", $szVideoID);
 		return;
 	}
-	
 	$szFPVideoFN = sprintf("%s/%s.%s", $szVideoDir, $szVideoName, $gszVideoExt);
 	printf("### Processing video [%s]\n", $szFPVideoFN);
 
