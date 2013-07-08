@@ -88,7 +88,6 @@ NOTE:    sb/TRECVIDFILENAME.sb - Contains the same information as msb -
 // Total frames --> obtain from .sb files (raw data provided by LIG)
 // Duration --> obtain from .lstx files (parse from xml files)
 
-****** run this script on per900a because ffmpeg on per900b FAILED ***********
 
 + devel: 400,289 keyframes, 19,701 videos
 + test.iacc.2.A (2013): 408,989 2,420 videos (max 5KF/shot) (counted by wc *.prg) 
@@ -99,6 +98,8 @@ NOTE:    sb/TRECVIDFILENAME.sb - Contains the same information as msb -
 + test.iacc.2.C (2015) --> #shots: 118,277 (counted by wc *.sb)
 
 (last year tvsin12: 1,118,043 keyframes, 162,160 shots)
+
+Jul 08: Minor bugs caused keyframes of a number of videos can not be extracted
 /////////////////////////////////////////////////////////////////////////
 
 

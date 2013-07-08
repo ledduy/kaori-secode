@@ -96,7 +96,7 @@ $szFPSrcVideoListFN = sprintf("%s/metadata/keyframe-5/%s.lst", $szRootDir, $szSr
 $nNumVideos = loadListFile($arRawList, $szFPSrcVideoListFN);
 
 $nNumVideosPerBlock = intval($nNumVideos/$arMaxVideoPerDestPatList[$szSrcDir]) + 1;
-
+printf("### Num Videos Per Block: %d\n", $nNumVideosPerBlock);
 $arNewVideoList = array();
 $arCmdLineList = array();
 $arSGECmdLineList = array();
