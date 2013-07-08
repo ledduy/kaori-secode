@@ -158,7 +158,7 @@ for($nBlockID=$nStartBlockID; $nBlockID<$nEndBlockID; $nBlockID++)
 
 		// Use -C and . for excluding the path
 		$szCmdLine = sprintf("tar -cvf %s -C %s .", $szFPTarFN, $szFPSrcDir);
-		execSysCmd($szCmdLine);
+//		execSysCmd($szCmdLine);
 
 	}
 
