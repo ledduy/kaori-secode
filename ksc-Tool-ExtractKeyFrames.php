@@ -115,7 +115,7 @@ foreach($arRawList as $szLine)
 	
 	$arBlackList[$szVideoID] = $szVideoName;
 }
-
+print_r($arBlackList);
 
 $szFPLogFN = "ksc-Tool-ExtractKeyFrames.log";
 $arLog = array();
