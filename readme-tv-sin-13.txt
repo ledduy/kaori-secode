@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////////////
 @@ STEP 2: Parse collection.xml file - Jul 05, 2013
 - Parse files iacc.2.A.collection.xml, iacc.2.B.collection.xml, iacc.2.C.collection.xml. to get mapping between VideoID <--> VideoName
-- Output: 
+- Output
 	+ metadata/keyframe-5/tv2013.test.iacc.2.A.lst/lstx  
 	+ metadata/keyframe-5/tv2014.test.iacc.2.B.lst/lstx  
 	+ metadata/keyframe-5/tv2015.test.iacc.2.C.lst/lstx  

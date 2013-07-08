@@ -143,6 +143,7 @@ function extractKeyFramesForOneVideo(
 		$szKeyFrameDir,
 		$nMaxKFPerShot=5)
 {
+
 	global $arBlackList;
 
 	global $gszVideoExt;
@@ -169,6 +170,14 @@ function extractKeyFramesForOneVideo(
 		saveDataFromMem2File($arLog, $szFPErrLogFN, "a+t");
 		return;
 	}
+
+	$szFPMetaDataOutputFN = sprintf("%s/%s.prg", $szMetaDataDir, $szVideoID);
+	if(file_exists($szFPMetaDataOutputFN))
+	{
+		printf("###Skipping [%s]\n", $szVideoID);
+		return;
+	}
+	
 	$szFPVideoFN = sprintf("%s/%s.%s", $szVideoDir, $szVideoName, $gszVideoExt);
 	printf("### Processing video [%s]\n", $szFPVideoFN);
 
