@@ -88,18 +88,18 @@ NOTE:    sb/TRECVIDFILENAME.sb - Contains the same information as msb -
 // Total frames --> obtain from .sb files (raw data provided by LIG)
 // Duration --> obtain from .lstx files (parse from xml files)
 
-
 + devel: 400,289 keyframes, 19,701 videos
-+ test.iacc.2.A (2013): 408,989 2,420 videos (max 5KF/shot) (counted by wc *.prg) 
++ test.iacc.2.A (2013): 483,706 keyframes, 2,420 videos (max 5KF/shot) (counted by wc *.prg) 
 + test.iacc.2.A (2013) --> #shots: 117,517 (counted by wc *.lig.sb)
-+ test.iacc.2.B (2014): 413,828 keyframes, 2,936 videos (max 5KF/shot)  
++ test.iacc.2.B (2014): 472,952 keyframes, 2,396 videos (max 5KF/shot)  
 + test.iacc.2.B (2014) --> #shots: 112,598 (counted by wc *.lig.sb)
-+ test.iacc.2.C (2015): 441,177 keyframes, 2,405 videos (max 5KF/shot)  
++ test.iacc.2.C (2015): 487,083 keyframes, 2,405 videos (max 5KF/shot)  
 + test.iacc.2.C (2015) --> #shots: 118,277 (counted by wc *.sb)
 
 (last year tvsin12: 1,118,043 keyframes, 162,160 shots)
+--> this year: 1,443,741
 
-Jul 08: Minor bugs caused keyframes of a number of videos can not be extracted
+Jul 08, 2013: Minor bugs caused keyframes of a number of videos can not be extracted
 /////////////////////////////////////////////////////////////////////////
 
 
@@ -128,6 +128,9 @@ cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/metadata/keyf
 // Must run on grid due to huge processing time
 // Use tar file to combine keyframes of one video program into ONE file
 - Running time: 21:30 - 23:30 (2 hours)
+- test.iacc.2.ANew --> 269 dirs, 9 videos/dir
+- test.iacc.2.BNew --> 300 dirs, 8 videos/dir
+- test.iacc.2.CNew --> 269 dirs, 9 videos/dir
  /////////////////////////////////////////////////////////////////////////
  
 /////////////////////////////////////////////////////////////////////////
@@ -141,12 +144,19 @@ cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/metadata/keyf
 /////////////////////////////////////////////////////////////////////////
  
 /////////////////////////////////////////////////////////////////////////
-@@ STEP 7: Quantization
+@@ STEP 8: Quantization
 
 ###> php code: 
 - ksc-BOW-Quantization-AllInOneStep.sh  (run on per900b)
 - 2 features: dense6mul.rgbsift and harlap6mul.rgbsift
 - Running time (300 jobs, ave load 2.24 (0.60)):  
 
+###> php code: 
+- ksc-BOW-ComputeAssignment-Sash
+
+###> php code: 
+- ksc-BOW-ComputeSoftBOW-GridAll
+
+
 /////////////////////////////////////////////////////////////////////////
- 
+

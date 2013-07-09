@@ -3,6 +3,8 @@
 /**
  * 		@file 	ksc-Tool-OrganizeDevelTestData-TV.php
  * 		@brief 	Organize images of devel partition and test partition into subdirs.
+ * 				For each input dir, generate one .tar.gz file (pack all keyframes) and then copy to the dest dir
+ * 				Copying can be avoided by using tar -cvf FileInDestDir -C SourceDir
  *		@author Duy-Dinh Le (ledduy@gmail.com, ledduy@ieee.org).
  *
  * 		Copyright (C) 2010-2013 Duy-Dinh Le.
@@ -158,7 +160,7 @@ for($nBlockID=$nStartBlockID; $nBlockID<$nEndBlockID; $nBlockID++)
 
 		// Use -C and . for excluding the path
 		$szCmdLine = sprintf("tar -cvf %s -C %s .", $szFPTarFN, $szFPSrcDir);
-//		execSysCmd($szCmdLine);
+		execSysCmd($szCmdLine);
 
 	}
 

@@ -135,7 +135,7 @@ $gSkippExistingFiles = 1;
 
 ///////////////////////////// MAIN ////////////////////////////////
 
-$szPatName = $argv[1]; // tv2007.devel
+$szPatName = "devel-nistNew"; // tv2007.devel
 $szInputFeatureExt = "nsc.bow.dense6mul.rgbsift.Soft500-VL2.devel-nistNew";
 $szInputRawFeatureExt = "nsc.raw.dense6mul.rgbsift";
 $nStartID = 0; // 0
