@@ -169,12 +169,18 @@ cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/metadata/keyf
 /////////////////////////////////////////////////////////////////////////
 @@@ STEP 13: Organization for running experiments
 - runme.hlf-tv2012.sh --> new experiment dir: /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2012/experiments
-- hlf-tv2012.cfg --> copy to experiments/hlf-tv2012
+- hlf-tv2013.cfg --> copy to experiments/hlf-tv2013
 /////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////
 @@@ STEP 14: ksc-Tool-GenerateRunConfig.php
 //--> Seperate RootDirs for Metadata, Feature, Experiments
+
+		"max_kf_devel_pos_set #$# 4000", // *** CHANGED ***
+		"max_kf_devel_neg_set #$# 40000", // *** CHANGED ***
+		"max_kf_devel_sub_size #$# 3000",
+		"max_kf_shot_devel_neg #$# 1",
+		"max_kf_shot_devel_pos #$# 5",
 
 /////////////////////////////////////////////////////////////////////////

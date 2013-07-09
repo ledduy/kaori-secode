@@ -21,7 +21,7 @@ echo "@@@Copying annotation for test --> for visualizing purpose, including tv20
 #cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/annotation/concept/ksc/nist.tv2012 ./hlf-tv2012/annotation
 #mv ./hlf-tv2012/annotation/nist.tv2012 ./hlf-tv2012/annotation/nist.hlf-tv2012
 
-echo "@@@Copying concept list"
+echo "@@@Copying concept list" - Only 60 concepts for hlf-tv2013
 cp ./hlf-tv2013.Concepts.lst  ./hlf-tv2013/annotation/hlf-tv2013.Concepts.lst
 
 echo "############# FINISH! ################"
