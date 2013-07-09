@@ -177,10 +177,8 @@ $szRootMetaDataDir = sprintf("%s/metadata/keyframe-5", $szRootDir);
 
 //--> BEFORE: the script scans ONE feature dir --> CURRENT: scan SEVERAL feature DIRS
 
-$arRootBenchmarkFeatureDirList = array(
-		"/net/sfv215/export/raid4/ledduy/trecvid-sin-2012",
-		"/net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012"
-);
+$arRootBenchmarkFeatureDirList = array();
+$arRootBenchmarkFeatureDirList[] =  $gszRootBenchmarkDir;
 
 foreach($arRootBenchmarkFeatureDirList as $szRootBenchmarkFeatureDir)
 {
