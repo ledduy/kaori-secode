@@ -135,7 +135,7 @@ cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/metadata/keyf
  
 /////////////////////////////////////////////////////////////////////////
 @@ STEP 7: Organize test data into subdirs to reduce the number of subdirs to be process
-
+>>>> BIG BOTTLENECK
 ###> php code: 
 - ksc-Feature-ExtractRawAffCovSIFTFeature-COLORSIFT.php 
 - 1,100 jobs/each feature (200 for devel-nistNew, 300 for each test.iacc.2.A/B/C
@@ -145,7 +145,7 @@ cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/metadata/keyf
  
 /////////////////////////////////////////////////////////////////////////
 @@ STEP 8: Quantization
-
+###--> use vlfeat.0.9.14
 ###> php code: 
 - ksc-BOW-Quantization-AllInOneStep.sh  (run on per900b)
 - 2 features: dense6mul.rgbsift and harlap6mul.rgbsift
@@ -157,24 +157,21 @@ cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/metadata/keyf
 ###> php code: 
 - ksc-BOW-ComputeSoftBOW-GridAll
 
-
 /////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////
-@@@ STEP 12: Organization for annotation data
+@@@ STEP 9: Organization for annotation data
 - See runme.OrganizeAnnotationData.txt
 /////////////////////////////////////////////////////////////////////////
 
-
 /////////////////////////////////////////////////////////////////////////
-@@@ STEP 13: Organization for running experiments
+@@@ STEP 10: Organization for running experiments
 - runme.hlf-tv2012.sh --> new experiment dir: /net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2012/experiments
-- hlf-tv2013.cfg --> copy to experiments/hlf-tv2013
+- hlf-tv2013.cfg --> modify and copy to experiments/hlf-tv2013
 /////////////////////////////////////////////////////////////////////////
 
-
 /////////////////////////////////////////////////////////////////////////
-@@@ STEP 14: ksc-Tool-GenerateRunConfig.php
+@@@ STEP 11: ksc-Tool-GenerateRunConfig.php
 //--> Seperate RootDirs for Metadata, Feature, Experiments
 
 		"max_kf_devel_pos_set #$# 4000", // *** CHANGED ***
@@ -190,31 +187,51 @@ php -f ksc-Tool-DelTmpFiles.php 301 314 "find /local/ledduy -name '*Process*' | 
  "
 /////////////////////////////////////////////////////////////////////////
 >>> raw:
-+ dense6mul: 
++ dense6mul: DONE
 2013 --> 269 ~ OK - 1 left (90-91) --> DONE
 2014 --> 300 ~ OK
 2015 --> 268 ~ OK
-+ harlap6mul
++ harlap6mul: DONE
 2013 --> 269 ~ OK
 2014 --> 300 ~ OK
 2015 --> 268 ~ OK - 1 left (223-224) --> DONE
 >>> bow-assignment-sash
-+ dense6mul: 
-2013 --> 265 < 269 (19, 27, 62, *91)
-2014 --> 298 < 300 ( 70, 73)
-2015 --> 267 < 268 (27*) --> DONE
-+ harlap6mul 
-2013 --> 240 < 269 (re-submitted sge 50/job) --> 260
-2014 --> 269 < 300 (re-submitted sge 50/job) --> 299
-2015 --> 242 < 269 (224*, re-submitted sge 50/job) --> 266 
++ dense6mul: NOT YET
+2013 --> 265 < 269 (19, 27, 62, *91) --> /*** 4 ***/ 19@p900b-scr7, 27@p900b-scr8, 62-275834@bc309, 91@p900b-scr9
+--> 266 (19-bc106, 27-bc102, 91)@p900b
+2014 --> 298 < 300 ( 70, 73) --> 299 (last one is 73), --> 70 is the remaining - 275835@bc212) - DONE
+2015 --> 267 < 268 (27*) --> DONE (last one is 027 - GOOD)
++ harlap6mul: DONE
+2013 --> 240 < 269 (re-submitted sge 50/job) --> 260 --> 266 (50-100->275853 *96*-DONE,  158-bc101-DONE, 142-bc102-DONE) --> 269 - DONE
+2014 --> 269 < 300 (re-submitted sge 50/job) --> 299 (119 - bc103-DONE)
+2015 --> 242 < 268 (224*, re-submitted sge 50/job) --> 266 (50 - bc301-DONE, 224-bc105-DONE)  --> 268 - DONE
 >>> SoftGrid
-+ dense6mul: 
-2013 --> 262,262 < 269 --> 264
-2014 --> 258,258 < 300 (re-submitted sge 50/job) --> 285
-2015 --> 244,244 < 269 (re-submitted sge 50/job) --> 264
-+ harlap6mul
-2013 --> 240,240 < 269 (re-submitted sge 50/job) --> no change --> resubmit 1/job
-2014 --> 269,269 < 300 (re-submitted sge 50/job) --> no change --> resubmit 1/job
-2015 --> 242,242 < 269 (re-submitted sge 50/job) --> no change --> resubmit 1/job
++ dense6mul: NOT YET
+2013 --> 262,262 < 269 --> 262  --> *19, *27, 28-p900a-scr0, 61-p900a-scr1, *62, 63-p900a-scr2, *91
+--> 262 (19, 27, 91
+
+2014 --> 258,258 < 300 (re-submitted sge 50/job) --> 285 --> 294 (275854@100-150-->135 , 275853@50-100 --> *70, 73, 74, 92-p900a-scr5-DONE, 98-p900a-scr3-DONE) 
+--> 298 (70, 74)  --> 299 (70 - bc101)
+
+2015 --> 244,244 < 268 (re-submitted sge 50/job) --> 264 --> 268 --> DONE
+
++ harlap6mul: DONE
+
+2013 --> 240,240 < 269 (re-submitted sge 50/job) --> no change --> resubmit 1/job --> 260 --> 40-p900c-scr2-DONE, 41-p900c-sc1-DONE, 50-p900c-scr3-DONE, 91-p900c-scr4, 94-p900c-scr5-DONE, 95-p900c-scr6-DONE, 96*, 142*, 158* 
+--> 266 (96-bc101-DONE, 142-bc102-DONE, 158-bc103-DONE) --> 269 - DONE 
+
+2014 --> 269,269 < 300 (re-submitted sge 50/job) --> no change --> resubmit 1/job --> 299 --> 119* (bc104) --> DONE
+
+2015 --> 242,242 < 268 (re-submitted sge 50/job) --> no change --> resubmit 1/job --> 266 
+--> 50* (bc105-scr5-DONE), 224*(p900a-scr4-DONE) --> DONE
 
 
+Training
+- harlap3x1 --> 1 remaining --> Singing (grid) - 276306 - DONE
+- harlap1x1 --> DONE
+- dense3x1 --> 5 remaining --> Singing (broken-->per900c-scr8), Animal (broken-->per900c-scr7), Sitting_Down (broken-->p900c-scr1), Instrument (broken-->per900c-scr2), Quardrup (broken-per900c-scr3)
+- dense1x1 --> DONE
+
+Testing
+- harlap3x1: 
+- harlap1x1: 15,693 /  
