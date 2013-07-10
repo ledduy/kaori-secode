@@ -128,9 +128,9 @@ cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/metadata/keyf
 // Must run on grid due to huge processing time
 // Use tar file to combine keyframes of one video program into ONE file
 - Running time: 21:30 - 23:30 (2 hours)
-- test.iacc.2.ANew --> 269 dirs, 9 videos/dir
-- test.iacc.2.BNew --> 300 dirs, 8 videos/dir
-- test.iacc.2.CNew --> 269 dirs, 9 videos/dir
+- test.iacc.2.ANew --> 269 (2420) dirs, 9 videos/dir
+- test.iacc.2.BNew --> 300 (2396) dirs, 8 videos/dir
+- test.iacc.2.CNew --> 268 dirs (2405), 9 videos/dir
  /////////////////////////////////////////////////////////////////////////
  
 /////////////////////////////////////////////////////////////////////////
@@ -183,4 +183,38 @@ cp -R /net/per610a/export/das09f/satoh-lab/ledduy/trecvid-sin-2012/metadata/keyf
 		"max_kf_shot_devel_neg #$# 1",
 		"max_kf_shot_devel_pos #$# 5",
 
+
+Task list:
++ clean up tmp dir in hosts
+php -f ksc-Tool-DelTmpFiles.php 301 314 "find /local/ledduy -name '*Process*' | xargs rm -rf
+ "
 /////////////////////////////////////////////////////////////////////////
+>>> raw:
++ dense6mul: 
+2013 --> 269 ~ OK - 1 left (90-91) --> DONE
+2014 --> 300 ~ OK
+2015 --> 268 ~ OK
++ harlap6mul
+2013 --> 269 ~ OK
+2014 --> 300 ~ OK
+2015 --> 268 ~ OK - 1 left (223-224) --> DONE
+>>> bow-assignment-sash
++ dense6mul: 
+2013 --> 265 < 269 (19, 27, 62, *91)
+2014 --> 298 < 300 ( 70, 73)
+2015 --> 267 < 268 (27*) --> DONE
++ harlap6mul 
+2013 --> 240 < 269 (re-submitted sge 50/job) --> 260
+2014 --> 269 < 300 (re-submitted sge 50/job) --> 299
+2015 --> 242 < 269 (224*, re-submitted sge 50/job) --> 266 
+>>> SoftGrid
++ dense6mul: 
+2013 --> 262,262 < 269 --> 264
+2014 --> 258,258 < 300 (re-submitted sge 50/job) --> 285
+2015 --> 244,244 < 269 (re-submitted sge 50/job) --> 264
++ harlap6mul
+2013 --> 240,240 < 269 (re-submitted sge 50/job) --> no change --> resubmit 1/job
+2014 --> 269,269 < 300 (re-submitted sge 50/job) --> no change --> resubmit 1/job
+2015 --> 242,242 < 269 (re-submitted sge 50/job) --> no change --> resubmit 1/job
+
+

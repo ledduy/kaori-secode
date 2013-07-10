@@ -8,7 +8,8 @@ if($argc!=4)
 {
 	printf("Usage %s <HostStart> <HostEnd> <Del Pattern>\n", $argv[0]);
 	printf("Example: %s 101 114 'rm -rf /local/ledduy/*' \n", $argv[0]);
-	printf("Example: %s 501 514 \"find /local/ledduy/ -name '*flag' | xargs rm\" \n", $argv[0]);
+	printf("Example: %s 501 514 \"find /local/ledduy/ -name '*flag*' | xargs rm -rf\" \n", $argv[0]);
+	printf("Example: %s 501 514 \"du -hs /local/ledduy/\" \n", $argv[0]);
 	exit();
 }
 
