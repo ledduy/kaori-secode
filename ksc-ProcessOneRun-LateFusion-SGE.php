@@ -69,7 +69,7 @@ $szScriptOutputDir = sprintf("%s/%s",
 $szRootScriptOutputDir, $szExpName);
 makeDir($szScriptOutputDir);
 
-$szRunListConfigDir = sprintf("%s/%s/runlist/basic/%s", $szRootExpDir, $szExpName, $szConfigDir);
+$szRunListConfigDir = sprintf("%s/%s/runlist/%s", $szRootExpDir, $szExpName, $szConfigDir);
 $arRunList = collectFilesInOneDir($szRunListConfigDir, $szExpName, ".cfg");
 sort($arRunList);
 
