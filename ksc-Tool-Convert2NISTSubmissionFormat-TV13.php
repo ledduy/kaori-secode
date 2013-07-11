@@ -215,7 +215,7 @@ foreach($arSysList as $szRunID => $szRunDesc)
 	$arConceptList = loadConceptListDatazz($szFPConceptListFN);
 	
 	$arOutput = array();
-	$arOutput[] = "<!DOCTYPE videoFeatureExtractionResults SYSTEM 'http://www-nlpir.nist.gov/projects/tv2013/dtds/videoFeatureExtractionResults.dtd'>";
+	$arOutput[] = "<!DOCTYPE videoFeatureExtractionResults SYSTEM \"http://www-nlpir.nist.gov/projects/tv2013/dtds/videoFeatureExtractionResults.dtd\">";
 	$arOutput[] = "<videoFeatureExtractionResults>";
 	$arOutput[] = sprintf("<videoFeatureExtractionRunResult %s>", $szRunDesc);
 
@@ -224,7 +224,7 @@ foreach($arSysList as $szRunID => $szRunDesc)
 	foreach($arConceptList as $szConceptName => $nConceptID)
 	{
 		$szFeatureID = sprintf("%03d", $nConceptID);
-		$arOutput[] = sprintf("<videoFeatureExtractionFeatureResult fNum='%s'>", $szFeatureID);
+		$arOutput[] = sprintf("<videoFeatureExtractionFeatureResult fNum=\"%s\">", $szFeatureID);
 
 		// 9004.Airplane_Flying.rank
 		$szFPRankListFN = sprintf("%s/%s.rank", $szExpDir, $szConceptName);
@@ -256,7 +256,7 @@ foreach($arSysList as $szRunID => $szRunDesc)
 			}
 			$arTmpz = explode(".", $szFullShotID);
 			$szShotID = trim($arTmpz[1]);
-			$arOutput[] = sprintf("<item seqNum='%d' shotId='%s' />", $nSeqNum, $szShotID);
+			$arOutput[] = sprintf("<item seqNum=\"%d\" shotId=\"%s\" />", $nSeqNum, $szShotID);
 			$nSeqNum++;
 		}
 		$arOutput[] = sprintf("</videoFeatureExtractionFeatureResult>");
