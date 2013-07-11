@@ -147,32 +147,25 @@ require_once "ksc-AppConfig.php";
 
 $arSysList = array(
 		"hlf-tv2013.nsc.bow.dense6mul+harlap6mul.rgbsift.RA.ksc.tvsin13.fusion" =>
-		"targetYear='13' trType='A' sysId='Kitty.13A1' priority='1' class='M' loc='N'
-		desc='Fusion of COLORSIFT (dense6mul.rgbsift+harlap6mul.rgbsift), 3x1 & 1x1 grid, , max 4K Pos + 40K Neg'",
+		"targetYear='13' trType='A' sysId='Kitty.13A1' priority='1' class='M' loc='N' desc='Fusion of COLORSIFT (dense6mul.rgbsift+harlap6mul.rgbsift), 3x1 & 1x1 grid, , max 4K Pos + 40K Neg'",
 
 		"hlf-tv2013.nsc.bow.dense6mul+harlap6mul.rgbsift.RB.ksc.tvsin13.fusion" =>
-		"targetYear='14' trType='A' sysId='Kitty.14B1' priority='1' class='M' loc='N'
-		desc='Fusion of COLORSIFT (dense6mul.rgbsift+harlap6mul.rgbsift), 3x1 & 1x1 grid, , max 4K Pos + 40K Neg'",
+		"targetYear='14' trType='A' sysId='Kitty.14B1' priority='1' class='M' loc='N' desc='Fusion of COLORSIFT (dense6mul.rgbsift+harlap6mul.rgbsift), 3x1 & 1x1 grid, , max 4K Pos + 40K Neg'",
 		
 		"hlf-tv2013.nsc.bow.dense6mul+harlap6mul.rgbsift.RC.ksc.tvsin13.fusion" =>
-		"targetYear='15' trType='A' sysId='Kitty.15C1' priority='1' class='M' loc='N'
-		desc='Fusion of COLORSIFT (dense6mul.rgbsift+harlap6mul.rgbsift), 3x1 & 1x1 grid, , max 4K Pos + 40K Neg'",
+		"targetYear='15' trType='A' sysId='Kitty.15C1' priority='1' class='M' loc='N' desc='Fusion of COLORSIFT (dense6mul.rgbsift+harlap6mul.rgbsift), 3x1 & 1x1 grid, , max 4K Pos + 40K Neg'",
 		
 		"hlf-tv2013.nsc.bow.dense6mul.rgbsift.RA.ksc.tvsin13.fusion" =>
-		"targetYear='13' trType='A' sysId='Kitty.13A2' priority='2' class='M' loc='N'
-		desc='Fusion of COLORSIFT (dense6mul.rgbsift), 3x1 & 1x1 grid, , max 4K Pos + 40K Neg'",
+		"targetYear='13' trType='A' sysId='Kitty.13A2' priority='2' class='M' loc='N' desc='Fusion of COLORSIFT (dense6mul.rgbsift), 3x1 & 1x1 grid, , max 4K Pos + 40K Neg'",
 
 		"hlf-tv2013.nsc.bow.dense6mul.rgbsift.RB.ksc.tvsin13.fusion" =>
-		"targetYear='14' trType='A' sysId='Kitty.14B2' priority='2' class='M' loc='N'
-		desc='Fusion of COLORSIFT (dense6mul.rgbsift), 3x1 & 1x1 grid, , max 4K Pos + 40K Neg'",
+		"targetYear='14' trType='A' sysId='Kitty.14B2' priority='2' class='M' loc='N' desc='Fusion of COLORSIFT (dense6mul.rgbsift), 3x1 & 1x1 grid, , max 4K Pos + 40K Neg'",
 		
 		"hlf-tv2013.nsc.bow.dense6mul.rgbsift.RC.ksc.tvsin13.fusion" =>
-		"targetYear='15' trType='A' sysId='Kitty.15C2' priority='2' class='M' loc='N'
-		desc='Fusion of COLORSIFT (dense6mul.rgbsift), 3x1 & 1x1 grid, , max 4K Pos + 40K Neg'",
+		"targetYear='15' trType='A' sysId='Kitty.15C2' priority='2' class='M' loc='N' desc='Fusion of COLORSIFT (dense6mul.rgbsift), 3x1 & 1x1 grid, , max 4K Pos + 40K Neg'",
 
 		"hlf-tv2013.nsc.bow.harlap6mul.rgbsift.RA.ksc.tvsin13.fusion" =>
-		"targetYear='13' trType='A' sysId='Kitty.13A3' priority='3' class='M' loc='N'
-		desc='Fusion of COLORSIFT (harlapmul.rgbsift), 3x1 & 1x1 grid, , max 4K Pos + 40K Neg'",
+		"targetYear='13' trType='A' sysId='Kitty.13A3' priority='3' class='M' loc='N' desc='Fusion of COLORSIFT (harlapmul.rgbsift), 3x1 & 1x1 grid, , max 4K Pos + 40K Neg'",
 );
 
 // hlf-tv2012.Kitty-F2.ksc.tvsin12.ksc.tvsin12.fusion used for Light run
