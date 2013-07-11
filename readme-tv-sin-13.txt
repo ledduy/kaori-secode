@@ -198,20 +198,29 @@ php -f ksc-Tool-DelTmpFiles.php 301 314 "find /local/ledduy -name '*Process*' | 
 >>> bow-assignment-sash
 + dense6mul: NOT YET
 2013 --> 265 < 269 (19, 27, 62, *91) --> /*** 4 ***/ 19@p900b-scr7, 27@p900b-scr8, 62-275834@bc309, 91@p900b-scr9
---> 266 (19-bc106, 27-bc102, 91)@p900b
+--> 266 (19-bc106, 27-bc102, 91-DONE)@p900b
+
+******--> 267 - 19-bc106 & 27-bc102*****
+
 2014 --> 298 < 300 ( 70, 73) --> 299 (last one is 73), --> 70 is the remaining - 275835@bc212) - DONE
+
 2015 --> 267 < 268 (27*) --> DONE (last one is 027 - GOOD)
+
 + harlap6mul: DONE
 2013 --> 240 < 269 (re-submitted sge 50/job) --> 260 --> 266 (50-100->275853 *96*-DONE,  158-bc101-DONE, 142-bc102-DONE) --> 269 - DONE
 2014 --> 269 < 300 (re-submitted sge 50/job) --> 299 (119 - bc103-DONE)
 2015 --> 242 < 268 (224*, re-submitted sge 50/job) --> 266 (50 - bc301-DONE, 224-bc105-DONE)  --> 268 - DONE
+
 >>> SoftGrid
 + dense6mul: NOT YET
 2013 --> 262,262 < 269 --> 262  --> *19, *27, 28-p900a-scr0, 61-p900a-scr1, *62, 63-p900a-scr2, *91
---> 262 (19, 27, 91
+--> 262 (19, 27, 91-bc101)
+***** 1x1: 265 (19, 27, 91-bc101, 62-bc104)
+***** 3x1: 265 (19, 27, 91-bc101, 62-bc104)
+
 
 2014 --> 258,258 < 300 (re-submitted sge 50/job) --> 285 --> 294 (275854@100-150-->135 , 275853@50-100 --> *70, 73, 74, 92-p900a-scr5-DONE, 98-p900a-scr3-DONE) 
---> 298 (70, 74)  --> 299 (70 - bc101)
+--> 298 (70, 74)  --> 299 (70 - bc101) - DONE
 
 2015 --> 244,244 < 268 (re-submitted sge 50/job) --> 264 --> 268 --> DONE
 

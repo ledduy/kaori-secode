@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * 		@file 	ksc-ProcessOneRun-Test-New.php
  * 		@brief 	Test One Run.
@@ -8,7 +7,7 @@
  *
  * 		Copyright (C) 2010-2013 Duy-Dinh Le.
  * 		All rights reserved.
- * 		Last update	: 05 Jul 2013.
+ * 		Last update	: 10 Jul 2013.
  */
 
 //*** Update Jul 18, 2012
