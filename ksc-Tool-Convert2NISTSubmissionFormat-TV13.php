@@ -215,7 +215,7 @@ foreach($arSysList as $szRunID => $szRunDesc)
 	$arConceptList = loadConceptListDatazz($szFPConceptListFN);
 	
 	$arOutput = array();
-	$arOutput[] = "<!DOCTYPE videoFeatureExtractionResults SYSTEM 'videoFeatureExtractionResults.dtd'>";
+	$arOutput[] = "<!DOCTYPE videoFeatureExtractionResults SYSTEM 'http://www-nlpir.nist.gov/projects/tv2013/dtds/videoFeatureExtractionResults.dtd'>";
 	$arOutput[] = "<videoFeatureExtractionResults>";
 	$arOutput[] = sprintf("<videoFeatureExtractionRunResult %s>", $szRunDesc);
 
