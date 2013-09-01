@@ -84,7 +84,7 @@ $gnMemSize = 1000;
 $gnStartC = 0;
 $gnEndC = 6;
 $gnStepC = 2;
-$gnStartG = -10;
+$gnStartG = -20;
 $gnEndG = 0;
 $gnStepG = 2;
 
@@ -96,10 +96,7 @@ $gszFeatureConfigDir = "BaselineFeatureConfig";
 //////////////////// THIS PART FOR CUSTOMIZATION ////////////////////
 
 // Root of a benchmark, e.g. trecvid-sin-2011, trecvid-med-2011, imageCLEF, ImageNet
-$gszRootBenchmarkDir = "/net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013"; // *** CHANGED ***
-
-// Dir for experiments --> for load balancing, use another server
-$gszRootBenchmarkExpDir = $gszRootBenchmarkDir; // *** CHANGED ***
+$gszRootBenchmarkDir = "/net/per610a/export/das09f/satoh-lab/ledduy/ImageCLEF/2012/PhotoAnnFlickr"; // *** CHANGED ***
 
 // Dir for php code
 // must be checked out as sin13
@@ -107,7 +104,7 @@ $gszSGEScriptDir = "/net/per900b/raid0/ledduy/github-projects/kaori-secode"; // 
 
 //*** SHOULD NOT CHANGE *****
 // Dir for .sh script
-$gszScriptBinDir = "/net/per900b/raid0/ledduy/bin-sin13";
+$gszScriptBinDir = "/net/per900b/raid0/ledduy/bin-bow-test";
 makedir($gszScriptBinDir);
 
 // feature extraction app
@@ -117,7 +114,7 @@ $garAppConfig["BL_FEATURE_EXTRACT_APP"] = "FeatureExtractorCmd/FeatureExtractorC
 $garAppConfig["RAW_COLOR_SIFF_APP"] = "colordescriptor30/x86_64-linux-gcc/colorDescriptor ";
 
 // VLFEAT
-$garAppConfig["RAW_VLFEAT_DIR"] = "vlfeat-0.9.16"; //--> move to subdir
+$garAppConfig["RAW_VLFEAT_DIR"] = "vlfeat-0.9.14"; //--> move to subdir
 
 // Oxford VGG's code
 $garAppConfig["RAW_AFF_COV_SIFF_APP"] = "aff.cov.sift/extract_features_64bit.ln";
@@ -135,8 +132,8 @@ if(!file_exists($gszTmpDir))
 // !!! IMPORTANT PARAMS !!! 
 // used with BOW features
 $gnHavingResized = 1;
-$gnMaxFrameWidth = 400; // *** CHANGED ***
-$gnMaxFrameHeight = 400; // *** CHANGED ***
+$gnMaxFrameWidth = 500; // *** CHANGED ***
+$gnMaxFrameHeight = 500; // *** CHANGED ***
 $gszResizeOption = sprintf("-resize '%sx%s>'", $gnMaxFrameWidth, $gnMaxFrameHeight); // to ensure W is the width after shrinking
 
 /// !!! IMPORTANT PARAM !!!

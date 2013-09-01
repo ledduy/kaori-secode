@@ -40,7 +40,7 @@ $gszSVMScaleApp = sprintf("libsvm291/svm-scale");
 
 // The information below is mainly for feature extraction using SGE
 
-$szExpName = "hlf-tv2013"; // *** CHANGED ***
+$szExpName = "imageclef2012-PhotoAnnFlickr"; // *** CHANGED ***
 $szExpConfig = $szExpName; 
 
 $szProjectCodeName = "kaori-secode-sin213"; // *** CHANGED ***
@@ -58,24 +58,17 @@ $nNumPats = sizeof($arPat2PathList);
 // this part is for SGE - Feature Extraction
 //--> dir name + path containing keyframes, i.e, keyframe-5/<path-name> = keyframe-5/tv2012/devel
 $arVideoPathList = array(
-		"devel-nistNew",
-		"test.iacc.2.ANew", // *** CHANGED ***
-		"test.iacc.2.BNew", // *** CHANGED ***
-		"test.iacc.2.CNew", // *** CHANGED ***
+		"devel2012",
+		"test2012" // *** CHANGED ***
 );
 
 $arMaxVideosPerPatList = array(
-		"devel-nistNew" => 200,
-		"test.iacc.2.ANew" => 300, // *** CHANGED ***
-		"test.iacc.2.BNew" => 300, // *** CHANGED ***
-		"test.iacc.2.CNew" => 300, // *** CHANGED ***
-		); // Precise: N/A
+		"devel2012" => 150, // Precise:
+		"test2012" => 100); // Precise:
 
 $arMaxHostsPerPatList = array(
-		"devel-nistNew" => 100,
-		"test.iacc.2.ANew" => 100, // *** CHANGED ***
-		"test.iacc.2.BNew" => 100, // *** CHANGED ***
-		"test.iacc.2.CNew" => 100, // *** CHANGED ***
+		"devel2012" => 200,
+		"test2012" => 200, // *** CHANGED ***
 		); // Precise: N/A
 
 // these params are used in extracting raw local features. 
