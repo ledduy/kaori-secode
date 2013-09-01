@@ -94,17 +94,20 @@ $gszFeatureFormat = "dvf";
 $gszFeatureConfigDir = "BaselineFeatureConfig";
 
 //////////////////// THIS PART FOR CUSTOMIZATION ////////////////////
+$nUseTarFileForKeyFrame = 0; // whether to pack keyframes in .tar files
 
 // Root of a benchmark, e.g. trecvid-sin-2011, trecvid-med-2011, imageCLEF, ImageNet
-$gszRootBenchmarkDir = "/net/per610a/export/das09f/satoh-lab/ledduy/ImageCLEF/2012/PhotoAnnFlickr"; // *** CHANGED ***
+//$gszRootBenchmarkDir = "/net/per610a/export/das09f/satoh-lab/ledduy/ImageCLEF/2012/PhotoAnnFlickr"; // *** CHANGED ***
+
+$gszRootBenchmarkDir = "/net/sfv215/export/raid6/ledduy/ImageCLEF/2012/PhotoAnnFlickr"; // update 01 Sep 2013
 
 // Dir for php code
-// must be checked out as sin13
-$gszSGEScriptDir = "/net/per900b/raid0/ledduy/github-projects/kaori-secode"; // *** CHANGED ***
+// just copy from local dir (c:\Users\ledduy\git\kaori-secode), NOT check out
+$gszSGEScriptDir = "/net/per900b/raid0/ledduy/github-projects/kaori-secode-bow-test"; // *** CHANGED ***
 
 //*** SHOULD NOT CHANGE *****
 // Dir for .sh script
-$gszScriptBinDir = "/net/per900b/raid0/ledduy/bin-bow-test";
+$gszScriptBinDir = "/net/per900b/raid0/ledduy/bin13/bin-bow-test";
 makedir($gszScriptBinDir);
 
 // feature extraction app
