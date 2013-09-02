@@ -7,8 +7,23 @@
  *
  * 		Copyright (C) 2010-2013 Duy-Dinh Le.
  * 		All rights reserved.
- * 		Last update	: 05 Jul 2013.
+ * 		Last update	: 03 Sep 2013.
  */
+
+//*** Update Sep 03, 2013
+// Specific for ImageCLEF
+/*
+//--> New mapping
+// + .pos.ann --> TRECVID2011_19545 #$# TRECVID2011_19545.shot19545_4 #$# TRECVID2011_19545.shot19545_4.RKF_RKF #$# Pos
+//--> BEFORE: video path for TRECVID2011_19545 is stored in tv2012.devel-nist.lst
+//--> CURRENT: video path for TRECVID2011_19545 is found by
+//>>> mapping TRECVID2011_19545 to new video program NEWTV2012_xxxx
+//>>> find the mapping in tv2012.devel-nistNew.lst
+
+// Customization for ImageCLEF --> much simpler than TRECVID-SIN
+function loadVideoPathMappingImageCLEF($szMetaDataDir, $szPatName)
+ */
+
 
 //*** Update Jul 18, 2012
 // Customize for tvsin12 --> MAJOR changes --> search for Jul 18
@@ -261,8 +276,7 @@ $gfPosWeight = 100;
 $gfNegWeight = 1;
 
 // memsize is override later
-$gnMemSize = 1500;  // more mem size since the data set is large
-//$gnMemSize = 700;  // reduce half for safety in running on SGE  --> but it is very slow for high dim data
+$gnMemSize = 8000;  // more mem size since the data set is large
 
 $gnStartC = 0;
 $gnEndC = 2; // C should not be too large since it will make slow convergence when the data set is large
@@ -298,14 +312,16 @@ $gszSVMSearchRange = sprintf("-log2c %d,%d,%d -log2g %d,%d,%d", $gnStartC, $gnEn
 
 //$szRootDir = "/net/sfv215/export/raid4/ledduy/trecvid-sin-2011";
 $szRootDir = $gszRootBenchmarkDir; // defined in ksc-AppConfig
+$gszRootBenchmarkExpDir = $gszRootBenchmarkDir;
 
-$szFPLogFN = "ksc-ProcessOneRun-Train-New.log"; //*** CHANGED ***
+$szScriptBaseName = basename($_SERVER['SCRIPT_NAME'], ".php");
+$szFPLogFN = sprintf("%s.log", $szScriptBaseName); //*** CHANGED ***
 
 //////////////////// END FOR CUSTOMIZATION ////////////////////
 
 /////////////////////// START ////////////////////////
-$szExpConfig = "hlf-tv2013";
-$szFPRunConfigFN = "/net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/experiments/hlf-tv2013/runlist/tmp/basic/hlf-tv2013.nsc.bow.harlap6mul.rgbsift.Soft-500.devel-nistNew.norm3x1.ksc.tvsin13.R1.cfg";
+$szExpName = "imageclef2012-PhotoAnnFlickr";
+$szFPRunConfigFN = "/net/sfv215/export/raid6/ledduy/ImageCLEF/2012/PhotoAnnFlickr/experiments/imageclef2012-PhotoAnnFlickr/runlist/imageclef2012-PhotoAnnFlickr.nsc.bow.dense6mul.rgbsift.Soft-500.devel2012.L1norm1x1.ksc.imageclef2012.R1.cfg";
 
 $nStart = 0;
 $nEnd = 1;
@@ -381,7 +397,7 @@ $szTrainVideoList = $arRunConfig['devel_pat'];
 $szPatName = str_replace(".lst", "", $szTrainVideoList);
 
 $szMetaDataDirzz = sprintf("%s", $szRootMetaDataKFDir);
-$arNEWVideoPathList = loadVideoPathMappingTV12($szMetaDataDirzz, $szPatName);
+$arNEWVideoPathList = loadVideoPathMappingImageCLEF($szMetaDataDirzz, $szPatName);
 
 // new param for feature format - Dec 24
 if(isset($arRunConfig['feature_format']))
@@ -441,11 +457,11 @@ $szFPConceptListFN = sprintf("%s/%s/%s.lst", $szRootExpDir, $arConfig['ann_dir']
 
 $fSamplingPosRate = $arRunConfig['pos_sampling_rate']; //0.75
 $nNumKeyFramesPerPosShot = $arRunConfig['max_kf_shot_devel_pos']; //2
-$nMaxPosKeyFramesPerRun = 3000; //$arRunConfig['max_kf_devel_pos_set']; Update Jul 18
+$nMaxPosKeyFramesPerRun = $arRunConfig['max_kf_devel_pos_set'];
 
 $fSamplingNegRate = $arRunConfig['neg_sampling_rate']; //0.75
 $nNumKeyFramesPerNegShot = $arRunConfig['max_kf_shot_devel_neg']; //2
-$nMaxNegKeyFramesPerRun = 40000; //$arRunConfig['max_kf_devel_neg_set']; Update Jul 18
+$nMaxNegKeyFramesPerRun = $arRunConfig['max_kf_devel_neg_set'];
 $nMaxSubSamples = $arRunConfig['max_kf_devel_sub_size'];
 
 // Oct 18
@@ -1078,8 +1094,15 @@ $nLabel = 1, $nKeyFrameBasedAssociation=1)
 	return $nTotalFeatureVectors;
 }
 
-// Generate file if not exist
-function loadVideoPathMappingTV12($szMetaDataDir, $szPatName)
+//--> New mapping
+// + .pos.ann --> TRECVID2011_19545 #$# TRECVID2011_19545.shot19545_4 #$# TRECVID2011_19545.shot19545_4.RKF_RKF #$# Pos
+//--> BEFORE: video path for TRECVID2011_19545 is stored in tv2012.devel-nist.lst
+//--> CURRENT: video path for TRECVID2011_19545 is found by
+//>>> mapping TRECVID2011_19545 to new video program NEWTV2012_xxxx
+//>>> find the mapping in tv2012.devel-nistNew.lst
+
+// Customization for ImageCLEF --> much simpler than TRECVID-SIN
+function loadVideoPathMappingImageCLEF($szMetaDataDir, $szPatName)
 {
 	$szFPOutputFN = sprintf("%s/%s.map.lst", $szMetaDataDir, $szPatName);
 
@@ -1089,8 +1112,6 @@ function loadVideoPathMappingTV12($szMetaDataDir, $szPatName)
 
 		$szFPPatListFN = sprintf("%s/%s.lst", $szMetaDataDir, $szPatName);
 		loadListFile($arList, $szFPPatListFN); // tv2012.devel-nistNew.lst
-
-		$szPatNamezz = str_replace("tv2012.", "", $szPatName);
 
 		$arOutput = array();
 
@@ -1103,13 +1124,11 @@ function loadVideoPathMappingTV12($szMetaDataDir, $szPatName)
 			$szNewVideoPath = trim($arTmp[2]);
 			$szNewVideoID = trim($arTmp[0]);
 
-			$szFPKeyFrameListFN = sprintf("%s/tv2012/%s/%s.prg", $szMetaDataDir, $szPatNamezz, $szNewVideoID);
+			$szFPKeyFrameListFN = sprintf("%s/%s/%s.prg", $szMetaDataDir, $szNewVideoPath, $szNewVideoID);
 			loadListFile($arKFList, $szFPKeyFrameListFN);
 			foreach($arKFList as $szLine)
 			{
-				// TRECVID2010_10718.shot10718_10.RKF_RKF
-				$arTmp = explode(".shot", $szLine);
-				$szOrigVideoID = trim($arTmp[0]);
+				$szOrigVideoID = $szNewVideoID;
 
 				$arNEWVideoPathList[$szOrigVideoID]['id'] = $szNewVideoID;
 				$arNEWVideoPathList[$szOrigVideoID]['path'] = $szNewVideoPath;
