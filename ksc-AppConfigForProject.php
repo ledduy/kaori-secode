@@ -47,10 +47,8 @@ $szProjectCodeName = "kaori-secode-sin213"; // *** CHANGED ***
 
 //--> name of list of videos, i.e, metadata/keyframe-5/<pat-name.lst> = metadata/keyframe-5/tv2012.devel.lst
 $arPat2PathList = array(
-		"devel-nistNew" => "tv2012/devel-nistNew",
-		"test.iacc.2.ANew" => "tv2013/test.iacc.2.ANew", // iacc.2.A
-		"test.iacc.2.BNew" => "tv2014/test.iacc.2.BNew", // iacc.2.A
-		"test.iacc.2.CNew" => "tv2015/test.iacc.2.CNew", // iacc.2.A
+		"devel2012" => "devel2012",
+		"test2012" => "test2012", // iacc.2.A
 		);  // *** CHANGED ***
 
 $nNumPats = sizeof($arPat2PathList);
@@ -92,17 +90,15 @@ $nNumKFPerJob = $nMaxKFPerVideo; // *** CHANGED ***
 $nAveShotPerVideo = 1000; // *** CHANGED ***
 
 // set for training --> used to find cluster centers
-$arBOWDevPatList = array("devel-nistNew");
+$arBOWDevPatList = array("devel2012");
 
-$szSysID = "hlf-tv2013"; // *** CHANGED ***
-$szSysDesc = "Experiments for TRECVID-SIN-2013"; // *** CHANGED ***
+$szSysID = "imageclef2012-PhotoAnnFlickr"; // *** CHANGED ***
+$szSysDesc = "Experiments for ImageCLEF 2012"; // *** CHANGED ***
 
 // used for codeword assignment
 $arBOWTargetPatList = array(
-		"devel-nistNew",
-		"test.iacc.2.ANew", // *** CHANGED ***
-		"test.iacc.2.BNew", // *** CHANGED ***
-		"test.iacc.2.CNew", // *** CHANGED ***
+		"devel2012", // *** CHANGED ***
+		"test2012", // *** CHANGED ***
 		);
 
 $szConfigDir = "basic";
@@ -126,54 +122,6 @@ $arFilterList = array(
 		".g_eoh.",
 		".g_lbp."
 );
-
-// this param is used in BOW
-$arFeatureList = array(
-		"nsc.raw.harhes.sift",
-		"nsc.raw.harlap.sift",
-		"nsc.raw.heslap.sift",
-		//						"nsc.raw.hesaff.sift",
-		"nsc.raw.haraff.sift",
-		"nsc.raw.dense4.sift",
-		"nsc.raw.dense6.sift",
-		"nsc.raw.dense8.sift",
-		//						"nsc.raw.dense10.sift",
-		"nsc.raw.phow6.sift",
-		"nsc.raw.phow8.sift",
-		"nsc.raw.phow10.sift",
-		"nsc.raw.phow12.sift",
-		//						"nsc.raw.phow14.sift",
-		"nsc.raw.dense4mul.oppsift",
-		"nsc.raw.dense4mul.sift",
-		"nsc.raw.dense4mul.rgsift",
-		"nsc.raw.dense4mul.rgbsift",
-		"nsc.raw.dense4mul.csift",
-
-		"nsc.raw.dense6mul.oppsift",
-		"nsc.raw.dense6mul.sift",
-		"nsc.raw.dense6mul.rgsift",
-		"nsc.raw.dense6mul.rgbsift",
-		"nsc.raw.dense6mul.csift",
-
-		"nsc.raw.dense4mul.oppsift",
-		"nsc.raw.dense4mul.sift",
-		"nsc.raw.dense4mul.rgsift",
-		"nsc.raw.dense4mul.rgbsift",
-		"nsc.raw.dense4mul.csift",);
-
-$arFeatureListConfig = array(
-		"nsc.raw.dense4.sift" => "vlfeat, 1, 4", // CodeName, KPDetector, SamplingStep  
-		"nsc.raw.dense6.sift" => "vlfeat, 1, 6", 
-		"nsc.raw.dense8.sift" => "vlfeat, 1, 8", 
-		"nsc.raw.dense10.sift" => "vlfeat, 1, 10", 
-		"nsc.raw.phow6.sift" => "vlfeat, 2, 6",
-		"nsc.raw.phow8.sift" => "vlfeat, 2, 8", 
-		"nsc.raw.phow10.sift" => "vlfeat, 2, 10",  
-		"nsc.raw.phow12.sift" => "vlfeat, 2, 12",  
-		"nsc.raw.phow14.sift" => "vlfeat, 2, 14",  
-		"nsc.raw.phowhsv8.sift" => "vlfeat, 3, 8",  // phow + color
-		"nsc.raw.dog.sift" => "vlfeat, 0,-1"
-);  // -1 = UNUSED
 
 //////////////////// END FOR CUSTOMIZATION ////////////////////
 

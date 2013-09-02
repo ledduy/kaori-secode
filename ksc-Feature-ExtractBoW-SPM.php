@@ -12,6 +12,8 @@
 
 // !!! IMPORTATNT !!!
 // $szSashKeypointToolApp = sprintf("sashKeyPointTool/sashKeyPointTool-nsc-BOW-L2");
+// $nUseTarFileForKeyFrame --> defined in ksc-AppConfig.php
+// $nUseL1NormBoW --> defined in ksc-AppConfig.php 
 
 // *** Update Jul 16, 2012
 // --> Adding WARNING for zero file size
@@ -99,6 +101,22 @@ $szRootMetaDataDir = sprintf("%s/metadata/keyframe-5", $szRootDir);
 $gSkippExistingFiles = 1;
 $gKeyFrameImgExt = "jpg";
 
+$arFeatureParamConfigList = array(
+		"nsc.raw.dense6mul.sift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+2.0 --descriptor sift",  // dense sampling, multi scale
+		"nsc.raw.dense6mul.csift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+2.0 --descriptor csift",
+		"nsc.raw.dense6mul.rgsift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+2.0 --descriptor rgsift",
+		"nsc.raw.dense6mul.rgbsift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+2.0 --descriptor rgbsift",
+		"nsc.raw.dense6mul.oppsift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+2.0 --descriptor opponentsift",
+
+		"nsc.raw.dense4mul.sift" => "--detector densesampling --ds_spacing 4 --ds_scales 1.2+2.0 --descriptor sift",  // dense sampling, multi scale
+		"nsc.raw.dense4mul.csift" => "--detector densesampling --ds_spacing 4 --ds_scales 1.2+2.0 --descriptor csift",
+		"nsc.raw.dense4mul.rgsift" => "--detector densesampling --ds_spacing 4 --ds_scales 1.2+2.0 --descriptor rgsift",
+		"nsc.raw.dense4mul.rgbsift" => "--detector densesampling --ds_spacing 4 --ds_scales 1.2+2.0 --descriptor rgbsift",
+		"nsc.raw.dense4mul.oppsift" => "--detector densesampling --ds_spacing 4 --ds_scales 1.2+2.0 --descriptor opponentsift",
+
+		"nsc.raw.harlap6mul.rgbsift" => "--detector harrislaplace --descriptor rgbsift",
+);
+
 // ////////////////// END FOR CUSTOMIZATION ////////////////////
 
 // /////////////////////////// MAIN ////////////////////////////////
@@ -109,21 +127,22 @@ $szTargetPatName = "test2012"; // or devel2012
 $nStartID = 0; // 0
 $nEndID = 1; // 1
 
-if ($argc != 6)
+if ($argc != 7)
 {
-    printf("Usage: %s <SrcPatName> <TargetPatName> <RawFeatureExt> <Start> <End>\n", $argv[0]);
-    printf("Usage: %s %s %s %s %s %s\n", $argv[0], $szPatName, $szTargetPatName, $szInputRawFeatureExt, $nStartID, $nEndID);
+    printf("Usage: %s <SrcPatName> <TargetPatName> <RawFeatureExt> <UseL1Norm> <Start> <End>\n", $argv[0]);
+    printf("Usage: %s %s %s %s %s %s\n", $argv[0], $szPatName, $szTargetPatName, $szInputRawFeatureExt, $nUseL1NormBoW, $nStartID, $nEndID);
     exit();
 }
 
 $szPatName = $argv[1]; // tv2007.devel
 $szTargetPatName = $argv[2];
 $szInputRawFeatureExt = $argv[3];
-$nStartID = intval($argv[4]); // 0
-$nEndID = intval($argv[5]); // 1
+$nUseL1NormBoW = intval($argv[4]);
+$nStartID = intval($argv[5]); // 0
+$nEndID = intval($argv[6]); // 1
 
 $szScriptBaseName = basename($_SERVER['SCRIPT_NAME'], ".php");
-$szFPLogFN = sprintf("%s-%s.log", $szScriptBaseName, $szInputRawFeatureExt); // *** CHANGED ***
+$szFPLogFN = sprintf("%s-%s-L1Norm%d.log", $szScriptBaseName, $szInputRawFeatureExt, $nUseL1NormBoW); // *** CHANGED ***
                                                                              
 // *** CHANGED *** !!! Modified Jul 06, 2012
 $szRootOutputDir = getRootDirForFeatureExtraction($szInputRawFeatureExt); // *** CHANGED *** !!! New Jul 06, 2012
@@ -133,7 +152,8 @@ $szRootFeatureOutputDir = $szRootFeatureDir;
 
 $szLocalTmpDir = $gszTmpDir; // defined in ksc-AppConfig
 
-$szTmpDir = sprintf("%s/%s/%s/%s-%s-%d-%d", $szLocalTmpDir, $szScriptBaseName, $szPatName, $szTargetPatName, $szInputRawFeatureExt, $nStartID, $nEndID);
+$szTmpDir = sprintf("%s/%s/%s/%s-%s-UseNorm%d-%d-%d", 
+    $szLocalTmpDir, $szScriptBaseName, $szPatName, $szTargetPatName, $szInputRawFeatureExt, $nUseL1NormBoW, $nStartID, $nEndID);
 makeDir($szTmpDir);
 
 // !!! IMPORTANT
@@ -176,7 +196,7 @@ saveDataFromMem2File($arLog, $szFPLogFN, "a+t");
 $szBOWFeatureExt = sprintf("%s.%s.%s", str_replace("raw", "bow", $szInputRawFeatureExt), $szTrialName, $szPatName);
 
 // $szFeatureConfigParam = "--detector densesampling --ds_spacing 6 --ds_scales 1.2+2.0 --descriptor sift";
-$szFeatureConfigParam = "--detector harrislaplace --ds_scales 1.2+2.0 --descriptor sift";
+$szFeatureConfigParam = $arFeatureParamConfigList[$szInputRawFeatureExt]; 
 
 computeSoftBOWHistogramWithGridForOnePat($szTmpDir, $szFeatureConfigParam, $szRootFeatureOutputDir, $szRootKeyFrameDir, $szRootMetaDataDir, $szSashCentroidDir, $szSashCentroidName, $szPrefixAnn, $szTargetPatName, $szInputRawFeatureExt, $szBOWFeatureExt, $nMaxCodeBookSize, $nStartID, $nEndID);
 
@@ -256,11 +276,13 @@ function computeSoftBOWHistogramWithGridForOnePat($szLocalDir, $szFeatureConfigP
 
 function computeSoftBOWHistogramWithGridForOneVideoProgram($szLocalFeatureDir, $szRootFeatureOutputDir, $szFPKeyFrameListFN, $szSashCentroidDir, $szSashCentroidName, $szPrefixAnn, $szVideoPath, $szVideoID, $szInputRawFeatureExt, $szBOWFeatureExt, $nMaxCodeBookSize = 2000)
 {
+    global $nUseL1NormBoW;
+    
     $arGridList = array(
-        // 4 => 4,
+        4 => 4,
         3 => 1,
-        // 2 => 2,
-        // 1 => 3,
+        2 => 2,
+        1 => 3,
         1 => 1
     );
     
@@ -278,7 +300,14 @@ function computeSoftBOWHistogramWithGridForOneVideoProgram($szLocalFeatureDir, $
     {
         // adding grid info (mxn)
         // Changed 20 Jan --> 1x3 --> norm1x3
-        $szOutputFeatureExt = sprintf("%s.norm%dx%d", $szBOWFeatureExt, $nNumRows, $nNumCols);
+        if($nUseL1NormBoW)
+        {
+            $szOutputFeatureExt = sprintf("%s.L1norm%dx%d", $szBOWFeatureExt, $nNumRows, $nNumCols);
+        }
+        else 
+        {
+            $szOutputFeatureExt = sprintf("%s.NOnorm%dx%d", $szBOWFeatureExt, $nNumRows, $nNumCols);
+        }
         
         $szOutputDir = sprintf("%s/%s/%s", $szRootFeatureOutputDir, $szOutputFeatureExt, $szVideoPath);
         makeDir($szOutputDir);
@@ -310,6 +339,8 @@ function computeSoftBOWHistogramWithGridForOneVideoProgram($szLocalFeatureDir, $
 // $szFPInputRawSIFTFN --> raw info of keypoints (including x y a b c 128-dim SIFT) --> each file is for one keyframe
 function computeSoftWeightingHistogramWithGrid($szFPKeyFrameListFN, $szFPOutputFN, $szFPInputLabelFN, $szLocalFeatureDir, $szInputRawFeatureExt, $nNumRows = 2, $nNumCols = 2, $nMaxCodeBookSize = 2000) // for concatenating feature vectors of sub regions
 {
+    global $nUseL1NormBoW;
+    
     // load mapping KeyFrame and WxH
     $arKeyFrameSizeLUT = loadKeyFrameSize($szFPKeyFrameListFN);
     
@@ -423,7 +454,15 @@ function computeSoftWeightingHistogramWithGrid($szFPKeyFrameListFN, $szFPOutputF
             }
         }
         
-        ksort($arHist); // important
+        ksort($arHist); //!IMPORTANT
+        
+        // update Sep 02, 2013
+        
+        if($nUseL1NormBoW)
+        {
+            $arHist = doL1Norm1FV($arHist);
+        }
+        
         $szOutput = sprintf("%s", sizeof($arHist));
         foreach ($arHist as $nLabel => $fVal)
         {
@@ -487,6 +526,8 @@ function computeAssignmentSash($szLocalFeatureDir, $szFPLocalOutputFN, $szFPKeyF
             
             global $szFPLogFN;
             saveDataFromMem2File($arLogListz, $szFPLogFN, "a+t");
+            
+            continue;
         }
         
         $szFPSIFTDataDvfFN = sprintf("%s/%s-c0-b0.dvf", $szLocalFeatureDir, $szCoreName);
@@ -894,6 +935,39 @@ function convertRawColorSIFT2StandardFormat($szFPOutputFN, $szFPInputFN)
     
     $szFPSimpleOutputFN = sprintf("%s.loc", $szFPOutputFN);
     saveDataFromMem2File($arSimpleOutput, $szFPSimpleOutputFN);
+}
+
+
+function doL1Norm(&$arFeatureList)
+{
+    foreach($arFeatureList as $szKeyFrameID => $arFV)
+    {
+        $arFeatureList[$szKeyFrameID] = doL1Norm1FV($arFV);
+    }
+}
+
+function doL1Norm1FV($arFV)
+{
+    $arNormFV = array();
+
+    $fSum = 0;
+    foreach($arFV as $szKey => $fVal)
+    {
+        $fSum += $fVal;
+    }
+
+    foreach($arFV as $szKey => $fVal)
+    {
+        $fNorm = $fVal/$fSum;
+        
+        
+        if( $fNorm != 0)  // sparse format, only store non-zero values
+        {
+            $arNormFV[$szKey] = $fNorm;
+        }
+    }
+
+    return $arNormFV;
 }
 
 ?>

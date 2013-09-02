@@ -11,6 +11,10 @@
  */
 
 ////////////////// HOW TO CUSTOMIZE /////////////////////////
+//  New on Sep 02, 2013
+// $nUseTarFileForKeyFrame 
+// $nUseL1NormBoW
+
 
 //--> Look for *** CHANGED *** and make appropriate changes
 // $gszRootBenchmarkDir = "/net/sfv215/export/raid4/ledduy/lqvu-Experiments/2012/MediaEval2012"; // *** CHANGED ***
@@ -124,13 +128,14 @@ $garAppConfig["RAW_AFF_COV_SIFF_APP"] = "aff.cov.sift/extract_features_64bit.ln"
 
 $garAppConfig["SASH_KEYPOINT_TOOL_BOW_L2_APP"] = "sashKeyPointTool/sashKeyPointTool-nsc-BOW-L2";
 
-// TmpDir
-$gszTmpDir = "/local/ledduy";
+// TmpDir --> IMPORTANT - Update on Sep 02, 2013
+$gszTmpDir = "/local/ledduy";  // must INCLUDE benchmark name
 if(!file_exists($gszTmpDir))
 {
-	$gszTmpDir = "/net/dl380g7a/export/ddn11a6/ledduy/tmp"; // *** CHANGED ***
+	$gszTmpDir = "/net/dl380g7a/export/ddn11a6/ledduy/tmp/kaori-secode-bow-test"; // *** CHANGED ***
 	makeDir($gszTmpDir);
 }
+
 
 // !!! IMPORTANT PARAMS !!! 
 // used with BOW features
@@ -147,6 +152,7 @@ $szTrialName = sprintf("Soft-%d", $nNumClusters);
 //printf("### Trial Name: [%s]\n", $szTrialName);
 
 $nMaxCodeBookSize = $nNumClusters*2;
+$nUseL1NormBoW = 1;
 
 //////////////////// END FOR CUSTOMIZATION ////////////////////
 
