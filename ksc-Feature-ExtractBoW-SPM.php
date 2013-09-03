@@ -90,6 +90,7 @@
 require_once "ksc-AppConfig.php";
 
 // ////////////////// THIS PART FOR CUSTOMIZATION ////////////////////
+$gnUseTarFileForKeyFrame = 1; 
 $szSashKeypointToolApp = sprintf("sashKeyPointTool/sashKeyPointTool-nsc-BOW-L2");
 
 // $szRootDir = "/net/sfv215/export/raid4/ledduy/trecvid-sin-2011";
@@ -800,7 +801,8 @@ function extractRawSIFTFeatureForOneVideoProgram($szLocalKeyFrameDir, $szLocalFe
     // download and extract ALL .tar files from the server to the local dir
     $szServerKeyFrameDir = sprintf("%s/%s/%s", $szRootKeyFrameDir, $szVideoPath, $szVideoID);
     
-    if ($nUseTarFileForKeyFrame)
+    global $gnUseTarFileForKeyFrame;
+    if ($gnUseTarFileForKeyFrame)
     {
         $arTarFileList = collectFilesInOneDir($szServerKeyFrameDir, "", ".tar");
         foreach ($arTarFileList as $szTarFileName)

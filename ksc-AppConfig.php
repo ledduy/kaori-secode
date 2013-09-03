@@ -114,7 +114,7 @@ $gszFeatureFormat = "dvf";
 $gszFeatureConfigDir = "BaselineFeatureConfig";
 
 // ////////////////// THIS PART FOR CUSTOMIZATION ////////////////////
-$nUseTarFileForKeyFrame = 0; // whether to pack keyframes in .tar files
+$gnUseTarFileForKeyFrame = 0; // whether to pack keyframes in .tar files
                              
 // Root of a benchmark, e.g. trecvid-sin-2011, trecvid-med-2011, imageCLEF, ImageNet
                              // $gszRootBenchmarkDir = "/net/per610a/export/das09f/satoh-lab/ledduy/ImageCLEF/2012/PhotoAnnFlickr"; // *** CHANGED ***
