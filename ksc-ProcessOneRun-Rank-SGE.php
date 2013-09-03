@@ -30,7 +30,7 @@
 require_once "ksc-AppConfig.php";
 
 ////////////////////////// THIS PART IS FOR CUSTOMIZATION ///////////////////////
-$szProjectCodeName = "kaori-secode-tvsin13";
+$szProjectCodeName = "kaori-secode-bow-test"; // *** CHANGED ***
 $szCoreScriptName = "ksc-ProcessOneRun-Rank";
 
 //$szSGEScriptDir = "/net/per900b/raid0/ledduy/kaori-secode/php-TVSIN11";
@@ -45,9 +45,10 @@ makeDir($szRootScriptOutputDir);
 
 $szRootDir = $gszRootBenchmarkDir; // defined in ksc-AppConfig
 
-$szExpName = "hlf-tv2013";
-$nMaxConcepts = 60;
-$nNumConceptsPerHost = 1; 
+$szExpName = "imageclef2012-PhotoAnnFlickr"; // *** CHANGED ***
+
+$nMaxConcepts = 100; // *** CHANGED ***
+$nNumConceptsPerHost = 1; // *** CHANGED ***
 
 //////////////////// END FOR CUSTOMIZATION ////////////////////
 

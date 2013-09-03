@@ -26,7 +26,7 @@ date
 echo [$HOSTNAME] [$JOB_ID] [ksc-ProcessOneRun-Rank] [$1] [$2] [$3] [$4]
 
 # change to the code dir  --> NEW!!!  *** CHANGED ***
-cd /net/per900b/raid0/ledduy/github-projects/kaori-secode
+cd /net/per900b/raid0/ledduy/github-projects/kaori-secode-bow-test
 
 # Log info of current dir
 pwd

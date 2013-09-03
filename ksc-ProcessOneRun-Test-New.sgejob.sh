@@ -7,7 +7,7 @@
 #$ -S /bin/sh
 
 # Force to limit hosts running jobs
-#$ -q all.q@@bc2hosts,all.q@@bc4hosts,all.q@@bc5hosts,all.q@@bc3hosts 
+#$ -q all.q@@bc2hosts,all.q@@bc4hosts,all.q@@bc5hosts,all.q@@bc1hosts 
 
 # Run in currect dir
 #$ -cwd
@@ -22,7 +22,7 @@ export LD_LIBRARY_PATH=/net/per900b/raid0/ledduy/usr.local/lib:$LD_LIBRARY_PATH
 echo [$HOSTNAME] [$JOB_ID] [ksc-ProcessOneRun-Test-New] [$1] [$2] [$3] [$4] [$5] [$6]
 
 # change to the code dir  --> NEW!!!  *** CHANGED ***
-cd /net/per900b/raid0/ledduy/github-projects/kaori-secode
+cd /net/per900b/raid0/ledduy/github-projects/kaori-secode-bow-test
 
 # Log info of current dir
 pwd

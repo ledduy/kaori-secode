@@ -7,7 +7,7 @@
 #$ -S /bin/sh
 
 # Force to limit hosts running jobs
-#$ -q all.q@@bc3hosts,all.q@@bc4hosts,all.q@@bc5hosts
+#$ -q all.q@@bchosts
 
 # Run in currect dir
 #$ -cwd
@@ -22,7 +22,7 @@ date
 echo [$HOSTNAME] [$JOB_ID] [ksc-ProcessOneRun-Train-New] [$1] [$2] [$3] [$4]
 
 # change to the code dir  --> NEW!!!  *** CHANGED ***
-cd /net/per900b/raid0/ledduy/github-projects/kaori-secode
+cd /net/per900b/raid0/ledduy/github-projects/kaori-secode-bow-test
 
 # Log info of current dir
 pwd

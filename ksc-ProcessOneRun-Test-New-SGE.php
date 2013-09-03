@@ -37,7 +37,7 @@
 require_once "ksc-AppConfig.php";
 
 ////////////////////////////// THIS PART IS FOR CUSTOMIZATION ///////////////////////
-$szProjectCodeName = "kaori-secode-tvsin13"; // *** CHANGED ***
+$szProjectCodeName = "kaori-secode-bow-test"; // *** CHANGED ***
 $szCoreScriptName = "ksc-ProcessOneRun-Test-New"; // *** CHANGED ***
 
 //$szSGEScriptDir = "/net/per900b/raid0/ledduy/kaori-secode/php-TVSIN11";
@@ -51,11 +51,12 @@ $szRootScriptOutputDir = sprintf("%s/%s/%s", $szScriptBinDir, $szProjectCodeName
 makeDir($szRootScriptOutputDir);
 
 $szRootDir = $gszRootBenchmarkDir; // defined in ksc-AppConfig
+$gszRootBenchmarkExpDir = $gszRootBenchmarkDir;
 $szRootExpDir = sprintf("%s/experiments", $gszRootBenchmarkExpDir); // New Jul 18
 
-$szExpName = "hlf-tv2013"; // *** CHANGED ***
+$szExpName = "imageclef2012-PhotoAnnFlickr"; // *** CHANGED ***
 
-$nMaxConcepts = 60; // *** CHANGED ***
+$nMaxConcepts = 100; // *** CHANGED ***
 $nNumConceptsPerHost = 1; // *** CHANGED ***
 
 //--> Be careful on number of jobs per script file. Should be lower than 200.

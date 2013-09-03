@@ -114,6 +114,7 @@ require_once "ksc-Tool-TRECVID.php";
 
 //$szRootDir = "/net/sfv215/export/raid4/ledduy/trecvid-sin-2011";
 $szRootDir = $gszRootBenchmarkDir; // defined in ksc-AppConfig
+$gszRootBenchmarkExpDir = $gszRootBenchmarkDir;
 
 $gnUseProbOutput = 1; // to normalize scores for fusion later
 
@@ -123,13 +124,14 @@ $szFeatureFormat = $gszFeatureFormat;
 // Update Jan 02, 2011
 $nSkipExistingScores = 1; // *** CHANGED ***
 
-$szFPLogFN = "ksc-ProcessOneRun-Test-New.log";
+$szScriptBaseName = basename($_SERVER['SCRIPT_NAME'], ".php");
+$szFPLogFN = sprintf("%s.log", $szScriptBaseName); //*** CHANGED ***
 //////////////////// END FOR CUSTOMIZATION ////////////////////
 
 ////////////////////////////////// START ////////////////////////
 
-$szExpConfig = "hlf-tv2013";
-$szFPRunConfigFN = "/net/dl380g7a/export/ddn11a6/ledduy/trecvid-sin-2013/experiments/hlf-tv2013/runlist/tmp/basic/hlf-tv2013.nsc.bow.harlap6mul.rgbsift.Soft-500.devel-nistNew.norm3x1.ksc.tvsin13.R1.cfg";
+$szExpName = "imageclef2012-PhotoAnnFlickr";
+$szFPRunConfigFN = "/net/sfv215/export/raid6/ledduy/ImageCLEF/2012/PhotoAnnFlickr/experiments/imageclef2012-PhotoAnnFlickr/runlist/imageclef2012-PhotoAnnFlickr.nsc.bow.dense6mul.rgbsift.Soft-500.devel2012.L1norm1x1.ksc.imageclef2012.R1.cfg";
 $nStartConcept = 1;
 $nEndConcept = 2;
 $nStartPrg = 1;

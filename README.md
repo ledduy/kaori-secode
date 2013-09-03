@@ -45,9 +45,30 @@ KAORI-SECODE - A Framework for Semantic Concept Detection
 + rename files in subdir, eg. /net/sfv215/export/raid6/ledduy/ImageCLEF/2012/PhotoAnnFlickr/feature/keyframe-5/bow.codebook.Soft-500.devel2012/nsc.raw.dense6mul.rgbsift/data
 ### Only need for 2 *Centroid* file: Soft-500.devel2012 <-- Soft-500-VL2.imageclef2012.devel.nsc.raw.dense6mul.rgbsift.Centroids-c0-b0.dvf
 *** Check output file -->  OK.
-
 *** Processing time: ave 60mins/job (100KF) 
 
+6. Step 5 - Train & Test classifier 
+*** Features to compare: 
++ nsc.bow.dense6mul.rgbsift.Soft-500.devel2012.L1norm1x1  vs nsc.bow.dense6mul.rgbsift.Soft-500.devel2012.NOnorm1x1 
++ nsc.bow.dense6mul.rgbsift.Soft-500.devel2012.L1norm3x1  vs nsc.bow.dense6mul.rgbsift.Soft-500.devel2012.NOnorm3x1
+*** Prepare run config
+imageclef2012-PhotoAnnFlickr.nsc.bow.dense6mul.rgbsift.Soft-500.devel2012.L1norm1x1.ksc.imageclef2012.R1.cfg: modify FeatureExt and devel & test pat 
 
+*** Modify global config
+imageclef2012-PhotoAnnFlickr.cfg 
+*** Modify code Train --> loadVideoMap
+*** Processing time: 2h - 4h/classifier
+5K+10K --> 5 hours
 --> ImageCLEF 2012 --> some features are NOT COMPLETE 
+
+7. Step 6 - Evaluation
+*** Groundtruth - Raw
+/net/sfv215/export/raid6/ledduy/ImageCLEF/2012/PhotoAnnFlickr/data/fast.hevs.ch/photo-flickr/test_annotations.zip 
+Extract the directory concepts to ImageCLEF/2012/PhotoAnnFlickr/annotation/groundtruth
+
+***
+imageclef2012-PhotoAnnFlickr.all.local+global.new4x4.ksc.imageclef2012.fusion.eval.csv - 33.06 === Reported result of ImageCLEF12 - (NII.Run1.KSC.Loc45-G8)
+dense6mul.rgbsift.NOnorm1x1: 25.46
+dense6mul.rgbsift.NOnorm3x1: 27.96
+dense6mul.rgbsift.L1norm1x1: 25.56 (minor improvement) --> might be due to scaling
 
