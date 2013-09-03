@@ -36,6 +36,8 @@ $szRootMetaDataDir = sprintf("%s/metadata/keyframe-5", $szRootDir);
 $szPatName = "devel-nistNew"; // testNew
 $szTVYear = "tv2012";
 
+$gnUseTarFileForKeyFrame = 0;
+
 // $szPatName = "test.iacc.2.ANew"; // testNew
 // $szTVYear = "tv2013";
 
@@ -85,13 +87,19 @@ function getKeyFrameSizeForOneVideoProgram($szFPOutputFN, $szFPPrgInputFN, $szSe
     $szVideoID = basename($szServerKeyFrameDir);
     $szLocalKeyFrameDir = sprintf("%s/%s/%s", $gszTmpDir, $szScriptBaseName, $szVideoID);
     makeDir($szLocalKeyFrameDir);
-    
-    // download and extract ALL .tar files from the server to the local dir
-    $arTarFileList = collectFilesInOneDir($szServerKeyFrameDir, "", ".tar");
-    
-    foreach ($arTarFileList as $szTarFileName)
+
+    global $gnUseTarFileForKeyFrame;
+    if ($gnUseTarFileForKeyFrame)
     {
-        $szCmdLine = sprintf("tar -xvf %s/%s.tar -C %s", $szServerKeyFrameDir, $szTarFileName, $szLocalKeyFrameDir);
+        $arTarFileList = collectFilesInOneDir($szServerKeyFrameDir, "", ".tar");
+        foreach ($arTarFileList as $szTarFileName)
+        {
+            $szCmdLine = sprintf("tar -xvf %s/%s.tar -C %s", $szServerKeyFrameDir, $szTarFileName, $szLocalKeyFrameDir);
+            execSysCmd($szCmdLine);
+        }
+    } else
+    {
+        $szCmdLine = sprintf("cp %s/*.jpg %s", $szServerKeyFrameDir, $szLocalKeyFrameDir);
         execSysCmd($szCmdLine);
     }
     

@@ -22,7 +22,7 @@ require_once "ksc-AppConfig.php";
 
 // ////////////////// THIS PART FOR CUSTOMIZATION ////////////////////
 
-$szProjectCodeName = "kaori-secode-tvsin13";
+$szProjectCodeName = "kaori-secode-bow-test";
 $szCoreScriptName = "ksc-BOW-GetKeyFrameSize";
 
 // $szSGEScriptDir = "/net/per900b/raid0/ledduy/kaori-secode/php-TVSIN11";
