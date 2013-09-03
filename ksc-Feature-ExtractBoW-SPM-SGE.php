@@ -74,14 +74,12 @@ $arCmdLineList = array();
 $nMaxVideosPerPat = $arMaxVideosPerPatList[$szDestPatName];
 $nNumVideosPerHost = max(1, intval($nMaxVideosPerPat / $nMaxHostsPerPat)); // Oct 19
 
-
 foreach ($arFeatureList as $szFeatureExt)
 {
-    if($nUseL1NormBoW)
+    if ($nUseL1NormBoW)
     {
         $szScriptOutputDir = sprintf("%s/bow.%s.%s/%s-L1Norm", $szRootScriptOutputDir, $szTrialName, $szSourcePatName, $szFeatureExt);
-    }
-    else
+    } else
     {
         $szScriptOutputDir = sprintf("%s/bow.%s.%s/%s-NoNorm", $szRootScriptOutputDir, $szTrialName, $szSourcePatName, $szFeatureExt);
     }
@@ -109,12 +107,11 @@ foreach ($arFeatureList as $szFeatureExt)
         // $szCmdLine = "sleep 2s;";
         // $arCmdLineList[] = $szCmdLine;
     }
-
-    if($nUseL1NormBoW)
+    
+    if ($nUseL1NormBoW)
     {
         $szFPOutputFN = sprintf("%s/runme.qsub.%s.%s.%s-L1Norm.sh", $szScriptOutputDir, $szCoreScriptName, $szDestPatName, $szFeatureExt); // specific for one set of data
-    }
-    else 
+    } else
     {
         $szFPOutputFN = sprintf("%s/runme.qsub.%s.%s.%s-NoNorm.sh", $szScriptOutputDir, $szCoreScriptName, $szDestPatName, $szFeatureExt); // specific for one set of data
     }
@@ -124,74 +121,12 @@ foreach ($arFeatureList as $szFeatureExt)
     }
 }
 
-//$szFPOutputFN = sprintf("%s/runme.qsub.%s.all.sh", $szScriptOutputDir, $szCoreScriptName); // specific for one set of data
-//saveDataFromMem2File($arRunFileList, $szFPOutputFN, "wt");
+// $szFPOutputFN = sprintf("%s/runme.qsub.%s.all.sh", $szScriptOutputDir, $szCoreScriptName); // specific for one set of data
+// saveDataFromMem2File($arRunFileList, $szFPOutputFN, "wt");
 
 /*
- Detectors
-The detector option can be one of the following:
-
---detector harrislaplace
---detector densesampling
-
-
-Harris-Laplace salient point detector
-The Harris-Laplace salient point detector uses a Harris corner detector and subsequently the Laplacian for scale selection. See the paper corresponding to this software for references.
-
-Additional options for the Harris-Laplace salient point detector:
-
---harrisThreshold threshold [default: 1e-9]
---harrisK k [default: 0.06]
---laplaceThreshold threshold [default: 0.03]
-
-
-Dense sampling detector
-The dense sampling samples at every 6th pixel in the image. For better coverage, a honeyrate structure is used: every odd row is offset by half of the sampling spacing (e.g. by 3 pixels by default). This reduces the overlap between points. By default, the dense sampling will automatically infer a single scale from the spacing parameter. However, you can also specify multiple scales to sample at, for example:
-
---detector densesampling --ds_spacing 10 --ds_scales 1.2+2.0
-
-Additional options for the dense sampling detector:
-
---ds_spacing pixels [default: 6]
---ds_scales scale1+scale2+...
-
-The default sampling scale for a spacing of 6 pixels is 1.2.
-
-Descriptors
-The following descriptors are available (the name to pass to --descriptoris shown in parentheses):
-
-RGB histogram (rgbhistogram)
-Opponent histogram (opponenthistogram)
-Hue histogram (huehistogram)
-rg histogram (nrghistogram)
-Transformed Color histogram (transformedcolorhistogram)
-Color moments (colormoments)
-Color moment invariants (colormomentinvariants)
-SIFT (sift)
-HueSIFT (huesift)
-HSV-SIFT (hsvsift)
-OpponentSIFT (opponentsift)
-rgSIFT (rgsift)
-C-SIFT (csift)
-RGB-SIFT(rgbsift), equal to transformed color SIFT (transformedcolorsift). See the journal paper for equivalence.
-
-
-File format (text)
-Files written using --output <filename>look as follows:
-
-KOEN1
-10
-4
-<CIRCLE 91 186 16.9706 0 0>; 28 45 4 0 0 0 9 14 10 119;
-<CIRCLE 156 179 16.9706 0 0>; 7 82 80 62 23 2 15 6 21 23;
-<CIRCLE 242 108 12 0 0>; 50 67 10 0 0 0 69 44 31 23 0 1;
-<CIRCLE 277 105 14.2705 0 0>; 21 12 0 0 7 18 127 50 2 0 0;
-
-The first line is used as a marker for the file format. The second line specifies the dimensionality of the point descriptor. The third line describes the number of points present in the file. Following this header, there is one line per point.
-The per-point lines all consist of two parts: a description of the point (<CIRCLE x y scale orientation cornerness>) and a list of numbers, the descriptor vector. These two parts can be seperated through the semicolon ;. The xand ycoordinates start counting at 1, like Matlab.
-
-By default, the program uses a Harris-Laplace scale-invariant point detector to obtain the scale-invariant points in an image (these are refered to as CIRCLE in the file format of the descriptors). *
-*/
+ * Detectors The detector option can be one of the following: --detector harrislaplace --detector densesampling Harris-Laplace salient point detector The Harris-Laplace salient point detector uses a Harris corner detector and subsequently the Laplacian for scale selection. See the paper corresponding to this software for references. Additional options for the Harris-Laplace salient point detector: --harrisThreshold threshold [default: 1e-9] --harrisK k [default: 0.06] --laplaceThreshold threshold [default: 0.03] Dense sampling detector The dense sampling samples at every 6th pixel in the image. For better coverage, a honeyrate structure is used: every odd row is offset by half of the sampling spacing (e.g. by 3 pixels by default). This reduces the overlap between points. By default, the dense sampling will automatically infer a single scale from the spacing parameter. However, you can also specify multiple scales to sample at, for example: --detector densesampling --ds_spacing 10 --ds_scales 1.2+2.0 Additional options for the dense sampling detector: --ds_spacing pixels [default: 6] --ds_scales scale1+scale2+... The default sampling scale for a spacing of 6 pixels is 1.2. Descriptors The following descriptors are available (the name to pass to --descriptoris shown in parentheses): RGB histogram (rgbhistogram) Opponent histogram (opponenthistogram) Hue histogram (huehistogram) rg histogram (nrghistogram) Transformed Color histogram (transformedcolorhistogram) Color moments (colormoments) Color moment invariants (colormomentinvariants) SIFT (sift) HueSIFT (huesift) HSV-SIFT (hsvsift) OpponentSIFT (opponentsift) rgSIFT (rgsift) C-SIFT (csift) RGB-SIFT(rgbsift), equal to transformed color SIFT (transformedcolorsift). See the journal paper for equivalence. File format (text) Files written using --output <filename>look as follows: KOEN1 10 4 <CIRCLE 91 186 16.9706 0 0>; 28 45 4 0 0 0 9 14 10 119; <CIRCLE 156 179 16.9706 0 0>; 7 82 80 62 23 2 15 6 21 23; <CIRCLE 242 108 12 0 0>; 50 67 10 0 0 0 69 44 31 23 0 1; <CIRCLE 277 105 14.2705 0 0>; 21 12 0 0 7 18 127 50 2 0 0; The first line is used as a marker for the file format. The second line specifies the dimensionality of the point descriptor. The third line describes the number of points present in the file. Following this header, there is one line per point. The per-point lines all consist of two parts: a description of the point (<CIRCLE x y scale orientation cornerness>) and a list of numbers, the descriptor vector. These two parts can be seperated through the semicolon ;. The xand ycoordinates start counting at 1, like Matlab. By default, the program uses a Harris-Laplace scale-invariant point detector to obtain the scale-invariant points in an image (these are refered to as CIRCLE in the file format of the descriptors). *
+ */
 
 ?>
 

@@ -13,101 +13,97 @@
 // Update 23 Nov 2011
 // Adding prefix kl-ZZZ
 
-/////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////
 // GLOBAL VARs
 ini_set("error_reporting", "E_ALL");
 ini_set("allow_url_fopen", "ON");
 ini_set("allow_url_include", "OFF");
 ini_set("memory_limit", "-1"); // UNLIMIT
-ini_set("max_execution_time", "0"); //set_time_limit (0) ; // UNLIMIT
+ini_set("max_execution_time", "0"); // set_time_limit (0) ; // UNLIMIT
 
-$gnAppErrCode = -100;  // recognize errors returned by the application
+$gnAppErrCode = - 100; // recognize errors returned by the application
 $gnNumSamplesPerDot = 100; // used in indicators of loading and saving data
 $gszDelim = "#$#"; // delim string in csv files.
 
 $garEnvConfig = array();
 
-//print_r($_SERVER);
-//print get_include_path();
+// print_r($_SERVER);
+// print get_include_path();
 
-if(version_compare(PHP_VERSION, '5.0.0', '>'))
+if (version_compare(PHP_VERSION, '5.0.0', '>'))
 {
-	date_default_timezone_set('Asia/Tokyo'); // only for PHP 5.0
+    date_default_timezone_set('Asia/Tokyo'); // only for PHP 5.0
 }
 
-///////////////
+// /////////////
 $garEnvConfig["OS_TYPE"] = "Linux";
-if(isset($_SERVER["OS"]))
+if (isset($_SERVER["OS"]))
 {
-	// $_SERVER["OS"] is only available on Windows
-	if(strstr($_SERVER["OS"], "Windows"))  // normally it is Windows_NT
-	{
-		$garEnvConfig["OS_TYPE"] = "Windows";
-	}
+    // $_SERVER["OS"] is only available on Windows
+    if (strstr($_SERVER["OS"], "Windows")) // normally it is Windows_NT
+    {
+        $garEnvConfig["OS_TYPE"] = "Windows";
+    }
 }
 
-if(isset($_SERVER["WINDIR"]))
+if (isset($_SERVER["WINDIR"]))
 {
-	// $_SERVER["WINDIR"] is only available on Windows
-	$garEnvConfig["OS_TYPE"] = "Windows";
+    // $_SERVER["WINDIR"] is only available on Windows
+    $garEnvConfig["OS_TYPE"] = "Windows";
 }
 
 $gszOSType = $garEnvConfig["OS_TYPE"];
 
-///////////////
-if(isset($_SERVER["SERVER_NAME"]))  // sometimes, this variable is not available if using cli
+// /////////////
+if (isset($_SERVER["SERVER_NAME"])) // sometimes, this variable is not available if using cli
 {
-	$garEnvConfig["SERVER_NAME"] = $_SERVER["SERVER_NAME"];
-}
-else
+    $garEnvConfig["SERVER_NAME"] = $_SERVER["SERVER_NAME"];
+} else
 {
-	$garEnvConfig["SERVER_NAME"] = "Server-Name-N/A";
+    $garEnvConfig["SERVER_NAME"] = "Server-Name-N/A";
 }
 
-if(isset($_SERVER["SERVER_ADDR"]))
+if (isset($_SERVER["SERVER_ADDR"]))
 {
-	$garEnvConfig["SERVER_ADDR"] = $_SERVER["SERVER_ADDR"];
-}
-else
+    $garEnvConfig["SERVER_ADDR"] = $_SERVER["SERVER_ADDR"];
+} else
 {
-	$garEnvConfig["SERVER_ADDR"]  = "Server-Addr-N/A";
+    $garEnvConfig["SERVER_ADDR"] = "Server-Addr-N/A";
 }
 
 if (isset($_ENV["HOSTNAME"]))
 {
     $garEnvConfig["MACHINE_NAME"] = $_ENV["HOSTNAME"];
-}
-else 
+} else
 {
-	if  (isset($_ENV["COMPUTERNAME"]))
-	{
-    	$garEnvConfig["MACHINE_NAME"] = $_ENV["COMPUTERNAME"];
-	}
-	else 
-	{
-		$garEnvConfig["MACHINE_NAME"] = "Machine-Name-N/A";
-	}
+    if (isset($_ENV["COMPUTERNAME"]))
+    {
+        $garEnvConfig["MACHINE_NAME"] = $_ENV["COMPUTERNAME"];
+    } else
+    {
+        $garEnvConfig["MACHINE_NAME"] = "Machine-Name-N/A";
+    }
 }
 
-///////////////
+// /////////////
 /**
- *	Get OS type: Linux or Windows.
+ * Get OS type: Linux or Windows.
  */
 function getOSType()
 {
-	global $garEnvConfig;
-
-	return $garEnvConfig["OS_TYPE"];
+    global $garEnvConfig;
+    
+    return $garEnvConfig["OS_TYPE"];
 }
 
 /**
- * 	Get server name.
+ * Get server name.
  */
 function getServerName()
 {
-	global $garEnvConfig;
-
-	return $garEnvConfig["SERVER_NAME"];
+    global $garEnvConfig;
+    
+    return $garEnvConfig["SERVER_NAME"];
 }
 
 /**
@@ -115,10 +111,9 @@ function getServerName()
  */
 function getServerAddr()
 {
-	global $garEnvConfig;
-
-	return $garEnvConfig["SERVER_ADDR"];
-
+    global $garEnvConfig;
+    
+    return $garEnvConfig["SERVER_ADDR"];
 }
 
 /**
@@ -126,20 +121,19 @@ function getServerAddr()
  */
 function getMachineName()
 {
-	global $garEnvConfig;
-
-	return $garEnvConfig["MACHINE_NAME"];
+    global $garEnvConfig;
+    
+    return $garEnvConfig["MACHINE_NAME"];
 }
 
 function getDateTime()
 {
-	// 03.01.2009, 15:20:30
-	return date("d-m-Y, H:i:s");
+    // 03.01.2009, 15:20:30
+    return date("d-m-Y, H:i:s");
 }
 
 /*
- phpinfo();
- print_r($_SERVER);
-*/
+ * phpinfo(); print_r($_SERVER);
+ */
 ?>
 

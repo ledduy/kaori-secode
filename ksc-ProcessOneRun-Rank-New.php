@@ -152,7 +152,7 @@ for ($i = $nStartConceptID; $i < $nEndConceptID; $i ++)
     $arTz = explode(".", $szConceptName);
     $szCoreConceptName = trim($arTz[1]);
     $nCoreConceptID = intval($arTz[0]);
-    $szRawConceptName = sprintf("%d %s", $nCoreConceptID-9000, $szCoreConceptName);
+    $szRawConceptName = sprintf("%d %s", $nCoreConceptID - 9000, $szCoreConceptName);
     $szFPGroundTruthFN = sprintf("%s/groundtruth/%s.txt", $szExpAnnDir, $szRawConceptName);
     loadListFile($arRawGTList, $szFPGroundTruthFN);
     $arAnnList = array();

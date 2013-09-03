@@ -438,6 +438,12 @@ $gnStepG = $arRunConfig['svm_grid_step_G'];
 $gnKernelType = $arRunConfig['kernel'];
 $gnUseProbOutput = $arRunConfig['svm_train_use_prob_output'];
 
+$gnPerformDataScaling = 1; // default --> OLD ONE
+if(isset($arRunConfig['svm_scaling']))
+{
+    $gnPerformDataScaling = $arRunConfig['svm_scaling'];
+}
+
 // pos label is +1 and neg label is -1
 // in training data, pos samples must appear before neg samples --> useful for prediction later.
 $gszSVMSubParam = sprintf("-w1 %f -w-1 %f -m %d -e %f -h %d", $gfPosWeight, $gfNegWeight, $gnMemSize, $gnEpsilon, $gnShrinkingHeuristic);

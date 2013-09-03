@@ -70,5 +70,9 @@ Extract the directory concepts to ImageCLEF/2012/PhotoAnnFlickr/annotation/groun
 imageclef2012-PhotoAnnFlickr.all.local+global.new4x4.ksc.imageclef2012.fusion.eval.csv - 33.06 === Reported result of ImageCLEF12 - (NII.Run1.KSC.Loc45-G8)
 dense6mul.rgbsift.NOnorm1x1: 25.46
 dense6mul.rgbsift.NOnorm3x1: 27.96
-dense6mul.rgbsift.L1norm1x1: 25.56 (minor improvement) --> might be due to scaling
+dense6mul.rgbsift.L1norm1x1: 25.56 (minor improvement) --> might be due to scaling - WIN: 50 - LOSE: 44
+dense6mul.rgbsift.L1norm1x1: 27.68 (minor decrease) WIN: 46 - LOSE: 48
 
+8. Step 7 - Check scaling in training 
+*** New param: $nPerformDataScaling = 0;
+*** New config param in file .cfg
