@@ -171,7 +171,7 @@ $szExpModelDir = sprintf("%s/%s", $szRootExpDir, $arConfig['model_dir']); // ann
 $szExpResultDir = sprintf("%s/%s", $szRootExpDir, $arConfig['result_dir']); // annotation
 
 $gnPerformDataScaling = 1; // default --> OLD ONE
-if (isset($arConfig['svm_scaling']))
+if (isset($arRunConfig['svm_scaling']))
 {
     $gnPerformDataScaling = $arRunConfig['svm_scaling'];
 }

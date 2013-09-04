@@ -66,13 +66,27 @@ imageclef2012-PhotoAnnFlickr.cfg
 /net/sfv215/export/raid6/ledduy/ImageCLEF/2012/PhotoAnnFlickr/data/fast.hevs.ch/photo-flickr/test_annotations.zip 
 Extract the directory concepts to ImageCLEF/2012/PhotoAnnFlickr/annotation/groundtruth
 
-***
+*** Having scaling --> R1 run
 imageclef2012-PhotoAnnFlickr.all.local+global.new4x4.ksc.imageclef2012.fusion.eval.csv - 33.06 === Reported result of ImageCLEF12 - (NII.Run1.KSC.Loc45-G8)
 dense6mul.rgbsift.NOnorm1x1: 25.46
 dense6mul.rgbsift.NOnorm3x1: 27.96
-dense6mul.rgbsift.L1norm1x1: 25.56 (minor improvement) --> might be due to scaling - WIN: 50 - LOSE: 44
-dense6mul.rgbsift.L1norm1x1: 27.68 (minor decrease) WIN: 46 - LOSE: 48
+dense6mul.rgbsift.L1norm1x1: 25.56 (minor improvement vs 25.46) --> might be due to scaling - WIN: 50 - LOSE: 44
+dense6mul.rgbsift.L1norm3x1: 27.68 (minor decrease vs 27.96) WIN: 46 - LOSE: 48
+
+### Conclusion: nomr3x1 BETTER THAN norm 1x1, NO significant IMPROVEMENT between NONorm and L1Norm using svm_scaling = 1
 
 8. Step 7 - Check scaling in training 
 *** New param: $nPerformDataScaling = 0;
-*** New config param in file .cfg
+*** New config param in file .cfg 'svm_scaling'
+
+No-scaling --> R2 run
+dense6mul.rgbsift.NOnorm1x1: 7.40 (vs 25.46)
+dense6mul.rgbsift.NOnorm3x1: 6.83 (vs 27.96) --> even worse than NOnorm1x1.
+dense6mul.rgbsift.L1norm1x1: 23.11 (vs 25.56)
+dense6mul.rgbsift.L1norm3x1: 24.90 (vs 27.68) 
+
+### Conclusion: svm_scaling=1 BETTERN THAN svm_scaling=0, NOnorm + svm-scaling=0 ==> the WORST
+
+
+9. Step 8 - Check codebook size + Scaling + L1norm3x1
+1K
