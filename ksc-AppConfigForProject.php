@@ -82,7 +82,7 @@ $nNumKFPerJob = $nMaxKFPerVideo; // *** CHANGED ***
                                  
 // this param is used for ksc-BOW-Quantization-SelectKeyPointsForClustering.php
                                  // if no shot case (e.g, imageclef, imagenet), it is the ave number of keyframes per video.
-$nAveShotPerVideo = 1000; // *** CHANGED ***
+$nAveShotPerVideo = 100; // *** CHANGED ***
                           
 // set for training --> used to find cluster centers
 $arBOWDevPatList = array(

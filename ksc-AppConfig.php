@@ -160,7 +160,8 @@ $gnMaxFrameHeight = 500; // *** CHANGED ***
 $gszResizeOption = sprintf("-resize '%sx%s>'", $gnMaxFrameWidth, $gnMaxFrameHeight); // to ensure W is the width after shrinking
                                                                                      
 // / !!! IMPORTANT PARAM !!!
-$nNumClusters = 500;
+//$nNumClusters = 500;
+$nNumClusters = 1000;
 $szKMeansMethod = 'elkan';
 
 $szTrialName = sprintf("Soft-%d", $nNumClusters);

@@ -82,8 +82,8 @@ $szRootDir = $gszRootBenchmarkDir; // defined in ksc-AppConfig
 
 $szRootMetaDataDir = sprintf("%s/metadata/keyframe-5", $szRootDir);
 
-$szSrcPatName = "subtest2012-new"; // must be a member of $arPatList
-$szRawFeatureExt = "nsc.raw.dense4.sift";
+$szSrcPatName = "devel2012"; // must be a member of $arPatList
+$szRawFeatureExt = "nsc.raw.dense6mul.rgbsift";
 
 // / !!! IMPORTANT
 //$nMaxKeyPoints = intval(10000.0);  --> for Debug only
@@ -103,7 +103,7 @@ $fVideoSamplingRate = 1.0; // percentage of videos of the set will be selected
 $fKeyFrameSamplingRate = 0.00001; // i.e. 1KF/shot - $nNumSelKFs = intval(max(1, $fKeyFrameSamplingRate*$nNumKFsPerShot));
                                   
 // *** CHANGED ***
-$fShotSamplingRate = 1.0; // lower this value if we want more videos, percentage of shots of one video will be selected
+$nAveShotPerVideo = 100; // *** CHANGED ***
 
 $nMaxBlocksPerChunk = 1; // only one chunk
 $nMaxSamplesPerBlock = $nMaxKeyPoints * 2; // larger than maxKP to ensure all keypoints in 1 chunk-block
@@ -160,6 +160,7 @@ $szDataPrefix = sprintf("%s.%s.%s", $szTrialName, $szSrcPatName, $szRawFeatureEx
 $szDataExt = "dvf";
 
 $arAllKeyFrameList = selectKeyFrames($nMaxKeyFrames, $fVideoSamplingRate, $fShotSamplingRate, $fKeyFrameSamplingRate, $szFPVideoListFN, $szRootMetaDataDir, $szRawFeatureExt);
+//print_r($arAllKeyFrameList); exit();
 
 $szLocalTmpDir = sprintf("%s/%s", $szTmpDir, $szSrcPatName);
 makeDir($szLocalTmpDir);
