@@ -171,13 +171,14 @@ $szExpModelDir = sprintf("%s/%s", $szRootExpDir, $arConfig['model_dir']); // ann
 $szExpResultDir = sprintf("%s/%s", $szRootExpDir, $arConfig['result_dir']); // annotation
 
 $gnPerformDataScaling = 1; // default --> OLD ONE
-if(isset($arConfig['svm_scaling']))
+if (isset($arConfig['svm_scaling']))
 {
-    $gnPerformDataScaling = $arConfig['svm_scaling'];
+    $gnPerformDataScaling = $arRunConfig['svm_scaling'];
 }
+
 // !!! IMPORTANT CHANGE Update Jul 18
-                                                                            // $szRootMetaDataKFDir = $arConfig['root_metadata_kf_dir'];
-                                                                            // $szRootFeatureDir = $arConfig['root_feature_dir']; //
+// $szRootMetaDataKFDir = $arConfig['root_metadata_kf_dir'];
+// $szRootFeatureDir = $arConfig['root_feature_dir']; //
 
 $szRootMetaDataKFDir = getRootBenchmarkMetaDataDir($szFeatureExt);
 $szRootFeatureDir = getRootBenchmarkFeatureDir($szFeatureExt);
@@ -294,10 +295,14 @@ for ($i = $nStartConcept; $i < $nEndConcept; $i ++)
     $szCmdLine = sprintf("cp %s.tar.gz %s", $szFPModelFN, $szTmpModelDir);
     execSysCmd($szCmdLine);
     
-    // data for normalization
-    $szFPModelNormDataFN = sprintf("%s/%s.normdat", $szModelDir, $szTrainDataName);
-    $szCmdLine = sprintf("cp %s %s", $szFPModelNormDataFN, $szTmpModelDir);
-    execSysCmd($szCmdLine);
+    if ($gnPerformDataScaling)
+    {
+        
+        // data for normalization
+        $szFPModelNormDataFN = sprintf("%s/%s.normdat", $szModelDir, $szTrainDataName);
+        $szCmdLine = sprintf("cp %s %s", $szFPModelNormDataFN, $szTmpModelDir);
+        execSysCmd($szCmdLine);
+    }
     
     // extract, i.e. decompress
     $szFPLocalModelFN = sprintf("%s/%s.model", $szTmpModelDir, $szTrainDataName);
