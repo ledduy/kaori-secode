@@ -51,8 +51,6 @@ $szFPLogFN = "/dev/null";
 
 foreach ($arPatList as $szPatName => $nMaxVideosPerPat)
 {
-    $szVideoPath = sprintf("%s/%s", $szTVYear, $szPatName);
-    
     $nNumVideosPerHost = intval($nMaxVideosPerPat / $nMaxHostsPerPat);
     
     for ($j = 0; $j < $nMaxVideosPerPat; $j += $nNumVideosPerHost)

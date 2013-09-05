@@ -87,6 +87,15 @@ dense6mul.rgbsift.L1norm3x1: 24.90 (vs 27.68)
 
 ### Conclusion: svm_scaling=1 BETTERN THAN svm_scaling=0, NOnorm + svm-scaling=0 ==> the WORST
 
-
 9. Step 8 - Check codebook size + Scaling + L1norm3x1
-1K
+Codebook: 1K - 1.5M keypoints --> 16.0GB RAM (elkan), 20. GB RAM (GMM-vlfeat-0.9.17)
+- Training codebook: 12 hours - 8 hours for extracting 1.5M keypoints and 4 hours for clustering (1K codewords)
+svm_scaling.Soft-1000.dense6mul.rgbsift.L1norm1x1: 26.75 (vs 25.56)
+svm_scaling.Soft-1000.dense6mul.rgbsift.L1norm1x1: ??? (vs 27.68)
+
+Codebook: 4K - copy data 1.5M keypoints from Codebook 1K
+
+
+10. Step 9 - Check number of scales
+- "nsc.raw.dense6mul3.rgbsift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+2.0+3.2 --descriptor rgbsift",
+- Codebook size = 1000

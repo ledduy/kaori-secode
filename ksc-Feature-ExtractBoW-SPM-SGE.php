@@ -55,6 +55,9 @@ $arFeatureList = array(
     "nsc.raw.harlap6mul.rgbsift"
 );
 
+$szSourcePatName = "devel2012";
+$szDestPatName = "test2012";
+
 // ////////////////// END FOR CUSTOMIZATION ////////////////////
 
 // /////////////////////////// MAIN ////////////////////////////////
