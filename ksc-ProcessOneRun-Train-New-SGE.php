@@ -134,11 +134,12 @@ foreach ($arRunList as $szRunID)
         $nEnd = $nStart + $nNumConceptsPerHost;
         
         $szFPLogFN = "/dev/null";
+        $szFPErrFN = sprintf("%s/%s.%s.err", $gszSGEScriptDir, $szCoreScriptName, $szRunID);
         
         $szFPRunIDConfig = sprintf("%s/%s.cfg", $szRunListConfigDir, $szRunID);
         // Usage: %s <RunID> <Start> <End>
         $szParam = sprintf("%s %s %s %s", $szExpName, $szFPRunIDConfig, $nStart, $nEnd);
-        $szCmdLine = sprintf("qsub -e %s -o %s %s %s", $szFPLogFN, $szFPLogFN, $szFPSGEScriptName, $szParam);
+        $szCmdLine = sprintf("qsub -e %s -o %s %s %s", $szFPErrFN, $szFPLogFN, $szFPSGEScriptName, $szParam);
         
         $arCmdLineList[] = $szCmdLine;
         
