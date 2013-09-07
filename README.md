@@ -91,11 +91,23 @@ dense6mul.rgbsift.L1norm3x1: 24.90 (vs 27.68)
 Codebook: 1K - 1.5M keypoints --> 16.0GB RAM (elkan), 20. GB RAM (GMM-vlfeat-0.9.17)
 - Training codebook: 12 hours - 8 hours for extracting 1.5M keypoints and 4 hours for clustering (1K codewords)
 svm_scaling.Soft-1000.dense6mul.rgbsift.L1norm1x1: 26.75 (vs 25.56)
-svm_scaling.Soft-1000.dense6mul.rgbsift.L1norm1x1: ??? (vs 27.68)
+svm_scaling.Soft-1000.dense6mul.rgbsift.L1norm1x1: 28.80 (vs 27.68)
+
+### Conclusion: 1K codebook > 0.5K codebook 
 
 Codebook: 4K - copy data 1.5M keypoints from Codebook 1K
 
 
+### Note: Training and Testing are SLOWER
+
 10. Step 9 - Check number of scales
 - "nsc.raw.dense6mul3.rgbsift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+2.0+3.2 --descriptor rgbsift",
 - Codebook size = 1000
+- Processing time: Codebook generation: 12 hours (1 core), feature extraction: 3 hours (multi-cores) for 15K keyframes.
+
+svm_scaling.Soft-1000.dense6mul3.rgbsift.L1norm1x1: 26.59 (vs 26.75) - WIN: 37 
+svm_scaling.Soft-1000.dense6mul3.rgbsift.L1norm3x1: (vs 28.80)
+
+11. Step 10 - Check fisher vector
+matlab -nodisplay -nojvm
+ ksc_FV_DoGMMClusteringKeyPoints_VLFEAT('Soft-1000.devel2012.nsc.raw.dense6mul.rgbsift.gmm128','/net/sfv215/export/raid6/ledduy/ImageCLEF/2012/PhotoAnnFlickr/feature/keyframe-5/bow.codebook.Soft-1000.devel2012/nsc.raw.dense6mul.rgbsift/data/Soft-1000.devel2012.nsc.raw.dense6mul.rgbsift-c0-b0.csv', 128)

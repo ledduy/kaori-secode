@@ -137,7 +137,8 @@ $garAppConfig["BL_FEATURE_EXTRACT_APP"] = "FeatureExtractorCmd/FeatureExtractorC
 $garAppConfig["RAW_COLOR_SIFF_APP"] = "colordescriptor30/x86_64-linux-gcc/colorDescriptor ";
 
 // VLFEAT
-$garAppConfig["RAW_VLFEAT_DIR"] = "vlfeat-0.9.14"; // --> move to subdir
+//$garAppConfig["RAW_VLFEAT_DIR"] = "vlfeat-0.9.14"; // --> move to subdir
+$garAppConfig["RAW_VLFEAT_DIR"] = "vlfeat-0.9.17"; // --> move to subdir
                                                    
 // Oxford VGG's code
 $garAppConfig["RAW_AFF_COV_SIFF_APP"] = "aff.cov.sift/extract_features_64bit.ln";
