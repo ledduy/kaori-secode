@@ -3,7 +3,7 @@
 /**
  * 		@file 	ksc-BOW-Quantization-DoClusteringKeyPoints-VLFEAT.php
  * 		@brief 	Do clustering for keypoints using VLFeat-Elkan+Matlab.
- *		Used with nsc_BOW_DoClusteringKeyPoints_VLFEAT_TV10
+ *		Used with ksc_BOW_DoClusteringKeyPoints_VLFEAT.m
  *		@author Duy-Dinh Le (ledduy@gmail.com, ledduy@ieee.org).
  *
  * 		Copyright (C) 2010-2013 Duy-Dinh Le.
@@ -21,7 +21,7 @@
 % szFPCentroidOutputFN - centroids of output clusters
 % szFPIMemOutputFN - cluster assignment
 % run('toolbox/vl_setup'); --> must call to init env
-% 1M keypoints --> 3GB memory
+% 1.5M keypoints --> 60GB memory
 % Written by Duy-Dinh Le
 % Last update: Feb 21, 2011
 % Using k-means, (not integer kmeans as before)
@@ -63,9 +63,7 @@ end
     of each point to all cluster centers, which can be extremely slow. 
  */
 
-// Aug 14, 2013 - For 1.5M keypoints of dense6mul.rgbsift --> 8.7GB RAM ==> 54GB for running k-means
-
-// For 1.5M keypoints of dense6mul.oppsift --> 15GB RAM for running k-means
+// Aug 14, 2013 - For 1.5M keypoints of dense6mul.rgbsift ==> 60GB for running k-means
 
 //*** Update Jul 08, 2012
 //--> Check FeatureOutputDir for load balancing
@@ -252,33 +250,5 @@ function convertDvf2CSVFormat($szFPOutputFN, $szFPInputFN)
 	$arOutput = array();
 }
 
-/*
- % Do clustering using VLFEAT-matlab
-% This script must be put in vlfeat dir
-% szFPInputFN - input file name in csv format
-% szFPCentroidOutputFN - centroids of output clusters
-% szFPIMemOutputFN - cluster assignment
-% Using integer k-means
-% run('toolbox/vl_setup'); --> must call to init env
-% 1M keypoints --> 3GB memory
-% Written by Duy-Dinh Le
-% Last update: Feb 08, 2011
 
-function nsc_BOW_DoClusteringKeyPoints_VLFEAT_TV10(szFPCentroidOutputFN, szFPIMemOutputFN, szFPInputFN, nNumClusters, szMethod)
-
-run('toolbox/vl_setup'); % init env
-
-fprintf(1, 'Loading csv data file ...\n');
-data = csvread(szFPInputFN);
-
-fprintf(1, 'Performing k-means [%u] clusters with method [%s]...\n', nNumClusters, szMethod);
-% [C,A] = vl_ikmeans(uint8(data'),nNumClusters,'method', szMethod) ; % convert to unit8, and transpose
-[C,A] = vl_kmeans(data',nNumClusters,'method', szMethod) ; % transpose
-
-fprintf(1, 'Saving output data...\n');
-dlmwrite(szFPCentroidOutputFN, C'); % transpose C
-dlmwrite(szFPIMemOutputFN, A');
-quit;  % quit matlab since it is used to run within PHP
-end
-*/
 ?>
