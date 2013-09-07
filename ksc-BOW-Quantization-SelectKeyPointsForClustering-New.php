@@ -89,7 +89,7 @@ $szRawFeatureExt = "nsc.raw.dense6mul.rgbsift";
 
 // / !!! IMPORTANT
 //$nMaxKeyPoints = intval(10000.0);  --> for Debug only
-$nMaxKeyPoints = intval(1500000.0); // 1.5 M - max keypoints for clustering
+$nMaxKeyPoints = intval(1500.0); // 1.5 M - max keypoints for clustering
                                     
 // average number of keypoints per key frame --> used in function loadOneRawSIFTFile
 $nAveKeyPointsPerKF = 1000;
@@ -123,6 +123,12 @@ if ($argc != 3)
 
 $szSrcPatName = $argv[1];
 $szRawFeatureExt = $argv[2];
+
+if(!isset($arFeatureParamConfigList[$szRawFeatureExt]))
+{
+    print_r($arFeatureParamConfigList);
+    exit("Feature ext is not supported. Check arFeatureParamConfigList\n");
+}
 
 // Re-calculate $fShotSamplingRate
 $nMaxVideos = $arMaxVideosPerPatList[$szSrcPatName];
@@ -592,7 +598,7 @@ function extractRawSIFTFeatureForOneImage($szAppName, $szFeatureConfigParam, $sz
         return - 1;
     }
     
-    if (! file_exists($szFPInputImgFN))
+    if (!file_exists($szFPInputImgFN))
     {
         printf("File not found [%s]\n", $szFPInputImgFN);
         return - 1;
@@ -626,6 +632,11 @@ function extractRawSIFTFeatureForOneImage($szAppName, $szFeatureConfigParam, $sz
     $szCmdLine = sprintf("%s %s %s --output %s", $szAppName, $szFPJPGInputFN, $szFeatureConfigParam, $szFPFeatureTmpFN2);
     execSysCmd($szCmdLine);
     
+    if(!file_exists($szFPFeatureTmpFN2))
+    {
+        printf("File not found [%s]\n", $szFPFeatureTmpFN2);
+        return -1;
+    }
     convertRawColorSIFT2StandardFormat($szFPFeatureOutputFN, $szFPFeatureTmpFN2);
     
     // delete files
@@ -676,6 +687,7 @@ function convertRawColorSIFT2StandardFormat($szFPOutputFN, $szFPInputFN)
         $arSimpleOutput[] = sprintf("%s", $szParam); // only keep param
     }
     saveDataFromMem2File($arOutput, $szFPOutputFN);
+    //print_r($arOutput); exit();
     
     $szFPSimpleOutputFN = sprintf("%s.loc", $szFPOutputFN);
     saveDataFromMem2File($arSimpleOutput, $szFPSimpleOutputFN);
