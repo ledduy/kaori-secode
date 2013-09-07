@@ -89,7 +89,7 @@ $szRawFeatureExt = "nsc.raw.dense6mul.rgbsift";
 
 // / !!! IMPORTANT
 //$nMaxKeyPoints = intval(10000.0);  --> for Debug only
-$nMaxKeyPoints = intval(1500.0); // 1.5 M - max keypoints for clustering
+$nMaxKeyPoints = intval(1500000.0); // 1.5 M - max keypoints for clustering
                                     
 // average number of keypoints per key frame --> used in function loadOneRawSIFTFile
 $nAveKeyPointsPerKF = 1000;
