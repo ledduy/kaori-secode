@@ -161,7 +161,8 @@ $gszResizeOption = sprintf("-resize '%sx%s>'", $gnMaxFrameWidth, $gnMaxFrameHeig
                                                                                      
 // / !!! IMPORTANT PARAM !!!
 //$nNumClusters = 500;
-$nNumClusters = 1000;
+//$nNumClusters = 1000;
+$nNumClusters = 4000; // 60GR RAM is needed!!!
 $szKMeansMethod = 'elkan';
 
 $szTrialName = sprintf("Soft-%d", $nNumClusters);

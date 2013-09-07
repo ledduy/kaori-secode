@@ -52,7 +52,8 @@ $arFeatureList = array(
     "nsc.raw.dense6mul.rgbsift",
     "nsc.raw.dense6mul.oppsift",
     
-    "nsc.raw.harlap6mul.rgbsift"
+    "nsc.raw.harlap6mul.rgbsift",
+    "nsc.raw.dense6mul3.rgbsift",
 );
 
 $szSourcePatName = "devel2012";

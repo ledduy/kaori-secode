@@ -73,7 +73,10 @@ $arFeatureParamConfigList = array(
     "nsc.raw.dense4mul.oppsift" => "--detector densesampling --ds_spacing 4 --ds_scales 1.2+2.0 --descriptor opponentsift",
     
     "nsc.raw.harlap6mul.rgbsift" => "--detector harrislaplace --descriptor rgbsift",
-
+    "nsc.raw.harlap6mul.sift" => "--detector harrislaplace --descriptor sift",
+    "nsc.raw.harlap6mul.csift" => "--detector harrislaplace --descriptor csift",
+    "nsc.raw.harlap6mul.oppsift" => "--detector harrislaplace --descriptor oppsift",
+    
     "nsc.raw.dense6mul3.rgbsift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+2.0+3.2 --descriptor rgbsift",
 );
 
