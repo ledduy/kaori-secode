@@ -133,7 +133,7 @@ $szCmdLine = sprintf("chmod +x %s", $szFPCmdFN);
 system($szCmdLine);
 
 system($szFPCmdFN);
-// deleteFile($szFPCmdFN);
+deleteFile($szFPCmdFN);
 
 // delete file
 // deleteFile($szFPCSVInputFN);
