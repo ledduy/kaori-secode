@@ -531,6 +531,10 @@ function selectKeyPointsFromKeyFrameList($szOutputDir, $szDataPrefix, $szDataExt
             $arOutput = array();
             deleteFile($szFPSIFTDataFN);
             
+            // delete .loc file
+            $szFPSIFTDataFN = sprintf("%s.loc", $szFPSIFTDataFN);
+            deleteFile($szFPSIFTDataFN);
+            
             if ($nNumKPs >= $nMaxKeyPoints)
             {
                 printf("### Reach the limit [%s]. Break\n", $nMaxKeyPoints);
