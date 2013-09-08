@@ -209,9 +209,13 @@ function runSelectBestParams($szDataName, $szInputDir, $szModelDir, $szSearchRan
     system($szCmdLine);
     
     $szResultOutFN = sprintf("%s.param.txt", $szFPSubSetOutputFN);
-    $szCmdLine = runGridSearch($szResultOutFN, $szFPSubSetOutputFN, $szSearchRange, $szSVMSubParam, $nKernelType);
-    printf("%s\n", $szCmdLine);
-    system($szCmdLine);
+    
+    if(!file_exists($szResultOutFN))
+    {
+        $szCmdLine = runGridSearch($szResultOutFN, $szFPSubSetOutputFN, $szSearchRange, $szSVMSubParam, $nKernelType);
+        printf("%s\n", $szCmdLine);
+        system($szCmdLine);
+    }
     
     $arOutput = selectBestSVMParamFromGridSearchResult($szResultOutFN);
     
