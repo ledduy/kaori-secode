@@ -98,7 +98,10 @@ svm_scaling.Soft-1000.dense6mul.rgbsift.L1norm1x1: 28.80 (vs 27.68)
 Codebook: 4K - copy data 1.5M keypoints from Codebook 1K
 
 
-### Note: Training and Testing are SLOWER
+### Note: Training and Testing are SLOWER (10-18 hours - 4K)
+4K codebook, norm3x1.rgbsift, 15K pos+neg samples ==> 2.5GB data file 
+--> scaling take times
+4K codebook, norm1x1.rgbsift, 15K pos+neg samples ==> 260M (tar.gz) model file, training time: 20h30m
 
 10. Step 9 - Check number of scales
 - "nsc.raw.dense6mul3.rgbsift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+2.0+3.2 --descriptor rgbsift",
@@ -109,5 +112,12 @@ svm_scaling.Soft-1000.dense6mul3.rgbsift.L1norm1x1: 26.59 (vs 26.75) - WIN: 37
 svm_scaling.Soft-1000.dense6mul3.rgbsift.L1norm3x1: (vs 28.80)
 
 11. Step 10 - Check fisher vector
+TrainGMM --> using MaxNumIterations = 20 --> POOR perf (only 768 non-zero in fisher vector encoding). several hours for training
+Using default (MaxNumIterations = 100) ~ 4,600 non-zero. 2 days for training.
+
+
 matlab -nodisplay -nojvm
- ksc_FV_DoGMMClusteringKeyPoints_VLFEAT('Soft-1000.devel2012.nsc.raw.dense6mul.rgbsift.gmm128','/net/sfv215/export/raid6/ledduy/ImageCLEF/2012/PhotoAnnFlickr/feature/keyframe-5/bow.codebook.Soft-1000.devel2012/nsc.raw.dense6mul.rgbsift/data/Soft-1000.devel2012.nsc.raw.dense6mul.rgbsift-c0-b0.csv', 128)
+GMM = 128
+30 mins for 1 VideoID (100 KeyFrames) - 18 sec/keyframes (10K keypoints, rgbsift)
+45 mins for 1 VideoID (100 KeyFrames) - 24 sec/keyframes 
+Dims = 98,304 (128*384*2) 

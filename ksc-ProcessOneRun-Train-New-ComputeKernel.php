@@ -1,8 +1,8 @@
 <?php
 
 /**
- * 		@file 	ksc-ProcessOneRun-Train-New.php
- * 		@brief 	Train One Run.
+ * 		@file 	ksc-ProcessOneRun-Train-New-ComputeKernel.php
+ * 		@brief 	Compute Kernel Matrix to Train One Run .
  *		@author Duy-Dinh Le (ledduy@gmail.com, ledduy@ieee.org).
  *
  * 		Copyright (C) 2010-2013 Duy-Dinh Le.
@@ -261,7 +261,7 @@ require_once "ksc-Tool-TRECVID.php";
 //////////////////// THIS PART FOR CUSTOMIZATION ////////////////////
 
 // !!! IMPORTANT --> this global param is used in generateTrainData
-$gnMaxMemSize = 100; // only keep 100 points in mem
+$gnMaxMemSize = 500; // only keep 500 points in mem
 $gszFeatureFormat = "dvf";
 
 $nSkipExistingModels = 1;

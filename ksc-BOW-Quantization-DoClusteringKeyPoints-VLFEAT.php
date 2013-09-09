@@ -177,7 +177,7 @@ $szFPIMemOutputFN = sprintf("%s/data/%s-OutputVLFEAT.idx", $szInputDir, $szTrial
 
 // call A(param1, param2) instead of A param1 param2
 $szParam = sprintf("'%s', '%s', '%s', %d, '%s'", $szFPCentroidOutputFN, $szFPIMemOutputFN, $szFPCSVInputFN, $nNumClusters, $szKMeansMethod);
-$szCmdLine = sprintf("matlab -nodisplay -nojvm -r \"ksc_BOW_DoClusteringKeyPoints_VLFEAT(%s)\" ", $szParam);
+$szCmdLine = sprintf("matlab -nodisplay -r \"ksc_BOW_DoClusteringKeyPoints_VLFEAT(%s)\" ", $szParam);
 printf("Command: [%s]\n", $szCmdLine);
 $arCmdLine[] = $szCmdLine;
 

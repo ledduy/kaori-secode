@@ -9,6 +9,7 @@
 
 function ksc_FV_DoGMMClusteringKeyPoints_VLFEAT(szFPGMMOutputFN, szFPInputFN, nNumClusters)
 	
+	matlabpool 8;
 	run('toolbox/vl_setup'); % init env
 	
 	fprintf(1, 'Loading csv data file ...\n');
@@ -21,7 +22,7 @@ function ksc_FV_DoGMMClusteringKeyPoints_VLFEAT(szFPGMMOutputFN, szFPInputFN, nN
 	% data is row-representation --> use data' for col-representation
 	
 	% processing time: 7 hours (max 20 iterations, kmeans initialization, 128 clusters, 1,578,691 descriptors, 384 dims-rgbsift)
-	[means, covariances, priors] = vl_gmm(data', nNumClusters, 'verbose', 'MaxNumIterations', 20, 'Initialization', 'KMeans');	
+	[means, covariances, priors] = vl_gmm(data', nNumClusters, 'verbose', 'MaxNumIterations', 100, 'Initialization', 'KMeans');	
 	
 	% save these var for loading later in compute fisher encoding.
 	save(szFPGMMOutputFN, 'means', 'covariances', 'priors');

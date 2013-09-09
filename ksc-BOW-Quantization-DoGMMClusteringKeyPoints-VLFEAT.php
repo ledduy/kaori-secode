@@ -12,7 +12,7 @@
  */
 
 // Only available since vlfeat-0.9.17 
-
+// $nMaxSamples=300000;
 /** ksc_FV_DoGMMClusteringKeyPoints_VLFEAT.m  --> matlab code, placed in vlfeat0.9.17
  *  Using GMM
  * 
@@ -102,7 +102,9 @@ $szDataExt = "dvf";
 
 $szFPInputFN = sprintf("%s/data/%s-c0-b0.%s", $szInputDir, $szDataName, $szDataExt);
 $szFPOutputFN = sprintf("%s/data/%s-c0-b0.csv", $szInputDir, $szDataName);
-convertDvf2CSVFormat($szFPOutputFN, $szFPInputFN);
+
+$nMaxSamples=300000;
+convertDvf2CSVFormat($szFPOutputFN, $szFPInputFN, $nMaxSamples);
 
 // invoke matlab function of VLFEAT
 // ksc_BOW_DoClusteringKeyPoints_VLFEAT(szFPCentroidOutputFN, szFPIMemOutputFN, szFPInputFN, nNumClusters, szMethod)
@@ -122,7 +124,7 @@ $szFPGMMOutputFN = sprintf("%s/data/%s.%s.%s.GMMModel.mat", $szInputDir, $szTria
 
 // call A(param1, param2) instead of A param1 param2
 $szParam = sprintf("'%s', '%s', %d", $szFPGMMOutputFN, $szFPCSVInputFN, $nNumFVClusters);
-$szCmdLine = sprintf("matlab -nodisplay -nojvm -r \"ksc_FV_DoGMMClusteringKeyPoints_VLFEAT(%s)\" ", $szParam);
+$szCmdLine = sprintf("matlab -nodisplay -r \"ksc_FV_DoGMMClusteringKeyPoints_VLFEAT(%s)\" ", $szParam);
 printf("Command: [%s]\n", $szCmdLine);
 $arCmdLine[] = $szCmdLine;
 
@@ -141,7 +143,7 @@ deleteFile($szFPCmdFN);
 return; // only one pat, one feature at one time
 
 ///////////////////////////// FUNCTIONS /////////////////////////////
-function convertDvf2CSVFormat($szFPOutputFN, $szFPInputFN)
+function convertDvf2CSVFormat($szFPOutputFN, $szFPInputFN, $nMaxSamples=300000)
 {
 	$nNumRows = loadListFile($arRawList, $szFPInputFN);
 
@@ -189,11 +191,16 @@ function convertDvf2CSVFormat($szFPOutputFN, $szFPInputFN)
 			saveDataFromMem2File($arOutput, $szFPOutputFN, "a+t");
 			$arOutput = array();
 		}
+		
+		if($i>=$nMaxSamples)
+		{
+		    break;
+		}
 	}
 	printf(".]. Finish converting!\n");
-	saveDataFromMem2File($arOutput, $szFPOutputFN, "a+t");
+	
+    saveDataFromMem2File($arOutput, $szFPOutputFN, "a+t");
 	$arOutput = array();
 }
-
 
 ?>

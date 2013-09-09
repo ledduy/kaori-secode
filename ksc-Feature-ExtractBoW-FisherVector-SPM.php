@@ -359,8 +359,8 @@ function computeSoftWeightingHistogramWithGrid($szFPGMMModelFN, $szFPKeyFrameLis
     
     $arOutput = array();
     $nNumKeyFrames = sizeof($arKeyFrameSizeLUT);
-    $arOutput[] = sprintf("%% Fisher Vector - %d Norm - %s - Grid %dx%d - CodeBook size %d", $arNormMethod[$nNormMethod], $szInputRawFeatureExt, $nNumRows, $nNumCols, $nMaxCodeBookSize);
-    $arOutput[] = sprintf("%d", $nNumKeyFrames);
+    $arOutput[] = sprintf("%% Fisher Vector - %d keyframes - %d Norm - %s - Grid %dx%d - CodeBook size %d", 
+            $nNumKeyFrames, $arNormMethod[$nNormMethod], $szInputRawFeatureExt, $nNumRows, $nNumCols, $nMaxCodeBookSize);
     
     foreach ($arKeyFrameSizeLUT as $szKeyFrameID => $arSize)
     {

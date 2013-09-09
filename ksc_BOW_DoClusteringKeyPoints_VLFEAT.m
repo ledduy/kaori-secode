@@ -13,6 +13,7 @@
 
 function ksc_BOW_DoClusteringKeyPoints_VLFEAT(szFPCentroidOutputFN, szFPIMemOutputFN, szFPInputFN, nNumClusters, szMethod)
 	
+	matlabpool 8;
 	run('toolbox/vl_setup'); % init env
 	
 	fprintf(1, 'Loading csv data file ...\n');
