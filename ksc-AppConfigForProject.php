@@ -8,8 +8,12 @@
  *
  * 		Copyright (C) 2010-2013 Duy-Dinh Le.
  * 		All rights reserved.
- * 		Last update	: 04 Jul 2013.
+ * 		Last update	: 09 Sep 2013.
  */
+
+//*** Update Sep 09, 2013
+// Customize for VSD2013
+// Look for CHANGED FOR VSD13
 
 // //////////////// HOW TO CUSTOMIZE /////////////////////////
 
@@ -37,35 +41,35 @@ $gszSVMScaleApp = sprintf("libsvm291/svm-scale");
 
 // The information below is mainly for feature extraction using SGE
 
-$szExpName = "imageclef2012-PhotoAnnFlickr"; // *** CHANGED ***
+$szExpName = "mediaeval-vsd2013"; // CHANGED FOR VSD13
 $szExpConfig = $szExpName;
 
-$szProjectCodeName = "kaori-secode-sin213"; // *** CHANGED ***
+$szProjectCodeName = "kaori-secode-vsd2013"; // CHANGED FOR VSD13
                                             
 // --> name of list of videos, i.e, metadata/keyframe-5/<pat-name.lst> = metadata/keyframe-5/tv2012.devel.lst
 $arPat2PathList = array(
-    "devel2012" => "devel2012",
-    "test2012" => "test2012" // iacc.2.A
-); // *** CHANGED ***
+    "devel2013-new" => "devel2013-new",
+    "test2013-new" => "test2013-new" 
+); // CHANGED FOR VSD13
 
 $nNumPats = sizeof($arPat2PathList);
 
 // this part is for SGE - Feature Extraction
 // --> dir name + path containing keyframes, i.e, keyframe-5/<path-name> = keyframe-5/tv2012/devel
 $arVideoPathList = array(
-    "devel2012",
-    "test2012" // *** CHANGED ***
+    "devel2013-new",
+    "test2013-new" // CHANGED FOR VSD13
 );
 
 $arMaxVideosPerPatList = array(
-    "devel2012" => 150, // Precise:
-    "test2012" => 100
+    "devel2013-new" => 1215, // CHANGED FOR VSD13
+    "test2013-new" => 500
 ); // Precise:
 
 $arMaxHostsPerPatList = array(
-    "devel2012" => 200,
-    "test2012" => 200 // *** CHANGED ***
-); // Precise: N/A
+    "devel2013-new" => 200,
+    "test2013-new" => 200 // CHANGED FOR VSD13
+); 
    
 // these params are used in extracting raw local features.
    // normally, one keyframe --> one raw feature file
@@ -75,31 +79,32 @@ $arMaxHostsPerPatList = array(
  */
 
 // usually set this number to SUPER MAX keyframes per video
-$nMaxKFPerVideo = 100000; // *** CHANGED ***
+$nMaxKFPerVideo = 100000; // CHANGED FOR VSD13
                           
 // usually set this number to $nMaxKFPerVideo if all KF is processed in one job
 $nNumKFPerJob = $nMaxKFPerVideo; // *** CHANGED ***
                                  
 // this param is used for ksc-BOW-Quantization-SelectKeyPointsForClustering.php
                                  // if no shot case (e.g, imageclef, imagenet), it is the ave number of keyframes per video.
-$nAveShotPerVideo = 100; // *** CHANGED ***
+$nAveShotPerVideo = 2000; // CHANGED FOR VSD13
                           
 // set for training --> used to find cluster centers
 $arBOWDevPatList = array(
-    "devel2012"
-);
+    "devel2013-new"
+); // CHANGED FOR VSD13
 
-$szSysID = "imageclef2012-PhotoAnnFlickr"; // *** CHANGED ***
-$szSysDesc = "Experiments for ImageCLEF 2012"; // *** CHANGED ***
+$szSysID = "mediaeval-vsd2013"; // CHANGED FOR VSD13
+$szSysDesc = "Experiments for MediaEval-VSD2013"; // CHANGED FOR VSD13
                                                
 // used for codeword assignment
 $arBOWTargetPatList = array(
-    "devel2012", // *** CHANGED ***
-    "test2012" // *** CHANGED ***
+    "devel2013-new", // CHANGED FOR VSD13
+    "test2013-new" // CHANGED FOR VSD13
 );
 
 $szConfigDir = "basic";
 
+/*
 $arFilterList = array(
     ".dense4.",
     ".dense6.",
@@ -119,6 +124,7 @@ $arFilterList = array(
     ".g_eoh.",
     ".g_lbp."
 );
+*/
 
 // ////////////////// END FOR CUSTOMIZATION ////////////////////
 function getRootBenchmarkMetaDataDir($szFeatureExt)
@@ -213,22 +219,5 @@ function getRootDirForFeatureExtraction($szFeatureExt)
     
     return $szOutputDir;
 }
-
-// /////////////////////////// HISTORY /////////////////////////
-// AUG 11, 2012 --> starting date for MEDIAEVAL 2012
-// --> Look for *** CHANGED *** and make appropriate changes
-// $szExpName = "mediaeval-vsd2012"; /// *** CHANGED ***
-// Changes for $arPat2PathList, etc
-// function getRootDirForFeatureExtraction($szFeatureExt)
-
-// ------------------------------------------------------------------------------------
-
-// *** Update Jul 03, 2012
-// Customize for TRECVID-SIN12
-// --> CHANGE $szExpName, e.g, hlf-tv2012
-// --> CHANGE maxW x maxH for resized keyframes.
-// --> Adding more features (dense4mul, phow6)
-
-// $gszTmpDir = "/local/ledduy";
 
 ?>

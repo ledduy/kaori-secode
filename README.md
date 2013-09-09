@@ -3,6 +3,33 @@ kaori-secode
 
 KAORI-SECODE - A Framework for Semantic Concept Detection
 
+@@@Purpose - Testing low-level features for VSD task.
+
+1. Step 1 - Initialization
+- new branch: vsd2013, based on bow-test branch
+- Local dir: c:\Users\ledduy\git\kaori-secode-vsd2013\
+- Server dir: v:\github-projects\kaori-secode-vsd2013 (by copying from local dir) 
+
+2. Step 2 - Check app configs
+*** ksc-AppConfig.php
+@@@ $gnUseTarFileForKeyFrame = 0; // vsd13 both uses .tar and raw .jpg
+@@@ $gnUseL1NormBoW = 1; // DEFAULT
+@@@ $gnPerformDataScaling = 1;
+@@@ $nNumClusters = 1000; 
+==> Look for CHANGED FOR VSD13
+
+*** ksc-AppConfigForProject.php
+@@@ Partions and paths such as devel2013-new, test2013-new
+@@@ Number of videoIDs per partition
+==> Look for CHANGED FOR VSD13
+
+
+
+
+
+
+
+//////////////////////// bow-test branch ////////////////////
 1. Purpose
 - Test new local feature implementations using ImageCLEF dataset (http://www.clef-initiative.eu/documents/71612/ec10fe5c-92e7-4217-b6fa-24ad439df1ba).
   + Combine the steps of raw feature extraction, quantization, and encoding in ONE job so that it is more efficient when working on the grid.
