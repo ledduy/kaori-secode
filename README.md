@@ -23,8 +23,31 @@ KAORI-SECODE - A Framework for Semantic Concept Detection
 @@@ Number of videoIDs per partition
 ==> Look for CHANGED FOR VSD13
 
+3. Step 3 - Check metadata
+*** devel2013-new.lst: OK
++ 1,215 rows --> 610K images (1,215x500 ~ 610K)
++ VSD13_3_001 #$# VSD13_3_001 #$# devel2013-new
+*** devel2013-new subdir: OK
++ .prg and .prgx are OK (one size 720x576)
 
+- test2013-new.lst: OK
++ 500 rows --> 250K images (500x500 ~ 250K)
+VSD13_22_001 #$# VSD13_22_001 #$# test2013-new
+*** test2013-new subdir: OK
++ .prg and .prgx are OK.
 
+4. Step 4 - Local feature extraction with new implementation integrating all in one step.
+*** ksc-BOW-Quantization-SelectKeyPointsForClustering-New.php
+@@@ $nAveShotPerVideo = 10; 
+// How to determine $nAveShotPerVideo 
+// If KeyFrameID does not have .RKF (used for finding ShotID) --> Number of KeyFrames = Number of shots 
+// If KeyFrameID has .RKF (used for finding ShotID) --> Number of shots = Total shots / Number of VideoID
+
+==> Run on per910a
++ check .lst file to see whether selected keyframes are OK?
++ run for dense6mul.rgbsift, dense6mul.sift, dense6mul.csift, dense6mul.oppsift
+ 
+*** ksc-Feature-ExtractBoW-SPM.php
 
 
 

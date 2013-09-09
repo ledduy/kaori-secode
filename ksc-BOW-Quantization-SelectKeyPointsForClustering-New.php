@@ -7,8 +7,18 @@
  *
  * 		Copyright (C) 2010-2013 Duy-Dinh Le.
  * 		All rights reserved.
- * 		Last update	: 03 Sep 2013.
+ * 		Last update	: 09 Sep 2013.
  */
+
+//*** Update Sep 09, 2013
+// Customize for VSD2013
+// Look for CHANGED FOR VSD13
+// Run on per910a
+// $nAveShotPerVideo = 27; // CHANGED FOR VSD13 32K/1.2K ~ 27
+
+// How to determine $nAveShotPerVideo 
+// If KeyFrameID does not have .RKF (used for finding ShotID) --> Number of KeyFrames = Number of shots 
+// If KeyFrameID has .RKF (used for finding ShotID) --> Number of shots = Total Shots / Number of VideoIDs
 
 // *** Update Sep 03, 2013
 // --> CHANGE: Extract raw features on the fly (i.e no need to extract raw features of ALL keyframes)
@@ -80,35 +90,45 @@ $arFeatureParamConfigList = array(
     "nsc.raw.dense6mul3.rgbsift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+2.0+3.2 --descriptor rgbsift",
 );
 
-$gnUseTarFileForKeyFrame = 0;
+$gnUseTarFileForKeyFrame = 0; // CHANGED FOR VSD13 - already defined in ksc-AppConfig.php
 $gKeyFrameImgExt = "jpg";
 
 $szRootDir = $gszRootBenchmarkDir; // defined in ksc-AppConfig
 
 $szRootMetaDataDir = sprintf("%s/metadata/keyframe-5", $szRootDir);
 
-$szSrcPatName = "devel2012"; // must be a member of $arPatList
+$szSrcPatName = "devel2013-new"; // must be a member of $arPatList - CHANGED FOR VSD13
 $szRawFeatureExt = "nsc.raw.dense6mul.rgbsift";
 
+$arConfigOutput = array();
 // / !!! IMPORTANT
 //$nMaxKeyPoints = intval(10000.0);  --> for Debug only
 $nMaxKeyPoints = intval(1500000.0); // 1.5 M - max keypoints for clustering
-                                    
+$arConfigOutput[] = sprintf("###Max KeyPoints: %s", $nMaxKeyPoints);                                    
+
 // average number of keypoints per key frame --> used in function loadOneRawSIFTFile
 $nAveKeyPointsPerKF = 1000;
+$arConfigOutput[] = sprintf("###Ave KeyPoints Per: %s", $nAveKeyPointsPerKF);
+
 $fKeyPointSamplingRate = 0.70; // percentage of keypoints of one image will be selected
-                               
+$arConfigOutput[] = sprintf("###KeyPoints Sampling Rate: %s", $fKeyPointSamplingRate);
+
 // max keyframes to be selected for picking keypoints
                                // use weight = 1.5 to pick more number of keyframes to ensure min selected KP = $nMaxKeyPoints
                                // some keyframes --> no keypoints (ie. blank/black frames)
 $nMaxKeyFrames = intval(1.5 * $nMaxKeyPoints / ($nAveKeyPointsPerKF * $fKeyPointSamplingRate)) + 1;
+$arConfigOutput[] = sprintf("###Max KeyFrames to be Selected: %s", $nMaxKeyFrames);
 
 // shot information can not be inferred from keyframeID --> one shot = one keyframes
 $fVideoSamplingRate = 1.0; // percentage of videos of the set will be selected
+$arConfigOutput[] = sprintf("###Video Sampling Rate: %s", $fVideoSamplingRate);
+
 $fKeyFrameSamplingRate = 0.00001; // i.e. 1KF/shot - $nNumSelKFs = intval(max(1, $fKeyFrameSamplingRate*$nNumKFsPerShot));
-                                  
+$arConfigOutput[] = sprintf("###KeyFrame Sampling Rate: %s", $fKeyFrameSamplingRate);
+
 // *** CHANGED ***
-$nAveShotPerVideo = 100; // *** CHANGED ***
+$nAveShotPerVideo = 27; // CHANGED FOR VSD13 32K/1.2K ~ 27
+$arConfigOutput[] = sprintf("###Ave Shot Per Video: %s", $nAveShotPerVideo);
 
 $nMaxBlocksPerChunk = 1; // only one chunk
 $nMaxSamplesPerBlock = $nMaxKeyPoints * 2; // larger than maxKP to ensure all keypoints in 1 chunk-block
@@ -138,7 +158,10 @@ $nMaxVideos = $arMaxVideosPerPatList[$szSrcPatName];
 $nMaxKFPerVideo = intval($nMaxKeyFrames / $nMaxVideos) + 1;
 // if we set 1KF/shot --> $nMaxKFPerVideo = $nMaxShotPerVideo
 $fShotSamplingRate = $nMaxKFPerVideo / $nAveShotPerVideo;
-printf("### Shot sampling rate: %f\n", $fShotSamplingRate);
+$arConfigOutput[] = sprintf("### Shot sampling rate: %f", $fShotSamplingRate);
+
+$szFPBOWConfigFN = sprintf("%s.%s.cfg", $szSrcPatName, $szRawFeatureExt);
+saveDataFromMem2File($arConfigOutput, $szFPBOWConfigFN);
 
 $szFPLogFN = sprintf("ksc-BOW-Quantization-SelectKeypointsForClustering-%s.log", $szRawFeatureExt); // *** CHANGED ***
 
@@ -195,6 +218,9 @@ foreach ($arStatVideoList as $szVideoID => $arKFList)
 }
 $szFPOutputStatFN = sprintf("%s.csv", $szFPInputListFN);
 saveDataFromMem2File($arOutput, $szFPOutputStatFN);
+
+$szFPOutputFN = sprintf("%s.cfg", $szFPInputListFN);
+saveDataFromMem2File($arConfigOutput, $szFPOutputFN);
 
 selectKeyPointsFromKeyFrameList($szOutputDir, $szDataPrefix, $szDataExt, $szFPInputListFN, $szFPVideoListFN, $szRawFeatureExt, $szRootKeyFrameDir, $szRootFeatureDir, $szLocalTmpDir, $fKeyPointSamplingRate, $nMaxKeyPoints, $nMaxBlocksPerChunk, $nMaxSamplesPerBlock);
 
