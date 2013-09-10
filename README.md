@@ -47,6 +47,12 @@ VSD13_22_001 #$# VSD13_22_001 #$# test2013-new
 + check .lst file to see whether selected keyframes are OK?
 + run for dense6mul.rgbsift, dense6mul.sift, dense6mul.csift, dense6mul.oppsift
  
+>>>> BAD <<<<<<<<
+- One set of keyframes (e.g. 500 KF) is copied to local dir, but only few are used for raw feature extraction --> SLOW
+==> copy 30 secs, extract features 12 secs, finalize 10 secs
+==> fixed by copy selected keyframes only, and use /tmp dir instead of gszTmpDir (dir on another host, i.e. dl380g7a)
+- Different features (e.g. rgbsift, csift, etc) use different keyframe sets --> NOT SHARED --> SLOWER
+- Some params (AveKeyPointPerKeyFrame = 1,000) should be revised, eg. for harlap (<1K). 
 *** ksc-Feature-ExtractBoW-SPM.php
 
 

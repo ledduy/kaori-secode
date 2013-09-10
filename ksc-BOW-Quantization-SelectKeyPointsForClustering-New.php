@@ -20,6 +20,17 @@
 // If KeyFrameID does not have .RKF (used for finding ShotID) --> Number of KeyFrames = Number of shots 
 // If KeyFrameID has .RKF (used for finding ShotID) --> Number of shots = Total Shots / Number of VideoIDs
 
+/*
+- One set of keyframes (e.g. 500 KF) is copied to local dir, but only few are used for raw feature extraction --> SLOW
+==> copy 30 secs, extract features 12 secs, finalize 10 secs
+
+- Different features (e.g. rgbsift, csift, etc) use different keyframe sets --> NOT SHARED --> SLOWER
+- Some params (AveKeyPointPerKeyFrame = 1,000) should be revised, eg. for harlap (<1K). 
+ */
+
+/*
+ * Use /tmp (host) dir instead of gszTmpDir (another server)
+ */
 // *** Update Sep 03, 2013
 // --> CHANGE: Extract raw features on the fly (i.e no need to extract raw features of ALL keyframes)
 
@@ -182,7 +193,17 @@ makeDir($szRootFeatureDir);
 $szRootKeyFrameDir = sprintf("%s/keyframe-5", $szRootDir);
 
 // Update Nov 25, 2011
-$szLocalTmpDir = $gszTmpDir; // defined in ksc-AppConfig
+$szHostTmpDir = "/tmp";
+if(file_exists($szHostTmpDir))
+{
+    $szLocalTmpDir = $szHostTmpDir; // defined in ksc-AppConfig    
+}
+else 
+{
+    $szLocalTmpDir = $gszTmpDir; // defined in ksc-AppConfig
+}
+
+
 $szTmpDir = sprintf("%s/SelectKeyPointForClustering/%s", $szLocalTmpDir, $szRawFeatureExt);
 makeDir($szTmpDir);
 
@@ -487,6 +508,8 @@ function selectKeyPointsFromKeyFrameList($szOutputDir, $szDataPrefix, $szDataExt
         
         $arNewKFList[$szVideoID][$szKeyFrameID] = 1;
     }
+    
+    $nBreak = 0;
     foreach ($arNewKFList as $szVideoID => $arKFListz)
     {
         $szVideoPath = $arVideoList[$szVideoID];
@@ -507,8 +530,19 @@ function selectKeyPointsFromKeyFrameList($szOutputDir, $szDataPrefix, $szDataExt
             }
         } else
         {
-            $szCmdLine = sprintf("cp %s/*.jpg %s", $szServerKeyFrameDir, $szLocalKeyFrameDir);
-            execSysCmd($szCmdLine);
+            
+            //$szCmdLine = sprintf("cp %s/*.jpg %s", $szServerKeyFrameDir, $szLocalKeyFrameDir);
+            //execSysCmd($szCmdLine);
+            
+            foreach ($arKFListz as $szKeyFrameID => $nTmp)
+            {
+                $szCoreName = sprintf("%s.%s", $szKeyFrameID, $szFeatureExt);
+                
+                global $gKeyFrameImgExt;
+                $szFPInputImgFN = sprintf("%s/%s.%s", $szServerKeyFrameDir, $szKeyFrameID, $gKeyFrameImgExt);
+                $szCmdLine = sprintf("cp %s %s", $szFPInputImgFN, $szLocalKeyFrameDir);
+                execSysCmd($szCmdLine);
+            }
         }
         
         $szInputDir = sprintf("%s/%s/%s/%s", $szRootFeatureDir, $szFeatureExt, $szVideoPath, $szVideoID);
@@ -563,7 +597,8 @@ function selectKeyPointsFromKeyFrameList($szOutputDir, $szDataPrefix, $szDataExt
             
             if ($nNumKPs >= $nMaxKeyPoints)
             {
-                printf("### Reach the limit [%s]. Break\n", $nMaxKeyPoints);
+                printf("### Reach the limit [%s]. Break at keyframe level\n", $nMaxKeyPoints);
+                $nBreak = 1;
                 break;
             }
             
@@ -601,6 +636,12 @@ function selectKeyPointsFromKeyFrameList($szOutputDir, $szDataPrefix, $szDataExt
         }
         $szCmdLine = sprintf("rm -rf %s", $szLocalKeyFrameDir);
         execSysCmd($szCmdLine);
+        
+        if($nBreak)
+        {
+            printf("### Reach the limit [%s]. Break at video level\n", $nMaxKeyPoints);
+            break;
+        }
     }
     
     $nNumSamplesInBlock = sizeof($arKeyPointFeatureList) - 2;
