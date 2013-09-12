@@ -53,10 +53,39 @@ VSD13_22_001 #$# VSD13_22_001 #$# test2013-new
 ==> fixed by copy selected keyframes only, and use /tmp dir instead of gszTmpDir (dir on another host, i.e. dl380g7a)
 - Different features (e.g. rgbsift, csift, etc) use different keyframe sets --> NOT SHARED --> SLOWER
 - Some params (AveKeyPointPerKeyFrame = 1,000) should be revised, eg. for harlap (<1K). 
-*** ksc-Feature-ExtractBoW-SPM.php
+>>>>> FIXED <<<<<<<
 
+### Processing time: [4 hours --> 14 hours]
+dense6mul.sift: 4 hours (raw feature extraction: 3 hours, clustering: 1 hour).
+dense6mul.rgsift/oppsift/csift: 9 hours (7 + 2 hours)
+harlap6mul.sift: 10.5 hours (9.5 + 1)
+harlap6mul.rgbsift: 13.5 (12.5 hours + 1)
 
+*** ksc-Feature-ExtractBoW-SPM.php, ksc-Feature-ExtractBoW-SPM-SGE.php
+### Processing time (note that colordescriptor30 uses ~1.5CPU cores/job):
+@dense6mul.sift: 388 cores (bc3,bc4,bc5), 1,715 jobs (1,215 dev + 500 test): estimation: ave 2.0 hours/job - 15:00 Sep10 --> 07:00 Sep11 (max 16 hours)  
+@dense6mul.rgbsift (15 secs/keyframe - colordescriptor30):  4.0 hours/job 01:00 Sep11 - 04:00 Sep12 (max 27 hours)
+@dense6mul.oppsift  17:00 Sep11 - 
+@dense6mul.csift
+@dense6mul.rgsift   - NA
 
+5. Step 5 - Shot based features
+#### IMPORTANT #####
+==> Must check whether data are extracted, i.e 1,215 + 500 files for devel2013-new and test2013-new
+
+### Processing time: max 1h (single core)
+
+6. Step 6 - Training classifiers
+### IMPORTANT ###
+- Max Pos Shots: 10K
+- Max Neg Shots: 30K
+- 2 concepts (subviolentscenes  & objviolentscenes)
+
+### Processing time:
+- dense6mul.sift.norm1x1: 16 hours (data preparation+param search: 2+4 hours, training model: 10 hours)
+- dense6mul.sift.norm3x1: xx hours (data preparation+param search: 18 hours, training model: xx hours)
+- dense6mul.sift.norm2x2: xx hours (data preparation+param search: 18 hours, training model: xx hours)
+ 
 
 //////////////////////// bow-test branch ////////////////////
 1. Purpose

@@ -18,8 +18,8 @@ date
 # Log info of the job to output file  *** CHANGED ***
 echo [$HOSTNAME] [$JOB_ID] [ksc-Feature-ExtractBoW-SPM] [$1] [$2] [$3] [$4] [$5] [$6] [$7]
 
-# change to the code dir  --> NEW!!! *** CHANGED ***
-cd /net/per900b/raid0/ledduy/github-projects/kaori-secode-bow-test
+# change to the code dir  --> NEW!!! CHANGED FOR VSD13
+cd /net/per900b/raid0/ledduy/github-projects/kaori-secode-vsd2013
 
 # Log info of current dir
 pwd

@@ -7,7 +7,7 @@
  *
  * 		Copyright (C) 2010-2013 Duy-Dinh Le.
  * 		All rights reserved.
- * 		Last update	: 05 Jul 2013.
+ * 		Last update	: 09 Sep 2013.
  */
 
 /**
@@ -33,7 +33,7 @@ require_once "ksc-AppConfig.php";
 
 // ////////////////// THIS PART FOR CUSTOMIZATION ////////////////////
 
-$szProjectCodeName = "kaori-secode-bow-test"; // *** CHANGED ***
+$szProjectCodeName = "kaori-secode-vsd2013"; // CHANGED FOR VSD13
 $szCoreScriptName = "ksc-Feature-ExtractBoW-SPM"; // *** CHANGED ***
 
 $szSGEScriptDir = $gszSGEScriptDir; // defined in ksc-AppConfig
@@ -51,13 +51,13 @@ $arFeatureList = array(
     "nsc.raw.dense6mul.rgsift",
     "nsc.raw.dense6mul.rgbsift",
     "nsc.raw.dense6mul.oppsift",
-    
+  
     "nsc.raw.harlap6mul.rgbsift",
-    "nsc.raw.dense6mul3.rgbsift",
-);
+    "nsc.raw.harlap6mul.sift",
+); // CHANGED FOR VSD13
 
-$szSourcePatName = "devel2012";
-$szDestPatName = "test2012";
+$szSourcePatName = "devel2013-new"; // CHANGED FOR VSD13
+$szDestPatName = "test2013-new";  // also devel2013-new // CHANGED FOR VSD13
 
 // ////////////////// END FOR CUSTOMIZATION ////////////////////
 
@@ -72,6 +72,8 @@ if ($argc != 4)
 $szSourcePatName = $argv[1];
 $szDestPatName = $argv[2];
 $nUseL1NormBoW = intval($argv[3]);
+
+$nUseL1NormBoW = 1; // DEFAULT - DO NOT CHANGE
 
 $arCmdLineList = array();
 

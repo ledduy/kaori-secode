@@ -127,9 +127,9 @@ $arFeatureParamConfigList = array(
 
 // /////////////////////////// MAIN ////////////////////////////////
 
-$szPatName = "devel2012";
-$szInputRawFeatureExt = "nsc.raw.harlap6mul.sift";
-$szTargetPatName = "test2012"; // or devel2012
+$szPatName = "devel2013-new"; // CHANGED FOR VSD13
+$szInputRawFeatureExt = "nsc.raw.dense6mul.sift";
+$szTargetPatName = "test2013-new"; // or devel2012
 $nStartID = 0; // 0
 $nEndID = 1; // 1
 
