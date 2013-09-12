@@ -1051,14 +1051,21 @@ $nLabel = 1, $nKeyFrameBasedAssociation=1)
 
 			//print_r(array_keys($arFeatureList)); print_r($arSelKFList); exit();
 
+			$nCountz = 1;
 			foreach($arLocalKFList as $szKeyFrameID)
 			{
 				/// !!! IMPORTANT
 				if(isset($arFeatureList[$szKeyFrameID]))
 				{
-					$arAnnFeatureOutputList[$szKeyFrameID] = convertFeatureVector2LibSVMFormat($arFeatureList[$szKeyFrameID], $nLabel);
+					printf("%d. Adding feature of keyframe [%s]\n", $nCountz, $szKeyFrameID);
+				    $arAnnFeatureOutputList[$szKeyFrameID] = convertFeatureVector2LibSVMFormat($arFeatureList[$szKeyFrameID], $nLabel);
 					$nTotalFeatureVectors ++;
 				}
+				else 
+				{
+				    printf("%d. Skipping adding feature of keyframe [%s]\n", $nCountz, $szKeyFrameID);
+				}
+				$nCountz++;
 			}
 
 			if($nTotalFeatureVectors > $nMaxKeyFrames)
