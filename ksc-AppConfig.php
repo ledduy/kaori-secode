@@ -126,11 +126,11 @@ $gszRootBenchmarkDir = "/net/per610a/export/das11f/ledduy/mediaeval-vsd-2013"; /
                                                                                         
 // Dir for php code
 // just copy from local dir , NOT check out
-$gszSGEScriptDir = "/net/per900b/raid0/ledduy/github-projects/kaori-secode-vsd2013"; // CHANGED FOR VSD13
+$gszSGEScriptDir = "/net/per900c/raid0/ledduy/github-projects/kaori-secode-vsd2013"; // CHANGED FOR VSD13
                                                                                       
 // *** SHOULD NOT CHANGE *****
 // Dir for .sh script
-$gszScriptBinDir = "/net/per900b/raid0/ledduy/bin13/bin-vsd2013"; // CHANGED FOR VSD13
+$gszScriptBinDir = "/net/per900c/raid0/ledduy/bin13/bin-vsd2013"; // CHANGED FOR VSD13
 makedir($gszScriptBinDir);
 
 // feature extraction app

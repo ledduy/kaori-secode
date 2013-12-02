@@ -63,9 +63,9 @@ harlap6mul.rgbsift: 13.5 (12.5 hours + 1)
 
 *** ksc-Feature-ExtractBoW-SPM.php, ksc-Feature-ExtractBoW-SPM-SGE.php
 ### Processing time (note that colordescriptor30 uses ~1.5CPU cores/job):
-@dense6mul.sift: 388 cores (bc3,bc4,bc5), 1,715 jobs (1,215 dev + 500 test): estimation: ave 2.0 hours/job - 15:00 Sep10 --> 07:00 Sep11 (max 16 hours)  
-@dense6mul.rgbsift (15 secs/keyframe - colordescriptor30):  4.0 hours/job 01:00 Sep11 - 04:00 Sep12 (max 27 hours)
-@dense6mul.oppsift  17:00 Sep11 - 
+@dense6mul.sift: 388 cores (bc3,bc4,bc5), 1,715 jobs (1,215 dev + 500 test): estimation: ave 2.0 hours/job - 15:00 Sep10 --> 07:00 Sep11 (16 hours to finish)  
+@dense6mul.rgbsift (15 secs/keyframe - colordescriptor30):  4.0 hours/job 01:00 Sep11 - 04:00 Sep12 (27 hours to finish)
+@dense6mul.oppsift  17:00 Sep11 - 03:30 Sep 13 (33.5 hours to finish)
 @dense6mul.csift
 @dense6mul.rgsift   - NA
 
@@ -86,6 +86,21 @@ harlap6mul.rgbsift: 13.5 (12.5 hours + 1)
 - dense6mul.sift.norm3x1: xx hours (data preparation+param search: 18 hours, training model: xx hours)
 - dense6mul.sift.norm2x2: xx hours (data preparation+param search: 18 hours, training model: xx hours)
  
+per910a
+Running time: 125549.90 seconds == 35 hours
+objviolentscenes.nsc.bow.dense6mul.sift.Soft-1000.devel2013-new.L1norm3x1.shotMAX.svm.model 
+
+Running time: 157081.21 seconds == 44 hours
+subjviolentscenes.nsc.bow.dense6mul.sift.Soft-1000.devel2013-new.L1norm3x1.shotMAX.svm.model
+
+
+### Simple version ###
+- Use 5 runs per feature - R11 - R15
+- Max Pos: 2,000
+- Max Neg: 15,000
+- Max Subset: 3,000
+- New annotation --> removing shots having blank frames
+- Processing time: 5-10 hours.
 
 //////////////////////// bow-test branch ////////////////////
 1. Purpose

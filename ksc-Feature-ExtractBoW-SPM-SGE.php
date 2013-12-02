@@ -54,6 +54,12 @@ $arFeatureList = array(
   
     "nsc.raw.harlap6mul.rgbsift",
     "nsc.raw.harlap6mul.sift",
+    "nsc.raw.harlap6mul.csift",
+    "nsc.raw.harlap6mul.oppsift",
+    
+    // adding Dec 2, 2013
+    "nsc.raw.dense6mul7.sift",
+    "nsc.raw.dense6mul7.rgbsift"
 ); // CHANGED FOR VSD13
 
 $szSourcePatName = "devel2013-new"; // CHANGED FOR VSD13

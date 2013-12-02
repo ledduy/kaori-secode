@@ -96,9 +96,16 @@ $arFeatureParamConfigList = array(
     "nsc.raw.harlap6mul.rgbsift" => "--detector harrislaplace --descriptor rgbsift",
     "nsc.raw.harlap6mul.sift" => "--detector harrislaplace --descriptor sift",
     "nsc.raw.harlap6mul.csift" => "--detector harrislaplace --descriptor csift",
-    "nsc.raw.harlap6mul.oppsift" => "--detector harrislaplace --descriptor oppsift",
+    "nsc.raw.harlap6mul.oppsift" => "--detector harrislaplace --descriptor opponentsift",
     
     "nsc.raw.dense6mul3.rgbsift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+2.0+3.2 --descriptor rgbsift",
+
+
+    // 6+1 scales (scale factor = sqrt(2) = 1.41) - inspired by dense trajectory feature
+    // for VSD data max 500x500 ==> 38K keypoints/image
+    "nsc.raw.dense6mul7.sift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+1.7+2.4+3.4+4.8+6.8+9.6 --descriptor sift", // dense sampling, multi scale
+    "nsc.raw.dense6mul7.rgbsift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+1.7+2.4+3.4+4.8+6.8+9.6 --descriptor rgbsift", // dense sampling, multi scale
+    
 );
 
 $gnUseTarFileForKeyFrame = 0; // CHANGED FOR VSD13 - already defined in ksc-AppConfig.php

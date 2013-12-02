@@ -58,7 +58,10 @@ $arFeatureList = array(
     "nsc.raw.dense4mul.rgbsift" => "--detector densesampling --ds_spacing 4 --ds_scales 1.2+2.0 --descriptor rgbsift",
     "nsc.raw.dense4mul.oppsift" => "--detector densesampling --ds_spacing 4 --ds_scales 1.2+2.0 --descriptor opponentsift",
     
-    "nsc.raw.harlap6mul.rgbsift" => "--detector harrislaplace --descriptor rgbsift"
+    "nsc.raw.harlap6mul.rgbsift" => "--detector harrislaplace --descriptor rgbsift",
+
+    // 6+1 scales (scale factor = sqrt(2) = 1.41)
+    "nsc.raw.dense6mul7.sift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+1.7+2.4+3.4+4.8+6.8+9.6 --descriptor sift", // dense sampling, multi scale
 );
 
 // ////////////////// END FOR CUSTOMIZATION ////////////////////
