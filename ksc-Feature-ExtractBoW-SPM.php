@@ -90,7 +90,7 @@
 require_once "ksc-AppConfig.php";
 
 // ////////////////// THIS PART FOR CUSTOMIZATION ////////////////////
-$gnUseTarFileForKeyFrame = 0; 
+$gnUseTarFileForKeyFrame = 0;
 $szSashKeypointToolApp = sprintf("sashKeyPointTool/sashKeyPointTool-nsc-BOW-L2");
 
 // $szRootDir = "/net/sfv215/export/raid4/ledduy/trecvid-sin-2011";
@@ -124,10 +124,11 @@ $arFeatureParamConfigList = array(
     
     // 6+1 scales (scale factor = sqrt(2) = 1.41) - inspired by dense trajectory feature
     // for VSD data max 500x500 ==> 38K keypoints/image
-    "nsc.raw.dense6mul7.sift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+1.7+2.4+3.4+4.8+6.8+9.6 --descriptor sift", // dense sampling, multi scale
-    "nsc.raw.dense6mul7.rgbsift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+1.7+2.4+3.4+4.8+6.8+9.6 --descriptor rgbsift", // dense sampling, multi scale
-    
-);
+    "nsc.raw.dense6mul7.sift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+1.7+2.4+3.4+4.8+6.8+9.6 --descriptor sift", // dense sampling, multi scale --> 12h - 15h per 1000KF of VSD
+    "nsc.raw.dense6mul7.rgbsift" => "--detector densesampling --ds_spacing 6 --ds_scales 1.2+1.7+2.4+3.4+4.8+6.8+9.6 --descriptor rgbsift" // dense sampling, multi scale
+)
+
+;
 
 // ////////////////// END FOR CUSTOMIZATION ////////////////////
 
@@ -153,12 +154,11 @@ $nUseL1NormBoW = intval($argv[4]);
 $nStartID = intval($argv[5]); // 0
 $nEndID = intval($argv[6]); // 1
 
-if(!isset($arFeatureParamConfigList[$szInputRawFeatureExt]))
+if (! isset($arFeatureParamConfigList[$szInputRawFeatureExt]))
 {
     print_r($arFeatureParamConfigList);
     exit("Feature ext is not supported. Check arFeatureParamConfigList\n");
 }
-
 
 $szScriptBaseName = basename($_SERVER['SCRIPT_NAME'], ".php");
 $szFPLogFN = sprintf("%s-%s-L1Norm%d.log", $szScriptBaseName, $szInputRawFeatureExt, $nUseL1NormBoW); // *** CHANGED ***
@@ -208,7 +208,7 @@ $szPrefixAnn = $szTargetPatName;
 
 $arLog = array();
 $szStartTime = date("m.d.Y - H:i:s");
-$arLog[] = sprintf("###Start [%s --> $$$]: [%s]-[%s]-[%s]-[%s]-[%s]", $szStartTime, $argv[1], $argv[2], $argv[3], $argv[4], $argv[5]);
+$arLog[] = sprintf("###Start [%s --> $$$]: [%s]-[%s]-[%s]-[%s]-[%s] -[%s]", $szStartTime, $argv[1], $argv[2], $argv[3], $argv[4], $argv[5], $argv[6]);
 saveDataFromMem2File($arLog, $szFPLogFN, "a+t");
 
 $szBOWFeatureExt = sprintf("%s.%s.%s", str_replace("raw", "bow", $szInputRawFeatureExt), $szTrialName, $szPatName);
@@ -224,10 +224,94 @@ execSysCmd($szCmdLine);
 
 $arLog = array();
 $szFinishTime = date("m.d.Y - H:i:s");
-$arLog[] = sprintf("###Finish [%s --> %s]: [%s]-[%s]-[%s]-[%s]-[%s]", $szStartTime, $szFinishTime, $argv[1], $argv[2], $argv[3], $argv[4], $argv[5], $argv[6]);
+$arLog[] = sprintf("###Finish [%s --> %s]: [%s]-[%s]-[%s]-[%s]-[%s]-[%s]", $szStartTime, $szFinishTime, $argv[1], $argv[2], $argv[3], $argv[4], $argv[5], $argv[6]);
 saveDataFromMem2File($arLog, $szFPLogFN, "a+t");
 
 // ///////////////////////////// FUNCTIONS //////////////////////////////
+function checkOutputFileExists($szLocalFeatureDir, $szRootFeatureOutputDir, $szVideoPath, $szVideoID, $szBOWFeatureExt, $szFPKeyFrameListFN)
+{
+    global $nUseL1NormBoW;
+    
+    $arGridList = array(
+        4 => 4,
+        3 => 1,
+        2 => 2,
+        1 => 3,
+        1 => 1
+    );
+    
+    $szCoreName = sprintf("%s.%s", $szVideoID, $szBOWFeatureExt);
+    
+    foreach ($arGridList as $nNumRows => $nNumCols)
+    {
+        // adding grid info (mxn)
+        // Changed 20 Jan --> 1x3 --> norm1x3
+        if ($nUseL1NormBoW)
+        {
+            $szOutputFeatureExt = sprintf("%s.L1norm%dx%d", $szBOWFeatureExt, $nNumRows, $nNumCols);
+        } else
+        {
+            $szOutputFeatureExt = sprintf("%s.NOnorm%dx%d", $szBOWFeatureExt, $nNumRows, $nNumCols);
+        }
+    
+        $szOutputDir = sprintf("%s/%s/%s", $szRootFeatureOutputDir, $szOutputFeatureExt, $szVideoPath);
+        makeDir($szOutputDir);
+    
+        $szOutputCoreName = sprintf("%s.%s", $szVideoID, $szOutputFeatureExt);
+    
+        global $gSkippExistingFiles;
+    
+        if ($gSkippExistingFiles) // !!!coping keyframes are still needed!!!
+        {
+            $szFPOutputFN = sprintf("%s/%s.tar.gz", $szOutputDir, $szOutputCoreName);
+            if (file_exists($szFPOutputFN) && filesize($szFPOutputFN))
+            {
+                //continue;  // for simple check
+                // get number of keyframes
+                $nNumKeyFrames = loadListFile($arKeyFrameList, $szFPKeyFrameListFN);
+    
+                // get number of lines (each line <--> one keyframe)
+                $szCmdLine = sprintf("tar -xvf %s -C %s", $szFPOutputFN, $szLocalFeatureDir);
+                execSysCmd($szCmdLine);
+    
+                $szFPLocalTmpzzFN = sprintf("%s/%s", $szLocalFeatureDir, $szOutputCoreName);
+                $nNumLines = loadListFile($arCountLineList, $szFPLocalTmpzzFN);
+                deleteFile($szFPLocalTmpzzFN);
+                if ($nNumLines == $nNumKeyFrames + 1) // first row --> annotation
+                {
+                    printf("###File [%s] found. Skipping ... \n", $szFPOutputFN);
+                    $szLog = sprintf("###WARNING!!! %s. File [%s] found. Checked OK --> Skipping ... \n", date("m.d.Y - H:i:s"), $szFPOutputFN);
+                    $arLogListz = array();
+                    $arLogListz[] = $szLog;
+                    global $szFPLogFN;
+                    saveDataFromMem2File($arLogListz, $szFPLogFN, "a+t");
+                    continue;
+                } else
+                {
+                    $szLog = sprintf("###WARNING!!! %s. File [%s] found. But not enough KF (Jul 14) [%s Lines - %s KF], re-running ... \n", date("m.d.Y - H:i:s"), $szFPOutputFN, $nNumLines - 1, $nNumKeyFrames);
+                    $arLogListz = array();
+                    $arLogListz[] = $szLog;
+                    global $szFPLogFN;
+                    saveDataFromMem2File($arLogListz, $szFPLogFN, "a+t");
+                    return -1;
+                }
+            }
+            else
+            {
+                printf("###File [%s] not found!... \n", $szFPOutputFN);
+                $szLog = sprintf("###WARNING!!! %s. File [%s] not found!\n", date("m.d.Y - H:i:s"), $szFPOutputFN);
+                $arLogListz = array();
+                $arLogListz[] = $szLog;
+                global $szFPLogFN;
+                saveDataFromMem2File($arLogListz, $szFPLogFN, "a+t");
+               // exit();
+                return -1;
+            }
+        }
+    }
+    return 1;
+}
+
 function computeSoftBOWHistogramWithGridForOnePat($szLocalDir, $szFeatureConfigParam, $szRootFeatureOutputDir, $szRootKeyFrameDir, $szRootMetaDataDir, $szSashCentroidDir, $szSashCentroidName, $szPrefixAnn, $szPatName, $szInputRawFeatureExt, $szBOWFeatureExt, $nMaxCodeBookSize = 2000, $nStartVideoID = -1, $nEndVideoID = -1)
 {
     $szFPVideoListFN = sprintf("%s/%s.lst", $szRootMetaDataDir, $szPatName);
@@ -276,6 +360,25 @@ function computeSoftBOWHistogramWithGridForOnePat($szLocalDir, $szFeatureConfigP
         
         $szLocalFeatureDir = sprintf("%s/%s/feature/%s/%s", $szLocalDir, $szBOWFeatureExt, $szVideoPath, $szVideoID);
         makeDir($szLocalFeatureDir);
+        
+        global $gSkippExistingFiles;
+        
+        if ($gSkippExistingFiles) // !!!coping keyframes are still needed!!!
+        {
+        
+            printf("### Checking output file ...\n");
+            $nRet = checkOutputFileExists($szLocalFeatureDir, $szRootFeatureOutputDir, $szVideoPath, $szVideoID, $szBOWFeatureExt, $szFPKeyFrameListFN);
+            
+            if($nRet == 1)
+            {
+                printf("File existed! Skip ...\n");
+                continue;
+            }
+            else
+            {
+                printf("File not found! Continue ...\n");
+            }
+        }
         
         extractRawSIFTFeatureForOneVideoProgram($szLocalKeyFrameDir, $szLocalFeatureDir, $szRootKeyFrameDir, $szRootMetaDataDir, $szPatName, $szVideoPath, $szVideoID, $szInputRawFeatureExt, $szFeatureConfigParam);
         
@@ -330,9 +433,44 @@ function computeSoftBOWHistogramWithGridForOneVideoProgram($szLocalFeatureDir, $
         makeDir($szOutputDir);
         
         $szOutputCoreName = sprintf("%s.%s", $szVideoID, $szOutputFeatureExt);
-        /*
-         * global $gSkippExistingFiles; if ($gSkippExistingFiles) { $szFPOutputFN = sprintf("%s/%s.tar.gz", $szOutputDir, $szOutputCoreName); if (file_exists($szFPOutputFN) && filesize($szFPOutputFN)) { // get number of keyframes $nNumKeyFrames = loadListFile($arKeyFrameList, $szFPKeyFrameListFN); // get number of lines (each line <--> one keyframe) $szCmdLine = sprintf("tar -xvf %s -C %s", $szFPOutputFN, $szLocalFeatureDir); execSysCmd($szCmdLine); $szFPLocalTmpzzFN = sprintf("%s/%s", $szLocalFeatureDir, $szOutputCoreName); $nNumLines = loadListFile($arCountLineList, $szFPLocalTmpzzFN); deleteFile($szFPLocalTmpzzFN); if ($nNumLines == $nNumKeyFrames + 1) // first row --> annotation { printf("###File [%s] found. Skipping ... \n", $szFPOutputFN); $szLog = sprintf("###WARNING!!! %s. File [%s] found. Checked OK --> Skipping ... \n", date("m.d.Y - H:i:s"), $szFPOutputFN); $arLogListz = array(); $arLogListz[] = $szLog; global $szFPLogFN; saveDataFromMem2File($arLogListz, $szFPLogFN, "a+t"); continue; } else { $szLog = sprintf("###WARNING!!! %s. File [%s] found. But not enough KF (Jul 14) [%s Lines - %s KF], re-running ... \n", date("m.d.Y - H:i:s"), $szFPOutputFN, $nNumLines - 1, $nNumKeyFrames); $arLogListz = array(); $arLogListz[] = $szLog; global $szFPLogFN; saveDataFromMem2File($arLogListz, $szFPLogFN, "a+t"); } } }
-         */
+        
+        global $gSkippExistingFiles;
+        
+        if ($gSkippExistingFiles) // !!!coping keyframes are still needed!!!
+        {
+            $szFPOutputFN = sprintf("%s/%s.tar.gz", $szOutputDir, $szOutputCoreName);
+            if (file_exists($szFPOutputFN) && filesize($szFPOutputFN))
+            {
+                // get number of keyframes
+                $nNumKeyFrames = loadListFile($arKeyFrameList, $szFPKeyFrameListFN);
+                
+                // get number of lines (each line <--> one keyframe)
+                $szCmdLine = sprintf("tar -xvf %s -C %s", $szFPOutputFN, $szLocalFeatureDir);
+                execSysCmd($szCmdLine);
+                
+                $szFPLocalTmpzzFN = sprintf("%s/%s", $szLocalFeatureDir, $szOutputCoreName);
+                $nNumLines = loadListFile($arCountLineList, $szFPLocalTmpzzFN);
+                deleteFile($szFPLocalTmpzzFN);
+                if ($nNumLines == $nNumKeyFrames + 1) // first row --> annotation
+                {
+                    printf("###File [%s] found. Skipping ... \n", $szFPOutputFN);
+                    $szLog = sprintf("###WARNING!!! %s. File [%s] found. Checked OK --> Skipping ... \n", date("m.d.Y - H:i:s"), $szFPOutputFN);
+                    $arLogListz = array();
+                    $arLogListz[] = $szLog;
+                    global $szFPLogFN;
+                    saveDataFromMem2File($arLogListz, $szFPLogFN, "a+t");
+                    continue;
+                } else
+                {
+                    $szLog = sprintf("###WARNING!!! %s. File [%s] found. But not enough KF (Jul 14) [%s Lines - %s KF], re-running ... \n", date("m.d.Y - H:i:s"), $szFPOutputFN, $nNumLines - 1, $nNumKeyFrames);
+                    $arLogListz = array();
+                    $arLogListz[] = $szLog;
+                    global $szFPLogFN;
+                    saveDataFromMem2File($arLogListz, $szFPLogFN, "a+t");
+                }
+            }
+        }
+
         $szFPLocalOutputFN = sprintf("%s/%s", $szLocalFeatureDir, $szOutputCoreName);
         
         computeSoftWeightingHistogramWithGrid($szFPKeyFrameListFN, $szFPLocalOutputFN, $szFPLocalInputFN, $szLocalFeatureDir, $szInputRawFeatureExt, $nNumRows, $nNumCols, $nMaxCodeBookSize);
@@ -544,6 +682,7 @@ function computeAssignmentSash($szLocalFeatureDir, $szFPLocalOutputFN, $szFPKeyF
             global $szFPLogFN;
             saveDataFromMem2File($arLogListz, $szFPLogFN, "a+t");
             
+            exit();
             continue;
         }
         

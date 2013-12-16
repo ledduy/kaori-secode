@@ -99,6 +99,7 @@ foreach ($arFeatureList as $szFeatureExt)
     
     $arCmdLineList = array();
     
+    $nJobCount = 0;
     for ($j = 0; $j < $nMaxVideosPerPat; $j += $nNumVideosPerHost)
     {
         $nStart = $j;
@@ -116,8 +117,12 @@ foreach ($arFeatureList as $szFeatureExt)
         
         $arCmdLineList[] = $szCmdLine;
         
-        // $szCmdLine = "sleep 2s;";
-        // $arCmdLineList[] = $szCmdLine;
+        // first 200 jobs --> slowly dispatch to avoid workload > 1.0
+        if($nJobCount < 200)
+        {
+            $szCmdLine = "sleep 30;";
+            $arCmdLineList[] = $szCmdLine;
+        }
     }
     
     if ($nUseL1NormBoW)
