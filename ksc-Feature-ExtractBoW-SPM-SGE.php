@@ -7,7 +7,7 @@
  *
  * 		Copyright (C) 2010-2013 Duy-Dinh Le.
  * 		All rights reserved.
- * 		Last update	: 09 Sep 2013.
+ * 		Last update	: 09 Dec 2013.
  */
 
 /**

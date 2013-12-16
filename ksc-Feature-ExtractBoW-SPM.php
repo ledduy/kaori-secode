@@ -7,7 +7,7 @@
 *
 * 		Copyright (C) 2010-2013 Duy-Dinh Le.
 * 		All rights reserved.
-* 		Last update	: 30 Aug 2013.
+* 		Last update	: 16 Dec 2013.
 */
 
 // !!! IMPORTATNT !!!
@@ -266,7 +266,7 @@ function checkOutputFileExists($szLocalFeatureDir, $szRootFeatureOutputDir, $szV
             $szFPOutputFN = sprintf("%s/%s.tar.gz", $szOutputDir, $szOutputCoreName);
             if (file_exists($szFPOutputFN) && filesize($szFPOutputFN))
             {
-                //continue;  // for simple check
+                //continue;  // for simple check, do not check content
                 // get number of keyframes
                 $nNumKeyFrames = loadListFile($arKeyFrameList, $szFPKeyFrameListFN);
     
