@@ -1,0 +1,24 @@
+﻿Data Organization
+
+Last Update: 24 Aug 2014.
+
+1. RootDIR: /net/per610a/export/das11f/ledduy/mediaeval-vsd-2014
+
+2. Video files
+2.1. Các partition (pat) --> copy vào các thư mục tương ứng, i.e. video/devel2011
+- devel2011: 12 videos
+- test2011: 3 videos
+- test2012: 3 videos
+- test2013: 7 videos
+- test2014: 7 videos.
+
+==> Tổng cộng: 32 videos, ~60 hours.
+
+Các videos được lưu ở dạng mp2 (ORIGINAL).
+
+2.2. Metadata tương ứng
+* devel2011.lst --> tạo bằng tay (manually)
+VideoID #$# VideoName #$# Path
+VSD_devel2011-1 #$# ZZZZ #$# devel2011
+
+* đặt trong thư mục metadata
