@@ -1,0 +1,9 @@
+﻿Các step sau đã được dùng để khởi tạo branch [kaori-secode]-vsd2014
+
+1. Trên desktop, dùng GitHub4Windows để Clone kaori-secode repos về thư mục Documents/GitHub/kaori-secode.
+
+2. Sau đó chọn branch vsd2013, rồi chọn Manage. Từ đó chọn tạo branch mới dựa trên branch vsd2013.
+
+3. Sau đó chọn Publish, lúc này trên github server sẽ có branch mới là vsd2014. Đồng thời phiên bản local trên desktop cũng là của branch vsd2014.
+
+4. Trong Eclipse, chọn chức năng Import/Projects from Git, sau đó cho trỏ đến thư mục chứa vsd2014 để import existing project.
