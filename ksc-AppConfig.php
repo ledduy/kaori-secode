@@ -5,14 +5,14 @@
  * 		@brief 	Configuration file for KAORI-SECODE App.
  *		@author Duy-Dinh Le (ledduy@gmail.com, ledduy@ieee.org).
  *
- * 		Copyright (C) 2010-2013 Duy-Dinh Le.
+ * 		Copyright (C) 2010-2014 Duy-Dinh Le.
  * 		All rights reserved.
- * 		Last update	: 09 Sep 2013.
+ * 		Last update	: 28 Aug 2014.
  */
 
-//*** Update Sep 09, 2013
-// Customize for VSD2013
-// Look for CHANGED FOR VSD13
+//*** Update Aug 24, 2014
+// Customize for VSD2014
+// Look for CHANGED FOR VSD14
 
 // //////////////// HOW TO CUSTOMIZE /////////////////////////
 // New on Sep 02, 2013
@@ -121,16 +121,17 @@ $gszFeatureConfigDir = "BaselineFeatureConfig";
 // ////////////////// THIS PART FOR CUSTOMIZATION ////////////////////
 $gnUseTarFileForKeyFrame = 0; // whether to pack keyframes in .tar files
                              
-// Root of a benchmark, e.g. trecvid-sin-2011, trecvid-med-2011, imageCLEF, ImageNet, VSD2013
-$gszRootBenchmarkDir = "/net/per610a/export/das11f/ledduy/mediaeval-vsd-2013"; // CHANGED FOR VSD13
+// Root of a benchmark, e.g. trecvid-sin-2011, trecvid-med-2011, imageCLEF, ImageNet, VSD2014
+$gszRootBenchmarkDir = "/net/per610a/export/das11f/ledduy/mediaeval-vsd-2014"; // CHANGED FOR VSD14
                                                                                         
 // Dir for php code
 // just copy from local dir , NOT check out
-$gszSGEScriptDir = "/net/per900c/raid0/ledduy/github-projects/kaori-secode-vsd2013"; // CHANGED FOR VSD13
+// NEW Aug24, 2014 - code dir is now under the ROOTDIR
+$gszSGEScriptDir = sprintf("%s/kaori-secode-vsd2014", $gszRootBenchmarkDir); // CHANGED FOR VSD14
                                                                                       
 // *** SHOULD NOT CHANGE *****
 // Dir for .sh script
-$gszScriptBinDir = "/net/per900c/raid0/ledduy/bin13/bin-vsd2013"; // CHANGED FOR VSD13
+$gszScriptBinDir = sprintf("%s/bin-vsd2014", $gszRootBenchmarkDir); // CHANGED FOR VSD14
 makedir($gszScriptBinDir);
 
 // feature extraction app
@@ -151,7 +152,7 @@ $garAppConfig["SASH_KEYPOINT_TOOL_BOW_L2_APP"] = "sashKeyPointTool/sashKeyPointT
 $gszTmpDir = "/local/ledduy"; // must INCLUDE benchmark name
 if (! file_exists($gszTmpDir))
 {
-    $gszTmpDir = "/net/dl380g7a/export/ddn11a6/ledduy/tmp/kaori-secode-vsd2013"; // CHANGED FOR VSD13
+    $gszTmpDir = "/net/dl380g7a/export/ddn11a6/ledduy/tmp/kaori-secode-vsd2014"; // CHANGED FOR VSD14
     makeDir($gszTmpDir);
 }
 
@@ -163,8 +164,7 @@ $gnMaxFrameHeight = 500; // *** CHANGED ***
 $gszResizeOption = sprintf("-resize '%sx%s>'", $gnMaxFrameWidth, $gnMaxFrameHeight); // to ensure W is the width after shrinking
                                                                                      
 // / !!! IMPORTANT PARAM !!!
-//$nNumClusters = 500;
-$nNumClusters = 1000; // 60GR RAM is needed!!!
+$nNumClusters = 1000; // 60GR RAM is needed!!! // DON'T CHANGE - DEFAULT
 $szKMeansMethod = 'elkan';
 
 $szTrialName = sprintf("Soft-%d", $nNumClusters);

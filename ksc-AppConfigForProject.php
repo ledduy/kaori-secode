@@ -6,14 +6,14 @@
  * 		Some variables will be overrided.
  *		@author Duy-Dinh Le (ledduy@gmail.com, ledduy@ieee.org).
  *
- * 		Copyright (C) 2010-2013 Duy-Dinh Le.
+ * 		Copyright (C) 2010-2014 Duy-Dinh Le.
  * 		All rights reserved.
- * 		Last update	: 09 Sep 2013.
+ * 		Last update	: 28 Aug 2014.
  */
 
-//*** Update Sep 09, 2013
-// Customize for VSD2013
-// Look for CHANGED FOR VSD13
+//*** Update Aug 28, 2014
+// Customize for VSD2014
+// Look for CHANGED FOR VSD14
 
 // //////////////// HOW TO CUSTOMIZE /////////////////////////
 
@@ -41,16 +41,18 @@ $gszSVMScaleApp = sprintf("libsvm291/svm-scale");
 
 // The information below is mainly for feature extraction using SGE
 
-$szExpName = "mediaeval-vsd2013"; // CHANGED FOR VSD13
+$szExpName = "mediaeval-vsd2014"; // CHANGED FOR VSD14
 $szExpConfig = $szExpName;
 
-$szProjectCodeName = "kaori-secode-vsd2013"; // CHANGED FOR VSD13
+$szProjectCodeName = "kaori-secode-vsd2014"; // CHANGED FOR VSD14
                                             
 // --> name of list of videos, i.e, metadata/keyframe-5/<pat-name.lst> = metadata/keyframe-5/tv2012.devel.lst
 $arPat2PathList = array(
-    "devel2013-new" => "devel2013-new",
-    "test2013-new" => "test2013-new" 
-); // CHANGED FOR VSD13
+    "devel2013" => "devel2013", 
+	"test2013" => "test2013", 
+    "devel2014" => "devel2014", 
+	"test2014" => "test2014" 
+); // CHANGED FOR VSD14
 
 $nNumPats = sizeof($arPat2PathList);
 
@@ -58,17 +60,26 @@ $nNumPats = sizeof($arPat2PathList);
 // --> dir name + path containing keyframes, i.e, keyframe-5/<path-name> = keyframe-5/tv2012/devel
 $arVideoPathList = array(
     "devel2013-new",
-    "test2013-new" // CHANGED FOR VSD13
+    "test2013-new", 
+    "devel2014-new",
+	"test2014-new", 
+		// CHANGED FOR VSD14
 );
 
 $arMaxVideosPerPatList = array(
-    "devel2013-new" => 1215, // CHANGED FOR VSD13
-    "test2013-new" => 500
-); // Precise:
+    "devel2013-new",
+    "devel2014-new",
+    "test2013-new", 
+    "test2014-new", 
+); // CHANGED FOR VSD14
 
 $arMaxHostsPerPatList = array(
     "devel2013-new" => 200,
-    "test2013-new" => 200 // CHANGED FOR VSD13
+    "test2013-new" => 200,
+	"devel2014-new" => 200,
+	"test2014-new" => 200,
+		
+	 // CHANGED FOR VSD14
 ); 
    
 // these params are used in extracting raw local features.
@@ -79,7 +90,7 @@ $arMaxHostsPerPatList = array(
  */
 
 // usually set this number to SUPER MAX keyframes per video
-$nMaxKFPerVideo = 100000; // CHANGED FOR VSD13
+$nMaxKFPerVideo = 1000000; // CHANGED FOR VSD14
                           
 // usually set this number to $nMaxKFPerVideo if all KF is processed in one job
 $nNumKFPerJob = $nMaxKFPerVideo; // *** CHANGED ***
@@ -91,15 +102,16 @@ $nAveShotPerVideo = 27; // CHANGED FOR VSD13 32K/1.2K ~ 27
 // set for training --> used to find cluster centers
 $arBOWDevPatList = array(
     "devel2013-new"
-); // CHANGED FOR VSD13
+); // CHANGED FOR VSD14
 
 $szSysID = "mediaeval-vsd2013"; // CHANGED FOR VSD13
 $szSysDesc = "Experiments for MediaEval-VSD2013"; // CHANGED FOR VSD13
                                                
 // used for codeword assignment
 $arBOWTargetPatList = array(
-    "devel2013-new", // CHANGED FOR VSD13
-    "test2013-new" // CHANGED FOR VSD13
+    "devel2013-new", 
+    "test2013-new", 
+    "test2014-new" // CHANGED FOR VSD14
 );
 
 $szConfigDir = "basic";
