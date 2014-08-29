@@ -1,0 +1,12 @@
+﻿Step1: chia video thành các shot bằng nhau có chiều dài N keyframe (năm 2014 chọn N = 125, tương đương mỗi shot là 5 seconds)
+	- Chạy shot boundary (2014-nsc-mediaeval14-CreateSBfiles_EquaShot.php)
+	- Thống kê thời gian từng video và tổng số keyframe, số shot
+Step2: extract keyframe dựa vào shot boundary (cứ lấy step 5 keyframe lấy 1, nghĩa là 1s = 25 kf sẽ lấy 5 keyframe, mỗi shot lấy 125 keyframe)
+	- Chạy extract keyframe from shot (2014-nsc-mediaeval14-ExtractKFFromShot.php)
+	- Thống kê số keyframe đã extract và thời gian extract cho từng keyframe	
+Step3: chia các thư mục chứa keyframe ra thành các thư mục con (10 shot = 1250 keyframes)
+
+Step4: chạy extract features
+	- Train codebook
+	
+
