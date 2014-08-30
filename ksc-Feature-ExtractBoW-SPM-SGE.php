@@ -84,6 +84,7 @@ $nUseL1NormBoW = 1; // DEFAULT - DO NOT CHANGE
 $arCmdLineList = array();
 
 $nMaxVideosPerPat = $arMaxVideosPerPatList[$szDestPatName];
+$nMaxHostsPerPat = $arMaxHostsPerPatList[$szDestPatName];
 $nNumVideosPerHost = max(1, intval($nMaxVideosPerPat / $nMaxHostsPerPat)); // Oct 19
 
 foreach ($arFeatureList as $szFeatureExt)
