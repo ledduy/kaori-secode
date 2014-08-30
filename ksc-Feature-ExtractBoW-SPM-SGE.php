@@ -115,8 +115,8 @@ foreach ($arFeatureList as $szFeatureExt)
         // printf("Usage: %s <SrcPatName> <TargetPatName> <RawFeatureExt> <Start> <End>\n", $argv[0]);
         $szParam = sprintf("%s %s %s %s %s %s", $szSourcePatName, $szDestPatName, $szFeatureExt, $nUseL1NormBoW, $nStart, $nEnd);
         
-        // 4 cores/job --> -pe localslots 4
-        $szCmdLine = sprintf("qsub -pe localslots 4 -e %s -o %s %s %s", $szFPLogFN, $szFPLogFN, $szFPSGEScriptName, $szParam);
+        // 2 cores/job --> -pe localslots 2
+        $szCmdLine = sprintf("qsub -pe localslots 2 -e %s -o %s %s %s", $szFPLogFN, $szFPLogFN, $szFPSGEScriptName, $szParam);
         
         $arCmdLineList[] = $szCmdLine;
         

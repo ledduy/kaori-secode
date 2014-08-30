@@ -246,7 +246,7 @@ function checkOutputFileExists($szLocalFeatureDir, $szRootFeatureOutputDir, $szV
     global $nUseL1NormBoW;
     
     $arGridList = array(
-        4 => 4,
+//        4 => 4,
         3 => 1,
         2 => 2,
         1 => 3,
