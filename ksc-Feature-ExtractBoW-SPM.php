@@ -5,10 +5,22 @@
 * 		@brief 	Extract BoW Features - AllInOne Step.
 *		@author Duy-Dinh Le (ledduy@gmail.com, ledduy@ieee.org).
 *
-* 		Copyright (C) 2010-2013 Duy-Dinh Le.
+* 		Copyright (C) 2010-2014 Duy-Dinh Le.
 * 		All rights reserved.
-* 		Last update	: 16 Dec 2013.
+* 		Last update	: 30 Aug 2014.
 */
+
+/**
+ * *********** STEPS FOR BOW MODEL (30 Aug, 2014) ***************
+ * STEP 1: Build codebook
+ * STEP 1.1: ksc-BOW-SelectKeyPointsForClustering.php --> select keypoints from devel pat
+ * (It does not require to extract raw features of ALL keyframes as previous version.
+ * Instead, it will select keyframes and extract raw features on the FLY.)
+ * STEP 1.2: ksc-BOW-DoClusteringKeyPoints-VLFEAT.php --> do clustering using VLFEAT vl_kmeans, L2 distance
+ * STEP 1.3: ksc-ComputeSashForCentroids.php --> compute sash for fast keypoint assignment, make sure sashTool using L2 distance
+ * ===> STEP 2: ksc-Feature-ExtractBoW-SPM/-SGE.php --> compute assignment with SPM, using approx search (scale factor - 4)
+ */
+
 
 // !!! IMPORTATNT !!!
 // $szSashKeypointToolApp = sprintf("sashKeyPointTool/sashKeyPointTool-nsc-BOW-L2");
@@ -134,9 +146,9 @@ $arFeatureParamConfigList = array(
 
 // /////////////////////////// MAIN ////////////////////////////////
 $nUseL1NormBoW = 1;
-$szPatName = "devel2013-new"; // CHANGED FOR VSD13
+$szPatName = "devel2011-new"; // CHANGED FOR VSD13
 $szInputRawFeatureExt = "nsc.raw.dense6mul.sift";
-$szTargetPatName = "test2013-new"; // or devel2012
+$szTargetPatName = "test2011-new"; // or devel2012
 $nStartID = 0; // 0
 $nEndID = 1; // 1
 
@@ -151,6 +163,7 @@ $szPatName = $argv[1]; // tv2007.devel
 $szTargetPatName = $argv[2];
 $szInputRawFeatureExt = $argv[3];
 $nUseL1NormBoW = intval($argv[4]);
+$nUseL1NormBoW = 1;
 $nStartID = intval($argv[5]); // 0
 $nEndID = intval($argv[6]); // 1
 
@@ -171,7 +184,7 @@ $szRootFeatureOutputDir = $szRootFeatureDir;
 
 $szLocalTmpDir = $gszTmpDir; // defined in ksc-AppConfig
 
-$szTmpDir = sprintf("%s/%s/%s/%s-%s-UseNorm%d-%d-%d", $szLocalTmpDir, $szScriptBaseName, $szPatName, $szTargetPatName, $szInputRawFeatureExt, $nUseL1NormBoW, $nStartID, $nEndID);
+$szTmpDir = sprintf("%s/%s/%s/%s-%s-UseL1Norm%d-%d-%d", $szLocalTmpDir, $szScriptBaseName, $szPatName, $szTargetPatName, $szInputRawFeatureExt, $nUseL1NormBoW, $nStartID, $nEndID);
 makeDir($szTmpDir);
 
 // !!! IMPORTANT

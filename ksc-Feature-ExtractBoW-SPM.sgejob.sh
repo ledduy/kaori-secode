@@ -7,7 +7,7 @@
 #$ -S /bin/sh
 
 # Force to limit hosts running jobs
-#$ -q all.q@@bc2hosts,all.q@@bc3hosts
+#$ -q all.q@@bc2hosts,all.q@@bc3hosts,all.q@@bc4hosts,all.q@@bc5hosts
 
 # Log starting time
 date 
@@ -18,8 +18,8 @@ date
 # Log info of the job to output file  *** CHANGED ***
 echo [$HOSTNAME] [$JOB_ID] [ksc-Feature-ExtractBoW-SPM] [$1] [$2] [$3] [$4] [$5] [$6] [$7]
 
-# change to the code dir  --> NEW!!! CHANGED FOR VSD13
-cd /net/per900c/raid0/ledduy/github-projects/kaori-secode-vsd2013
+# change to the code dir  --> NEW!!! CHANGED FOR VSD14
+cd /net/per610a/export/das11f/ledduy/mediaeval-vsd-2014/code/kaori-secode-vsd2014
 
 # Log info of current dir
 pwd

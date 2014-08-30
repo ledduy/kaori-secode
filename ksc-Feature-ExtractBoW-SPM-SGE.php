@@ -5,9 +5,9 @@
  * 		@brief 	Generate jobs for SGE to computing BOW - SPM.
  *		@author Duy-Dinh Le (ledduy@gmail.com, ledduy@ieee.org).
  *
- * 		Copyright (C) 2010-2013 Duy-Dinh Le.
+ * 		Copyright (C) 2010-2014 Duy-Dinh Le.
  * 		All rights reserved.
- * 		Last update	: 09 Dec 2013.
+ * 		Last update	: 30 Aug 2014.
  */
 
 /**
@@ -33,7 +33,7 @@ require_once "ksc-AppConfig.php";
 
 // ////////////////// THIS PART FOR CUSTOMIZATION ////////////////////
 
-$szProjectCodeName = "kaori-secode-vsd2013"; // CHANGED FOR VSD13
+$szProjectCodeName = "kaori-secode-vsd2014"; // CHANGED FOR VSD14
 $szCoreScriptName = "ksc-Feature-ExtractBoW-SPM"; // *** CHANGED ***
 
 $szSGEScriptDir = $gszSGEScriptDir; // defined in ksc-AppConfig
@@ -62,8 +62,8 @@ $arFeatureList = array(
     "nsc.raw.dense6mul7.rgbsift"
 ); // CHANGED FOR VSD13
 
-$szSourcePatName = "devel2013-new"; // CHANGED FOR VSD13
-$szDestPatName = "test2013-new";  // also devel2013-new // CHANGED FOR VSD13
+$szSourcePatName = "devel2011-new"; // CHANGED FOR VSD11
+$szDestPatName = "test2011-new";  // also devel2013-new // CHANGED FOR VSD13
 
 // ////////////////// END FOR CUSTOMIZATION ////////////////////
 
@@ -94,6 +94,7 @@ foreach ($arFeatureList as $szFeatureExt)
     } else
     {
         $szScriptOutputDir = sprintf("%s/bow.%s.%s/%s-NoNorm", $szRootScriptOutputDir, $szTrialName, $szSourcePatName, $szFeatureExt);
+    	exit();
     }
     makeDir($szScriptOutputDir);
     
@@ -113,16 +114,11 @@ foreach ($arFeatureList as $szFeatureExt)
         // printf("Usage: %s <SrcPatName> <TargetPatName> <RawFeatureExt> <Start> <End>\n", $argv[0]);
         $szParam = sprintf("%s %s %s %s %s %s", $szSourcePatName, $szDestPatName, $szFeatureExt, $nUseL1NormBoW, $nStart, $nEnd);
         
-        $szCmdLine = sprintf("qsub -e %s -o %s %s %s", $szFPLogFN, $szFPLogFN, $szFPSGEScriptName, $szParam);
+        // 4 cores/job --> -pe localslots 4
+        $szCmdLine = sprintf("qsub -pe localslots 4 -e %s -o %s %s %s", $szFPLogFN, $szFPLogFN, $szFPSGEScriptName, $szParam);
         
         $arCmdLineList[] = $szCmdLine;
         
-        // first 200 jobs --> slowly dispatch to avoid workload > 1.0
-        if($nJobCount < 200)
-        {
-            $szCmdLine = "sleep 30;";
-            $arCmdLineList[] = $szCmdLine;
-        }
     }
     
     if ($nUseL1NormBoW)
@@ -146,5 +142,3 @@ foreach ($arFeatureList as $szFeatureExt)
  */
 
 ?>
-
-

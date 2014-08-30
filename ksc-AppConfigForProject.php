@@ -48,9 +48,10 @@ $szProjectCodeName = "kaori-secode-vsd2014"; // CHANGED FOR VSD14
                                             
 // --> name of list of videos, i.e, metadata/keyframe-5/<pat-name.lst> = metadata/keyframe-5/tv2012.devel.lst
 $arPat2PathList = array(
-    "devel2013" => "devel2013", 
-	"test2013" => "test2013", 
-    "devel2014" => "devel2014", 
+    "devel2011" => "devel2011", 
+	"test2011" => "test2011", 
+    "test2012" => "test2012", 
+    "test2013" => "test2013", 
 	"test2014" => "test2014" 
 ); // CHANGED FOR VSD14
 
@@ -59,24 +60,27 @@ $nNumPats = sizeof($arPat2PathList);
 // this part is for SGE - Feature Extraction
 // --> dir name + path containing keyframes, i.e, keyframe-5/<path-name> = keyframe-5/tv2012/devel
 $arVideoPathList = array(
-    "devel2013-new",
+    "devel2011-new",
+    "test2011-new", 
+    "test2012-new", 
     "test2013-new", 
-    "devel2014-new",
 	"test2014-new", 
 		// CHANGED FOR VSD14
 );
 
 $arMaxVideosPerPatList = array(
-    "devel2013-new",
-    "devel2014-new",
-    "test2013-new", 
-    "test2014-new", 
+    "devel2011-new" => 400,
+    "test2011-new" => 400,
+    "test2012-new" => 400,
+	"test2013-new" => 400,
+	"test2014-new" => 400,
 ); // CHANGED FOR VSD14
 
 $arMaxHostsPerPatList = array(
-    "devel2013-new" => 200,
-    "test2013-new" => 200,
-	"devel2014-new" => 200,
+    "devel2011-new" => 200,
+    "test2011-new" => 200,
+    "test2012-new" => 200,
+	"test2013-new" => 200,
 	"test2014-new" => 200,
 		
 	 // CHANGED FOR VSD14
@@ -97,21 +101,23 @@ $nNumKFPerJob = $nMaxKFPerVideo; // *** CHANGED ***
                                  
 // this param is used for ksc-BOW-Quantization-SelectKeyPointsForClustering.php
                                  // if no shot case (e.g, imageclef, imagenet), it is the ave number of keyframes per video.
-$nAveShotPerVideo = 27; // CHANGED FOR VSD13 32K/1.2K ~ 27
+$nAveShotPerVideo = 10; // CHANGED FOR VSD14
                           
 // set for training --> used to find cluster centers
 $arBOWDevPatList = array(
-    "devel2013-new"
+    "devel2011-new"
 ); // CHANGED FOR VSD14
 
-$szSysID = "mediaeval-vsd2013"; // CHANGED FOR VSD13
-$szSysDesc = "Experiments for MediaEval-VSD2013"; // CHANGED FOR VSD13
+$szSysID = "mediaeval-vsd2014"; // CHANGED FOR VSD14
+$szSysDesc = "Experiments for MediaEval-VSD2014"; // CHANGED FOR VSD14
                                                
 // used for codeword assignment
 $arBOWTargetPatList = array(
-    "devel2013-new", 
-    "test2013-new", 
-    "test2014-new" // CHANGED FOR VSD14
+    "devel2011-new", 
+    "test2011-new", 
+    "test2012-new", 
+	"test2013-new", 
+	"test2014-new" // CHANGED FOR VSD14
 );
 
 $szConfigDir = "basic";
