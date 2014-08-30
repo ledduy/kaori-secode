@@ -5,21 +5,26 @@
  * 		@brief 	Compute SASH for Centroids to improve the speed of assignment.
  *		@author Duy-Dinh Le (ledduy@gmail.com, ledduy@ieee.org).
  *
- * 		Copyright (C) 2010-2013 Duy-Dinh Le.
+ * 		Copyright (C) 2010-2014 Duy-Dinh Le.
  * 		All rights reserved.
- * 		Last update	: 16 Aug 2013.
+ * 		Last update	: 30 Aug 2014.
  */
+
+
+/**
+ * *********** STEPS FOR BOW MODEL (30 Aug, 2014) ***************
+ * ===> STEP 1: Build codebook
+ * STEP 1.1: ksc-BOW-SelectKeyPointsForClustering.php --> select keypoints from devel pat
+ * (It does not require to extract raw features of ALL keyframes as previous version.
+ * Instead, it will select keyframes and extract raw features on the FLY.)
+ * STEP 1.2: ksc-BOW-DoClusteringKeyPoints-VLFEAT.php --> do clustering using VLFEAT vl_kmeans, L2 distance
+ * ===> STEP 1.3: ksc-ComputeSashForCentroids.php --> compute sash for fast keypoint assignment, make sure sashTool using L2 distance
+ * STEP 2: ksc-Feature-ExtractBoW-SPM/-SGE.php --> compute assignment with SPM, using approx search (scale factor - 4)
+ */
+
 
 //*** Update Jul 08, 2012
 //--> Check FeatureOutputDir for load balancing
-
-/************* STEPS FOR BOW MODEL ***************
- * 	STEP 1: nsc-BOW-SelectKeyPointsForClustering-TV10.php --> select keypoints from devel pat
-* 	STEP 2: nsc-BOW-DoClusteringKeyPoints-VLFEAT-TV10.php --> do clustering using VLFEAT vl_kmeans, L2 distance
-* 	===> STEP 3: nsc-ComputeSashForCentroids-TV10.php --> compute sash for fast keypoint assignment, make sure sashTool using L2 distance
-* 	STEP 4: nsc-ComputeAssignmentSash-TV10/-SGE.php --> compute sash assignment, using exact search (scale factor - 4)
-* 	STEP 5: nsc-ComputeSoftBOW-Grid-TV10/-SGE.php --> compute soft assignment for grid image
-*/
 
 // Update Aug 01
 // Customize for tv2011
