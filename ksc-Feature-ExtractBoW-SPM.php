@@ -146,7 +146,7 @@ $arFeatureParamConfigList = array(
 
 // /////////////////////////// MAIN ////////////////////////////////
 $nUseL1NormBoW = 1;
-$szPatName = "devel2011-new"; // CHANGED FOR VSD13
+$szPatName = "devel2011-new"; // CHANGED FOR VSD14
 $szInputRawFeatureExt = "nsc.raw.dense6mul.sift";
 $szTargetPatName = "test2011-new"; // or devel2012
 $nStartID = 0; // 0
@@ -413,7 +413,7 @@ function computeSoftBOWHistogramWithGridForOneVideoProgram($szLocalFeatureDir, $
     global $nUseL1NormBoW;
     
     $arGridList = array(
-        4 => 4,
+        //4 => 4,
         3 => 1,
         2 => 2,
         1 => 3,
