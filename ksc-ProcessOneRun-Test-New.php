@@ -5,95 +5,19 @@
  * 		@brief 	Test One Run.
  *		@author Duy-Dinh Le (ledduy@gmail.com, ledduy@ieee.org).
  *
- * 		Copyright (C) 2010-2013 Duy-Dinh Le.
+ * 		Copyright (C) 2010-2014 Duy-Dinh Le.
  * 		All rights reserved.
- * 		Last update	: 10 Jul 2013.
+ * 		Last update	: 02 Sep 2014.
  */
 
-// *** Update Jul 18, 2012
-// Customize for tvsin12 --> MAJOR changes --> search for Jul 18
-// Collecting feature vectors for training (4K + 40K) might take more than ONE hour
+// Update Sep 01, 2014 --> revise for VSD2014
+// 1. Remove unused options
 
-// ************ NEW **************
-// - All feature files are stored in one public dir in /local/ledduy so that ALL concepts (of one run config type, i.e. ignore dup systems .Rxx) can be used
-// ---> HOW to handle conflicts, because when a file is copying, check file_exists() and filesize() does not work
-// --> try cp -u
-// - Keyframes are organized into NewVideoID-->OrigVideoID-->KeyFrame so that one feature file for one new video program is loaded ONCE
+/*** Example of config file --- mediaeval-vsd-2014.devel2013-new.cfg -----
+model_name #$# mediaeval-vsd-2014.devel2013-new #$# runs for mediaeval-vsd-2014, using devel2013-new partition as devel
+test_pat #$# test2013-new #$# test2013
+*/
 
-// / !!! IMPORTANT
-// --> Check model and res files before running
-
-// Update Sep 07
-/*
- * // !!! IMPORTANT -- Updated Sep 07 - Vu found this! if($szTestDataName != $szTrainDataName) { $szCmdLine = sprintf("rm -rf %s/*%s*", $szTmpDir, $szTestDataName); execSysCmd($szCmdLine); }
- */
-
-// Update Aug 07
-// Customize for tv2011
-
-// ///////////////////////////////////////////////////////////////////////
-// Update Jun 13
-// Current setting --> no way to specify model dir since it is bound with sys_id
-// Special treatment for validation run
-// if(strstr($arRunConfig['sys_id'], "-validation"))
-// {
-// $szExpModelRunDir = sprintf("%s/%s", $szExpModelDir, str_replace("-validation", "", $arRunConfig['sys_id']));
-// }
-
-// Update May 14
-// if the feature file does not exist
-// $szFPTarFeatureInputFNzz = sprintf("%s.tar.gz", $szFPFeatureInputFN);
-// if(!file_exists($szFPTarFeatureInputFNzz))
-// {
-// continue;
-// }
-
-// Update Jan 25
-// Modify default gszFeatureFormat
-// bow --> svf
-// if(strstr($szFeatureExt, "bow"))
-// {
-// $gszFeatureFormat = "svf";
-// }
-// else
-// {
-// $gszFeatureFormat = "dvf";
-// }
-
-// Update Jan 02
-// Adding param $nSkipExistingScores = 1;
-
-// Update Dec 26
-// Supporting feature format param in run config --> FeatureFormat for svf
-
-// Update Dec 02
-// Move parts of copying model files out of the loop
-
-// Update 25 Nov
-// Update functions to support svf format
-
-// Update 18 Oct
-// Check sys_id for consistency with file name --> USE the core name, so sys_id is UNUSED
-
-// Update 14 Oct
-// Allow to change devel_pat and test_pat in each run config
-// Use prob_output as param in run config
-
-// Update 03 Oct
-// Move $szExpConfig = "hlf-tv2005" to nsc-ProcessOneRun-Test-TV10-SGE.php;
-// $szTmpDir = sprintf("%s/model-%d-%d", $szTmpDir, $nStartPrg, $nEndPrg);
-// Several threads using the same model for predicting different video programs --> put szTmpDir with model-x-y for isolation
-
-// Update 01 Oct
-// Support .model file in compressed format (tar.gz) --> reduce more than 40% of size
-// .model and .normdat files are copied to local dir
-// Test classifiers with -b option --> modify SVMTools by adding one more param
-// Special treatment with output of -b option --> one more row added: labels 1 -1
-
-// Update Aug 9
-// check .res & .out files before prediction --> jobs can be run continuously when models are coming incrementally
-
-// support compressed feature file
 
 // ///////////////////////////////////////////////////////////////////////
 require_once "ksc-AppConfig.php";
@@ -119,34 +43,24 @@ $szFPLogFN = sprintf("%s.log", $szScriptBaseName); // *** CHANGED ***
                                                    
 // //////////////////////////////// START ////////////////////////
 
-$szExpName = "imageclef2012-PhotoAnnFlickr";
-$szFPRunConfigFN = "/net/sfv215/export/raid6/ledduy/ImageCLEF/2012/PhotoAnnFlickr/experiments/imageclef2012-PhotoAnnFlickr/runlist/imageclef2012-PhotoAnnFlickr.nsc.bow.dense6mul.rgbsift.Soft-500.devel2012.L1norm1x1.ksc.imageclef2012.R1.cfg";
-$nStartConcept = 1;
-$nEndConcept = 2;
-$nStartPrg = 1;
-$nEndPrg = 2;
+$szTestConfigName = "mediaeval-vsd-2014.devel2013-new.test2013-new"; // association of devel-pat & test-pat 
+$szModelFeatureConfig = "nsc.bow.dense6mul.rgbsift.Soft-1000.devel2011-new.L1norm1x1.shotMAX.R11"; // feature_ext + training params
+
+$nStartConcept = 0;
+$nEndConcept = 1;
+$nStartPrg = 0;
+$nEndPrg = 1;
 
 if ($argc != 7)
 {
     printf("Number of params [%s] is incorrect [7]\n", $argc);
-    printf("Usage %s <ExpConfig> <RunConfigFN> <StartConcept> <EndConcept> <StartPrg> <EndPrg>\n", $argv[0]);
-    printf("Usage %s %s %s %s %s %s %s\n", $argv[0], $szExpConfig, $szFPRunConfigFN, $nStartConcept, $nEndConcept, $nStartPrg, $nEndPrg);
+    printf("Usage %s <TestConfigName> <ModelFeatureConfig> <StartConcept> <EndConcept> <StartPrg> <EndPrg>\n", $argv[0]);
+    printf("Usage %s %s %s %s %s %s %s\n", $argv[0], $szTestConfigName, $szModelFeatureConfig, $nStartConcept, $nEndConcept, $nStartPrg, $nEndPrg);
     exit();
 }
 
-$arLog = array();
-$szStartTime = date("m.d.Y - H:i:s");
-$arLog[] = sprintf("###Start [%s --> $$$]: [%s]-[%s]-[%s]-[%s]-[%s]-[%s]", $szStartTime, $argv[1], $argv[2], $argv[3], $argv[4], $argv[5], $argv[6]);
-saveDataFromMem2File($arLog, $szFPLogFN, "a+t");
-
-$szExpName = $argv[1];
-$szFPRunConfigFN = $argv[2];
-// $szFPRunConfigFN = sprintf("%s/trecvid/experiments/hlf-tv2007/hlf-tv2007.run001.dkf-5.tkf-5.cfg", $szRootDir);
-$szSysID = basename($szFPRunConfigFN, ".cfg");
-
-// Update Jul 18
-$arTmpzz = explode(".ksc", $szSysID);
-$gszFeatureDirFromSysID = trim($arTmpzz[0]);
+$szTestConfigName = $argv[1];
+$szModelFeatureConfig = $argv[2];
 
 $nStartConcept = intval($argv[3]);
 $nEndConcept = intval($argv[4]);
@@ -154,67 +68,70 @@ $nEndConcept = intval($argv[4]);
 $nStartPrg = intval($argv[5]);
 $nEndPrg = intval($argv[6]);
 
-// $szRootDir = "U:";
-$szRootExpDir = sprintf("%s", $gszRootBenchmarkExpDir); // New Jul 18
+$arLog = array();
+$szStartTime = date("m.d.Y - H:i:s");
+$arLog[] = sprintf("###Start [%s --> $$$]: [%s]-[%s]-[%s]-[%s]-[%s]-[%s]", $szStartTime, $argv[1], $argv[2], $argv[3], $argv[4], $argv[5], $argv[6]);
+saveDataFromMem2File($arLog, $szFPLogFN, "a+t");
 
-$szFPConfigFN = sprintf("%s/experiments/%s/%s.cfg", $szRootExpDir, $szExpName, $szExpName);
+//$szRootExpDir  = $szRootDir
+$szRootExpDir = sprintf("%s", $gszRootBenchmarkExpDir); 
 
-$arConfig = loadExperimentConfig($szFPConfigFN);
-$arRunConfig = loadExperimentConfig($szFPRunConfigFN);
+$szRootResultDir = sprintf("%s/result/keyframe-5/%s", $szRootExpDir, $szTestConfigName); // dir containing prediction result of RUNs
+makeDir($szRootResultDir);
 
-$szFeatureExt = $arRunConfig['feature_ext']; // "nsc.cCV_HSV.g5.q3.g_cm";
+$szFPTestConfigFN = sprintf("%s/%s.cfg", $szRootResultDir, $szTestConfigName);
 
-$szRootExpDir = sprintf("%s/%s", $arConfig['exp_dir'], $arConfig['exp_name']);
-$szExpAnnDir = sprintf("%s/%s", $szRootExpDir, $arConfig['ann_dir']); // annotation
-$szExpMetaDataDir = sprintf("%s/%s", $szRootExpDir, $arConfig['metadata_dir']); // annotation
-$szExpModelDir = sprintf("%s/%s", $szRootExpDir, $arConfig['model_dir']); // annotation
-$szExpResultDir = sprintf("%s/%s", $szRootExpDir, $arConfig['result_dir']); // annotation
+$arTestConfig = loadExperimentConfig($szFPTestConfigFN); // to get model_name & test_pat
+
+$szModelConfigName = $arTestConfig['model_name']; 
+
+$szRootModelDir = sprintf("%s/model/keyframe-5/%s", $szRootExpDir, $szModelConfigName); // dir containing model used for prediction
+
+$szFPModelConfigFN = sprintf("%s/%s.cfg", $szRootModelDir, $szModelConfigName);
+
+$arModelConfig = loadExperimentConfig($szFPModelConfigFN);
+
+$szRootModelConfigDir = sprintf("%s/config", $szRootModelDir); // dir containing configs of training params and feature_ext
+
+$szFPModelFeatureConfigFN = sprintf("%s/%s.cfg", $szRootModelConfigDir, $szModelFeatureConfig);
+$arModelFeatureConfig = loadExperimentConfig($szFPModelFeatureConfigFN);
+
+// pick the [file name] as sysID
+$szSysID = basename($szFPModelFeatureConfigFN, ".cfg");
+
+$szFeatureExt =  $arModelFeatureConfig['feature_ext']; //"nsc.cCV_HSV.g5.q3.g_cm";
+$gszFeatureDirFromSysID = $szFeatureExt; // used in loadFeatureTGz --> naming LocalTmpDir
+
+$szExpAnnDir = sprintf("%s/annotation/keyframe-5/%s", $szRootExpDir, $arModelConfig['ann_dir']); // annotation --> get concept list  
+//$szExpAnnDir = sprintf("%s/%s", $szRootExpDir, $arModelConfig['ann_dir']); // annotation --> get concept list
+
+$szExpMetaDataDir = sprintf("%s/metadata/keyframe-5", $szRootExpDir); // --> get test-pat
+
+$szRootFeatureDir = sprintf("%s/feature/keyframe-5", $szRootExpDir); // --> get feature
 
 $gnPerformDataScaling = 1; // default --> OLD ONE
-if (isset($arRunConfig['svm_scaling']))
+if (isset($arModelFeatureConfig['svm_scaling']))
 {
-    $gnPerformDataScaling = $arRunConfig['svm_scaling'];
+    $gnPerformDataScaling = $arModelFeatureConfig['svm_scaling'];
 }
 
-// !!! IMPORTANT CHANGE Update Jul 18
-// $szRootMetaDataKFDir = $arConfig['root_metadata_kf_dir'];
-// $szRootFeatureDir = $arConfig['root_feature_dir']; //
+$szTestVideoList = sprintf("%s.lst", $arTestConfig['test_pat']);
 
-$szRootMetaDataKFDir = getRootBenchmarkMetaDataDir($szFeatureExt);
-$szRootFeatureDir = getRootBenchmarkFeatureDir($szFeatureExt);
+$szFPTestVideoListFN = sprintf("%s/%s", $szExpMetaDataDir, $szTestVideoList); 
 
-$szTestVideoList = $arConfig['test_pat'];
-// Update Oct 14
-if (isset($arRunConfig['test_pat']))
-{
-    $szTestVideoList = $arRunConfig['test_pat'];
-}
+$szFPConceptListFN = sprintf("%s/%s.lst", $szExpAnnDir, $arModelConfig['concept_list']);
 
-$szFPTestVideoListFN = sprintf("%s/%s", $szExpMetaDataDir, $szTestVideoList); // trecvid.video.tv2007.devel.lst
+$szExpModelRunDir = sprintf("%s/%s", $szRootModelDir, $szSysID); // dir containing model (.model)
 
-$szFPConceptListFN = sprintf("%s/%s.lst", $szExpAnnDir, $arConfig['concept_list']);
-
-// Oct 18
-if ($szSysID != $arRunConfig['sys_id'])
-{
-    $arRunConfig['sys_id'] = $szSysID;
-}
-
-$szExpModelRunDir = sprintf("%s/%s", $szExpModelDir, $arRunConfig['sys_id']);
-/*
- * if(strstr($arRunConfig['sys_id'], "-validation")) { $szExpModelRunDir = sprintf("%s/%s", $szExpModelDir, str_replace("-validation", "", $arRunConfig['sys_id'])); }
- */
-
-$szExpResultRunDir = sprintf("%s/%s", $szExpResultDir, $arRunConfig['sys_id']);
-makeDir($szExpResultRunDir);
+$szExpResultRunDir = sprintf("%s/%s", $szRootResultDir, $szSysID); // dir containing prediction result (.res)
 
 // new
-$gnUseProbOutput = $arRunConfig['svm_train_use_prob_output'];
+$gnUseProbOutput = $arModelFeatureConfig['svm_train_use_prob_output'];
 
 // new param for feature format - Dec 26
-if (isset($arRunConfig['feature_format']))
+if (isset($arModelFeatureConfig['feature_format']))
 {
-    $gszFeatureFormat = $arRunConfig['feature_format'];
+    $gszFeatureFormat = $arModelFeatureConfig['feature_format'];
 } else
 {
     // bow --> svf
@@ -239,26 +156,20 @@ if ($nEndConcept > $nNumConcepts)
 for ($i = $nStartConcept; $i < $nEndConcept; $i ++)
 {
     $szLine = $arConceptList[$i];
-    // new format
-    // 9003.Airplane #$# Airplane #$# 029 #$# Airplane #$# 218 #$# 003
+    // 0 #$# subviolence
     $arTmp = explode("#$#", $szLine);
-    $szConceptName = trim($arTmp[0]);
-    $nConceptID = intval($arTmp[5]) + 9000;
+    $szConceptName = trim($arTmp[1]);
     
     printf("###%d. Processing concept [%s] ...\n", $i, $szConceptName);
     $szExpModelRunConceptDir = sprintf("%s/%s", $szExpModelRunDir, $szConceptName);
     $szExpScoreRunConceptDir = sprintf("%s/%s", $szExpResultRunDir, $szConceptName);
     makeDir($szExpScoreRunConceptDir);
     
-    /*
-     * // /local/ledduy/results/hlf-tv2010.run000001/9004.Airplane_Flying if(file_exists("/local/ledduy")) { $szTmpDir = sprintf("/local/ledduy/%s/%s/%s", $arConfig['result_dir'], $arRunConfig['sys_id'], $szConceptName); makeDir($szTmpDir); } else { $szTmpDir = sprintf("/net/per900b/raid0/ledduy/tmp/tmp/%s/%s/%s", $arConfig['result_dir'], $arRunConfig['sys_id'], $szConceptName); makeDir($szTmpDir); }
-     */
-    
-    // Update Jul 18, 2012
     $szScriptBaseName = basename($_SERVER['SCRIPT_NAME'], ".php");
     $szLocalTmpDir = $gszTmpDir; // defined in ksc-AppConfig
-    $szTmpDir = sprintf("%s/%s/%s/%s/%s", $szLocalTmpDir, $szScriptBaseName, $arConfig['result_dir'], $arRunConfig['sys_id'], $szConceptName);
-    makeDir($szTmpDir);
+
+	$szTmpDir = sprintf("%s/%s/%s/%s/%s", $szLocalTmpDir, $szScriptBaseName, $szTestConfigName, $szSysID, $szConceptName);
+	makeDir($szTmpDir);
     
     $nNumVideos = loadListFile($arVideoList, $szFPTestVideoListFN);
     
@@ -853,5 +764,91 @@ function loadOneTarGZDvfFeatureFileNew($szTmpDir, $szFPServerFeatureInputFN, $nK
     
     return loadOneTarGZDvfFeatureFile($szTmpDir, $szFPLocalFeatureInputFN, $nKFIndex);
 }
+
+
+// *** Update Jul 18, 2012
+// Customize for tvsin12 --> MAJOR changes --> search for Jul 18
+// Collecting feature vectors for training (4K + 40K) might take more than ONE hour
+
+// ************ NEW **************
+// - All feature files are stored in one public dir in /local/ledduy so that ALL concepts (of one run config type, i.e. ignore dup systems .Rxx) can be used
+// ---> HOW to handle conflicts, because when a file is copying, check file_exists() and filesize() does not work
+// --> try cp -u
+// - Keyframes are organized into NewVideoID-->OrigVideoID-->KeyFrame so that one feature file for one new video program is loaded ONCE
+
+// / !!! IMPORTANT
+// --> Check model and res files before running
+
+// Update Sep 07
+/*
+ * // !!! IMPORTANT -- Updated Sep 07 - Vu found this! if($szTestDataName != $szTrainDataName) { $szCmdLine = sprintf("rm -rf %s/*%s*", $szTmpDir, $szTestDataName); execSysCmd($szCmdLine); }
+*/
+
+// Update Aug 07
+// Customize for tv2011
+
+// ///////////////////////////////////////////////////////////////////////
+// Update Jun 13
+// Current setting --> no way to specify model dir since it is bound with sys_id
+// Special treatment for validation run
+// if(strstr($arModelFeatureConfig['sys_id'], "-validation"))
+	// {
+	// $szExpModelRunDir = sprintf("%s/%s", $szExpModelDir, str_replace("-validation", "", $arModelFeatureConfig['sys_id']));
+	// }
+
+	// Update May 14
+	// if the feature file does not exist
+	// $szFPTarFeatureInputFNzz = sprintf("%s.tar.gz", $szFPFeatureInputFN);
+	// if(!file_exists($szFPTarFeatureInputFNzz))
+		// {
+		// continue;
+		// }
+
+		// Update Jan 25
+		// Modify default gszFeatureFormat
+		// bow --> svf
+		// if(strstr($szFeatureExt, "bow"))
+			// {
+			// $gszFeatureFormat = "svf";
+			// }
+			// else
+				// {
+				// $gszFeatureFormat = "dvf";
+				// }
+
+				// Update Jan 02
+				// Adding param $nSkipExistingScores = 1;
+
+				// Update Dec 26
+				// Supporting feature format param in run config --> FeatureFormat for svf
+
+				// Update Dec 02
+				// Move parts of copying model files out of the loop
+
+				// Update 25 Nov
+				// Update functions to support svf format
+
+				// Update 18 Oct
+				// Check sys_id for consistency with file name --> USE the core name, so sys_id is UNUSED
+
+				// Update 14 Oct
+				// Allow to change devel_pat and test_pat in each run config
+				// Use prob_output as param in run config
+
+				// Update 03 Oct
+				// Move $szExpConfig = "hlf-tv2005" to nsc-ProcessOneRun-Test-TV10-SGE.php;
+				// $szTmpDir = sprintf("%s/model-%d-%d", $szTmpDir, $nStartPrg, $nEndPrg);
+				// Several threads using the same model for predicting different video programs --> put szTmpDir with model-x-y for isolation
+
+				// Update 01 Oct
+				// Support .model file in compressed format (tar.gz) --> reduce more than 40% of size
+				// .model and .normdat files are copied to local dir
+				// Test classifiers with -b option --> modify SVMTools by adding one more param
+				// Special treatment with output of -b option --> one more row added: labels 1 -1
+
+				// Update Aug 9
+				// check .res & .out files before prediction --> jobs can be run continuously when models are coming incrementally
+
+				// support compressed feature file
 
 ?>

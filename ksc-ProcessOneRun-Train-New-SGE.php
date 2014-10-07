@@ -5,9 +5,9 @@
  * 		@brief 	Train One Run.
  *		@author Duy-Dinh Le (ledduy@gmail.com, ledduy@ieee.org).
  *
- * 		Copyright (C) 2010-2013 Duy-Dinh Le.
+ * 		Copyright (C) 2010-2014 Duy-Dinh Le.
  * 		All rights reserved.
- * 		Last update	: 05 Jul 2013.
+ * 		Last update	: 03 Sep 2014.
  */
 
 // *** Update Jul 18, 2012
@@ -55,10 +55,9 @@
 require_once "ksc-AppConfig.php";
 
 // /////////////////////// THIS PART IS FOR CUSTOMIZATION ///////////////////////
-$szProjectCodeName = "kaori-secode-bow-test"; // *** CHANGED ***
+$szProjectCodeName = "kaori-secode-vsd2014"; // *** CHANGED ***
 $szCoreScriptName = "ksc-ProcessOneRun-Train-New"; // *** CHANGED ***
                                                    
-// $szSGEScriptDir = "/net/per900b/raid0/ledduy/kaori-secode/php-TVSIN11";
 $szSGEScriptDir = $gszSGEScriptDir; // defined in ksc-AppConfig
 
 $szSGEScriptName = sprintf("%s.sgejob.sh", $szCoreScriptName);
@@ -71,54 +70,31 @@ makeDir($szRootScriptOutputDir);
 
 $szRootDir = $gszRootBenchmarkDir; // defined in ksc-AppConfig
 $gszRootBenchmarkExpDir = $gszRootBenchmarkDir;
-$szRootExpDir = sprintf("%s/experiments", $gszRootBenchmarkExpDir); // New Jul 18
 
-$szExpName = "imageclef2012-PhotoAnnFlickr"; // *** CHANGED ***
+$szModelConfigName = "mediaeval-vsd-2014.devel2013-new";// *** CHANGED ***
 
-$nMaxConcepts = 100; // *** CHANGED ***
+$nMaxConcepts = 20; // *** CHANGED ***
 $nNumConceptsPerHost = 1; // *** CHANGED ***
 
-$szConfigDir = "basic";
-
-$arFilterList = array(
-    ".dense4.",
-    ".dense6.",
-    ".dense8.",
-    ".phow8.",
-    ".phow10.",
-    ".phow12.",
-    ".dense4mul.csift",
-    ".dense4mul.rgbsift",
-    ".dense4mul.oppsift",
-    ".dense6mul.csift",
-    ".dense6mul.rgbsift",
-    ".harlap6mul.rgbsift",
-    ".dense6mul.oppsift",
-    ".g_cm.",
-    ".g_ch.",
-    ".g_eoh.",
-    ".g_lbp."
-)
-; // *** CHANGED ***
    // ////////////////// END FOR CUSTOMIZATION ////////////////////
    
 // //////////////////////////////// START ////////////////////////
-if ($argc != 5)
+if ($argc != 4)
 {
-    printf("Usage %s <ExpName> <Max Concepts> <Num Concepts Per Host> <ConfigDir>\n", $argv[0]);
-    printf("Usage %s %s %s %s %s\n", $argv[0], $szExpName, $nMaxConcepts, $nNumConceptsPerHost, $szConfigDir);
+    printf("Usage %s <ModelConfigName> <Max Concepts> <Num Concepts Per Host>\n", $argv[0]);
+    printf("Usage %s %s %s %s\n", $argv[0], $szModelConfigName, $nMaxConcepts, $nNumConceptsPerHost);
     exit();
 }
-$szExpName = $argv[1];
+$szModelConfigName = $argv[1];
 $nMaxConcepts = $argv[2];
 $nNumConceptsPerHost = $argv[3];
 $szConfigDir = $argv[4];
 
-$szScriptOutputDir = sprintf("%s/%s", $szRootScriptOutputDir, $szExpName);
+$szScriptOutputDir = sprintf("%s/%s", $szRootScriptOutputDir, $szModelConfigName);
 makeDir($szScriptOutputDir);
 
-$szRunListConfigDir = sprintf("%s/%s/runlist/%s", $szRootExpDir, $szExpName, $szConfigDir);
-$arRunList = collectFilesInOneDir($szRunListConfigDir, $szExpName, ".cfg");
+$szModelFeatureConfigDir = sprintf("%s/model/keyframe-5/%s/config", $szRootDir, $szModelConfigName);
+$arRunList = collectFilesInOneDir($szModelFeatureConfigDir, "", ".cfg");
 sort($arRunList);
 
 $arRunFileList = array();
@@ -136,14 +112,10 @@ foreach ($arRunList as $szRunID)
         $szFPLogFN = "/dev/null";
         $szFPErrFN = sprintf("%s/%s.%s.err", $gszSGEScriptDir, $szCoreScriptName, $szRunID);
         
-        $szFPRunIDConfig = sprintf("%s/%s.cfg", $szRunListConfigDir, $szRunID);
         // Usage: %s <RunID> <Start> <End>
-        $szParam = sprintf("%s %s %s %s", $szExpName, $szFPRunIDConfig, $nStart, $nEnd);
-        $szCmdLine = sprintf("qsub -e %s -o %s %s %s", $szFPErrFN, $szFPLogFN, $szFPSGEScriptName, $szParam);
+        $szParam = sprintf("%s %s %s %s", $szModelConfigName, $szRunID, $nStart, $nEnd);
+        $szCmdLine = sprintf("qsub -pe localslots 2 -e %s -o %s %s %s", $szFPErrFN, $szFPLogFN, $szFPSGEScriptName, $szParam);
         
-        $arCmdLineList[] = $szCmdLine;
-        
-        $szCmdLine = sprintf("sleep 1s");
         $arCmdLineList[] = $szCmdLine;
     }
     
@@ -152,27 +124,53 @@ foreach ($arRunList as $szRunID)
     {
         saveDataFromMem2File($arCmdLineList, $szFPOutputFN, "wt");
         $arRunFileList[] = $szFPOutputFN;
-        
-        foreach ($arFilterList as $szFilter)
-        {
-            if (strstr($szRunID, $szFilter))
-            {
-                $arRunFileFilterList[$szFilter][] = $szFPOutputFN;
-            }
-        }
     }
 }
 
 $szFPOutputFN = sprintf("%s/runme.qsub.%s.%s.sh", $szScriptOutputDir, $szCoreScriptName, $szExpName); // specific for one set of data
 saveDataFromMem2File($arRunFileList, $szFPOutputFN, "wt");
 
-foreach ($arFilterList as $szFilter)
-{
-    $szFPOutputFN = sprintf("%s/runme.qsub.%s.%s.F%s.sh", $szScriptOutputDir, $szCoreScriptName, $szExpName, trim($szFilter, ".")); // specific for one set of data
-    if (sizeof($arRunFileFilterList[$szFilter]))
-    {
-        saveDataFromMem2File($arRunFileFilterList[$szFilter], $szFPOutputFN, "wt");
-    }
-}
+$nNumRuns = sizeof($arRunList);
+$arHostList = array(
+	"per910a" => 18,
+	"per910b" => 18,
+	"per910c" => 18,
+);
 
+$nCount = 0;
+foreach($arHostList as $szHostName => $nMaxJobs)
+{
+	$nStart = $nCount;
+	$nEnd = $nStart+$nMaxJobs;
+	$arCmdLineList = array();
+	for($i=$nStart; $i<$nEnd; $i++)
+	{
+		if(!isset($arRunList[$i]))
+		{
+			break;
+		}
+		$szRunID = $arRunList[$i];
+
+		//printf($szRunID); exit();
+		for ($j = 0; $j < $nMaxConcepts; $j += $nNumConceptsPerHost)
+		{
+			$nStartConcept = $j;
+			$nEndConcept = $nStartConcept + $nNumConceptsPerHost;
+		
+			//$szRunID = "NUL";
+			$szParam = sprintf("%s %s %s %s", $szModelConfigName, $szRunID, $nStartConcept, $nEndConcept);
+			//printf($szParam);
+			$szCmdLine = sprintf("%s %s &", $szFPSGEScriptName, $szParam);
+			//printf($szCmdLine);exit();
+			$arCmdLineList[] = $szCmdLine;
+		}	
+	}
+	$nCount = $nEnd;
+	$szFPOutputFN = sprintf("%s/runme.%s.%s.sh", $szScriptOutputDir, $szHostName, $szCoreScriptName); // specific for one set of data
+	if (sizeof($arCmdLineList) > 0)
+	{
+		saveDataFromMem2File($arCmdLineList, $szFPOutputFN, "wt");
+	}
+	
+}
 ?>

@@ -1,5 +1,7 @@
 <?php
 
+// Last update: 01 Sep 2014
+
 // Delete all files in /tmp of each host
 
 // "find /local/ledduy/ -name '*flag' | xargs rm"

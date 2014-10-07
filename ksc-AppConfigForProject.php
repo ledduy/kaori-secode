@@ -33,8 +33,8 @@
 // SVM configs
 $gszSVMTrainApp = sprintf("libsvm291/svm-train");
 $gszSVMPredictScoreApp = sprintf("libsvm291/svm-predict-score");
-$gszGridSearchApp = sprintf("libsvm291/grid.py");
-$gszSVMSelectSubSetApp = sprintf("libsvm291/subset.py");
+$gszGridSearchApp = sprintf("python libsvm291/grid.py");
+$gszSVMSelectSubSetApp = sprintf("python libsvm291/subset.py");
 $gszSVMScaleApp = sprintf("libsvm291/svm-scale");
 
 // ////////////////// THIS PART FOR CUSTOMIZATION ////////////////////

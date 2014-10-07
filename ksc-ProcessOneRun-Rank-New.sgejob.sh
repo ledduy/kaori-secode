@@ -7,7 +7,7 @@
 #$ -S /bin/sh
 
 # Force to limit hosts running jobs
-#$ -q all.q@@bc2hosts,all.q@@bc4hosts,all.q@@bc5hosts,all.q@@bc3hosts 
+#$ -q all.q@@bc2hosts,all.q@@bc3hosts,all.q@@bc5hosts
 
 # Run in currect dir
 #$ -cwd
@@ -16,10 +16,14 @@
 date 
 
 # for opencv shared lib
-export LD_LIBRARY_PATH=/net/per900b/raid0/ledduy/usr.local/lib:$LD_LIBRARY_PATH
+#export LD_LIBRARY_PATH=/net/per900b/raid0/ledduy/usr.local/lib:$LD_LIBRARY_PATH
 
-# Log info of the job to output file  *** CHANGED ***
-echo [$HOSTNAME] [$JOB_ID] [ksc-ProcessOneRun-Test-New] [$1] [$2] [$3] [$4] [$5] [$6]
+# set path
+# export PATH=$PATH:/net/per900b/raid0/ledduy/video.archive/feature
+# echo $PATH
+
+# Log info of the job to output file  ** CHANGED ***
+echo [$HOSTNAME] [$JOB_ID] [ksc-ProcessOneRun-Rank-New] [$1] [$2] [$3] [$4]
 
 # change to the code dir  --> NEW!!!  *** CHANGED ***
 cd /net/per610a/export/das11f/ledduy/mediaeval-vsd-2014/code/kaori-secode-vsd2014
@@ -28,7 +32,7 @@ cd /net/per610a/export/das11f/ledduy/mediaeval-vsd-2014/code/kaori-secode-vsd201
 pwd
 
 # Command -  *** CHANGED ***
-/net/per900c/raid0/ledduy/usr.local/bin/php -f ksc-ProcessOneRun-Test-New.php $1 $2 $3 $4 $5 $6
+/net/per900c/raid0/ledduy/usr.local/bin/php -f ksc-ProcessOneRun-Rank-New.php $1 $2 $3 $4
 
 # Log ending time
-date
+date 

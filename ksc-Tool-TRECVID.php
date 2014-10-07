@@ -6,9 +6,9 @@
  * 		Some variables will be overrided.
  *		@author Duy-Dinh Le (ledduy@gmail.com, ledduy@ieee.org).
  *
- * 		Copyright (C) 2010-2013 Duy-Dinh Le.
+ * 		Copyright (C) 2010-2014 Duy-Dinh Le.
  * 		All rights reserved.
- * 		Last update	: 04 Jul 2013.
+ * 		Last update	: 01 Sep 2014.
  */
 
 // Update Nov 25
