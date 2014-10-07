@@ -1,0 +1,5 @@
+Pat: lst
+Prg: ecz.lst
+Video: mpg
+Image: jpg
+Path2KeyFrame:  

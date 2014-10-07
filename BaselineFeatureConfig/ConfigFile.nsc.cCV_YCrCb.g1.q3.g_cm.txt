@@ -1,0 +1,7 @@
+-desc dvf - color moments, 1x1 grid, CV_YCrCb
+-type cm
+-ext nsc.cCV_YCrCb.g1.q3.g_cm
+-grid GRID_ROW_COL
+-row 1
+-col 1
+-cc CV_YCrCb

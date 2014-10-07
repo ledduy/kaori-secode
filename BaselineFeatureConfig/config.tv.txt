@@ -1,0 +1,5 @@
+Pat: lst
+Prg: prg
+Video: mpg
+Image: jpg
+Path2KeyFrame:  

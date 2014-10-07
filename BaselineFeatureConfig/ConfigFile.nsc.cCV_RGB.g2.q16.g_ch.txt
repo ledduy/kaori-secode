@@ -1,0 +1,10 @@
+-desc dvf - color histogram, 2x2 grid, CV_RGB, histograms (0, 255, 16) - (0, 255, 16) - (0, 255, 16)
+-type ch
+-ext nsc.cCV_RGB.g2.q16.g_ch
+-grid GRID_ROW_COL
+-row 2
+-col 2
+-cc CV_RGB
+-c1 0 255 16
+-c2 0 255 16
+-c3 0 255 16

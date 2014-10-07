@@ -1,0 +1,10 @@
+-desc dvf - color histogram, 6x6 grid, CV_Luv, histograms (0, 255, 8) - (0, 255, 8) - (0, 255, 8)
+-type ch
+-ext nsc.cCV_Luv.g6.q8.g_ch
+-grid GRID_ROW_COL
+-row 6
+-col 6
+-cc CV_Luv
+-c1 0 255 8
+-c2 0 255 8
+-c3 0 255 8

@@ -1,0 +1,7 @@
+-desc dvf - color moments, 4x4 grid, CV_HSV
+-type cm
+-ext nsc.cCV_HSV.g4.q3.g_cm
+-grid GRID_ROW_COL
+-row 4
+-col 4
+-cc CV_HSV

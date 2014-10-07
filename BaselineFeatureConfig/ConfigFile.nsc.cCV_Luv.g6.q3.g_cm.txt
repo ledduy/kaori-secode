@@ -1,0 +1,7 @@
+-desc dvf - color moments, 6x6 grid, CV_Luv
+-type cm
+-ext nsc.cCV_Luv.g6.q3.g_cm
+-grid GRID_ROW_COL
+-row 6
+-col 6
+-cc CV_Luv

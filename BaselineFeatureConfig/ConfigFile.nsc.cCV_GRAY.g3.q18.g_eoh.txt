@@ -1,0 +1,10 @@
+-desc dvf - edge orientation histogram, 3x3 grid, CV_BGR2GRAY, histogram (0, 360, 18+1), thresholds (10.00, 30.00)
+-type eoh
+-ext nsc.cCV_GRAY.g3.q18.g_eoh
+-grid GRID_ROW_COL
+-row 3
+-col 3
+-cc CV_GRAY
+-f1 10.000000
+-f2 30.000000
+-nb 18.000000

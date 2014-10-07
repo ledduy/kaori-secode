@@ -1,0 +1,8 @@
+-desc dvf - local binary pattern, 5x5 grid, CV_BGR2GRAY, histogram (0, 59, 59)
+-type lbp
+-ext nsc.cCV_GRAY.g5.q59.g_lbp
+-grid GRID_ROW_COL
+-row 5
+-col 5
+-cc CV_GRAY
+-nb 59.000000

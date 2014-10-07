@@ -1,0 +1,10 @@
+-desc dvf - color histogram, 7x7 grid, CV_HSV, histograms (0, 255, 16) - (0, 255, 16) - (0, 255, 16)
+-type ch
+-ext nsc.cCV_HSV.g7.q16.g_ch
+-grid GRID_ROW_COL
+-row 7
+-col 7
+-cc CV_HSV
+-c1 0 255 16
+-c2 0 255 16
+-c3 0 255 16
