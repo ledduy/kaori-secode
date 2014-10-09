@@ -7,7 +7,7 @@
 #$ -S /bin/sh
 
 # Force to limit hosts running jobs
-#$ -q all.q@@bc5hosts,all.q@@bc3hosts,all.q@@bc2hosts,all.q@@bc4hosts
+#$ -q all.q@@bc2hosts,all.q@@bc3hosts,all.q@@bc4hosts,all.q@@bc5hosts
 
 # Run in currect dir
 #$ -cwd
@@ -16,7 +16,7 @@
 date 
 
 # for opencv shared lib
-export LD_LIBRARY_PATH=/net/per900b/raid0/ledduy/usr.local/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/net/per900c/raid0/ledduy/usr.local-per900b/lib:$LD_LIBRARY_PATH
 
 # set path
 # export PATH=$PATH:myDir

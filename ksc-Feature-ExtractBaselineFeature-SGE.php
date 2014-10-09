@@ -39,6 +39,8 @@ $szSGEScriptDir = $gszSGEScriptDir;  // defined in ksc-AppConfig
 $szSGEScriptName = sprintf("%s.sgejob.sh", $szCoreScriptName);
 $szFPSGEScriptName = sprintf("%s/%s", $szSGEScriptDir, $szSGEScriptName);
 
+$szFPErrLogFN = sprintf("%s/%s.err", $szSGEScriptDir, $szSGEScriptName);
+
 // !!! IMPORTANT
 $szFeatureConfigDir = $gszFeatureConfigDir; //"BaselineFeatureConfig";
 $szFeatureConfigDir = sprintf("%s/%s", $szSGEScriptDir, $szFeatureConfigDir);  // use the same script dir
@@ -172,8 +174,8 @@ foreach($arFeatureList as $szFeatureType => $arFeatureExt)
 			$arCmdLineList =  array();
 
 			// $arMaxVideosPerPatList --> "tv2012.devel-nistNew" => 200, // Precise:
-			$nMaxVideosPerPat = $arMaxVideosPerPatList[$szFPPatName];
-			$nMaxHostsPerPat = $arMaxHostsPerPatList[$szFPPatName];
+			$nMaxVideosPerPat = 400;
+			$nMaxHostsPerPat = 40;
 			$nNumVideosPerHost = max(1, intval($nMaxVideosPerPat/$nMaxHostsPerPat)); // Oct 19
 
 			printf("DB-%s - %s\n", $nMaxVideosPerPat, $nNumVideosPerHost);
@@ -190,7 +192,7 @@ foreach($arFeatureList as $szFeatureType => $arFeatureExt)
 						$szFeatureExt, $szFPFeatureConfigFN,
 						$szFPPatName,
 						$szVideoPath, $nStartVideoID, $nEndVideoID);
-				$szCmdLine = sprintf("qsub -e %s -o %s %s %s", $szFPLogFN, $szFPLogFN, $szFPSGEScriptName, $szParam);
+				$szCmdLine = sprintf("qsub -e %s -o %s %s %s", $szFPErrLogFN, $szFPLogFN, $szFPSGEScriptName, $szParam);
 
 				$arCmdLineList[] = $szCmdLine;
 			}
